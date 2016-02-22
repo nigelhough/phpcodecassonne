@@ -26,22 +26,21 @@ class Tile
     /** @var  int   Type in center of Tile*/
     private $center;
 
-
     /**
      * Construct a new Tile
      *
      * @param int $north    Type on Northern face of Tile
-     * @param int $south    Type on Southern face of Tile
      * @param int $east     Type on Eastern face of Tile
+     * @param int $south    Type on Southern face of Tile
      * @param int $west     Type on Western face of Tile
      * @param int $center   Type in center of Tile
      */
-    public function __construct($north, $south, $east, $west, $center)
+    public function __construct($north, $east, $south, $west, $center)
     {
         //Set Tile properties
         $this->north = $north;
-        $this->south = $south;
         $this->east = $east;
+        $this->south = $south;
         $this->west = $west;
         $this->center = $center;
     }
@@ -56,5 +55,21 @@ class Tile
         $this->west = $this->south;
         $this->south = $this->east;
         $this->east = $spare;
+    }
+
+    /**
+     * Get the Tile faces
+     *
+     * @return array
+     */
+    public function getTileFaces()
+    {
+        return array(
+            $this->north,
+            $this->east,
+            $this->south,
+            $this->west,
+            $this->center
+        );
     }
 }
