@@ -1,6 +1,6 @@
 <?php
 
-require_once "classes/Game.php";
+require_once "src/Game.php";
 
 $game = new Game();
 $game->run();
