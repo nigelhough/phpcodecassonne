@@ -2,9 +2,6 @@
 
 namespace Codecassonne\Tile;
 
-//Autoload application
-require __DIR__ . '/../../vendor/autoload.php';
-
 /**
  * Test the Tile Class
  */
