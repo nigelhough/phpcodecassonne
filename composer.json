@@ -3,8 +3,12 @@
     "description": "A PHP Implementation of the game Carcassonne.",
     "authors": [
         {
-            "name": "Nigel Hough, Tom Szuszai",
-            "email": "nigel.hough@workplacesystems.com, tom.szuszai@workplacesystems.com"
+            "name": "Nigel Hough",
+            "email": "nigel.hough@workplacesystems.com"
+        },
+        {
+            "name": "Tom Szuszai",
+            "email": "tom.szuszai@workplacesystems.com"
         }
     ],
     "require": {}
