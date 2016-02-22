@@ -15,7 +15,8 @@ class BagTest extends \PHPUnit_Framework_TestCase
      *
      * @return Bag
      */
-    private function generateBag($tileCount) {
+    private function generateBag($tileCount)
+    {
         $bag = new Bag();
         for ($i = 0; $i < $tileCount; $i++) {
             $bag->put(new Tile(
@@ -35,7 +36,8 @@ class BagTest extends \PHPUnit_Framework_TestCase
      *
      * @return array( array(Bag, isEmpty, tileCount) )
      */
-    public function bagProvider() {
+    public function bagProvider()
+    {
         return array(
             array($this->generateBag(0), true, 0),
             array($this->generateBag(5), false, 5)
@@ -47,7 +49,8 @@ class BagTest extends \PHPUnit_Framework_TestCase
      *
      * @dataProvider bagProvider
      */
-    public function testIsEmpty(Bag $bag, $isEmpty, $tileCount) {
+    public function testIsEmpty(Bag $bag, $isEmpty, $tileCount)
+    {
         $this->assertEquals($bag->isEmpty(), $isEmpty);
     }
 
@@ -56,7 +59,8 @@ class BagTest extends \PHPUnit_Framework_TestCase
      *
      * @dataProvider bagProvider
      */
-    public function testGetTileCount(Bag $bag, $isEmpty, $tileCount) {
+    public function testGetTileCount(Bag $bag, $isEmpty, $tileCount)
+    {
         $this->assertEquals($bag->getTileCount(), $tileCount);
     }
 
@@ -65,7 +69,8 @@ class BagTest extends \PHPUnit_Framework_TestCase
      *
      * @dataProvider bagProvider
      */
-    public function testPutAndDrawFrom(Bag $bag, $isEmpty, $tileCount) {
+    public function testPutAndDrawFrom(Bag $bag, $isEmpty, $tileCount)
+    {
         $tile = new Tile(
             Tile::TILE_TYPE_CITY,
             Tile::TILE_TYPE_CITY,
@@ -91,5 +96,16 @@ class BagTest extends \PHPUnit_Framework_TestCase
 
         // assert that the bag is empty now if it was empty before putting in then drawing a tile
         $this->assertEquals($bag->isEmpty(), $isEmpty);
+    }
+
+
+    /**
+     * Test drawFrom an empty bag
+     */
+    public function testDrawFromEmpty()
+    {
+        $emptyBag = $this->generateBag(0);
+        $this->setExpectedException("Exception");
+        $emptyBag->drawFrom();
     }
 }
