@@ -1,5 +1,7 @@
 <?php
 
+namespace Codecassonne;
+
 /**
  * Class Game
  *

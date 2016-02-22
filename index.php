@@ -1,6 +1,7 @@
 <?php
 
-require_once "src/Game.php";
+//Autoload application
+require __DIR__ . '/vendor/autoload.php';
 
-$game = new Game();
+$game = new Codecassonne\Game();
 $game->run();

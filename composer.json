@@ -11,5 +11,10 @@
             "email": "tom.szuszai@workplacesystems.com"
         }
     ],
-    "require": {}
+    "require": {
+
+    },
+    "autoload": {
+        "psr-4": {"Codecassonne\\": "src/"}
+    }
 }
