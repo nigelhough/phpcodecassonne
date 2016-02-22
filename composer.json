@@ -1,0 +1,11 @@
+{
+    "name": "root/phpcodecassonne",
+    "description": "A PHP Implementation of the game Carcassonne.",
+    "authors": [
+        {
+            "name": "Nigel Hough",
+            "email": "nigel.hough@workplacesystems.com"
+        }
+    ],
+    "require": {}
+}
