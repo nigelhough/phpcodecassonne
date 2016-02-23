@@ -2,7 +2,7 @@
 
 namespace Codecassonne;
 use Codecassonne\Tile\Bag;
-use Codecassonne\Tile\Mapper;
+use Codecassonne\Tile\Mapper\File as Mapper;
 
 /**
  * Class Game

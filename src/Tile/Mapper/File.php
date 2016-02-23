@@ -1,11 +1,12 @@
 <?php
 
-namespace Codecassonne\Tile;
+namespace Codecassonne\Tile\Mapper;
+use Codecassonne\Tile\Tile;
 
 /**
  * Class Mapper
  */
-Class Mapper
+Class File implements MapperInterface
 {
     /** @var string Path to Tile configuration File */
     protected $tileConfigPath;
