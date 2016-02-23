@@ -2,7 +2,7 @@
 
 namespace Codecassonne;
 use Codecassonne\Tile\Bag;
-use Codecassonne\Tile\Tile;
+use Codecassonne\Tile\Mapper\File as Mapper;
 
 /**
  * Class Game
@@ -12,12 +12,20 @@ use Codecassonne\Tile\Tile;
 class Game
 {
 
-    /** @var  Bag a bag to hold our Tiles */
+    /** @var Bag   A bag to hold our Tiles */
     private $bag;
 
-    function __construct()
-    {
+    /** @var Mapper     A Mapper to get Tile Data from */
+    private $tileMapper;
 
+    /**
+     * Construct the Game
+     *
+     * @param Mapper $tileMapper    A Mapper to get Tile Data from
+     */
+    public function __construct(Mapper $tileMapper)
+    {
+        $this->tileMapper = $tileMapper;
     }
 
     /**
@@ -29,7 +37,7 @@ class Game
 
         while (!$this->bag->isEmpty()) {
             $currentTile = $this->bag->drawFrom();
-            echo $this->bag->getTileCount().PHP_EOL;
+            echo $currentTile->toString() . ', ' . $this->bag->getTileCount() . ' remaining.' . PHP_EOL;
         }
     }
 
@@ -40,8 +48,11 @@ class Game
     private function init()
     {
         $this->bag = new Bag();
-        for ($i = 0; $i < 10; $i++) {
-            $this->bag->put(new Tile());
+
+        $tiles = $this->tileMapper->findAll();
+
+        foreach($tiles as $tile) {
+            $this->bag->put($tile);
         }
     }
 }

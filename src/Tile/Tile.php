@@ -7,9 +7,9 @@ namespace Codecassonne\Tile;
  */
 class Tile
 {
-    const TILE_TYPE_GRASS   = 1;
-    const TILE_TYPE_ROAD    = 2;
-    const TILE_TYPE_CITY    = 3;
+    const TILE_TYPE_GRASS   = 'G';
+    const TILE_TYPE_ROAD    = 'R';
+    const TILE_TYPE_CITY    = 'C';
 
     /** @var  int   Type on Northern face of Tile*/
     private $north;
@@ -46,6 +46,37 @@ class Tile
     }
 
     /**
+     * Create a Tile from a string
+     *
+     * @param string $tileString   Tile as a String
+     *
+     * @returns self
+     */
+    public static function createFromString($tileString)
+    {
+        $faces = explode(':', $tileString);
+        if(count($faces) != 5) {
+            throw new \InvalidArgumentException("Invalid format for Tile ({$tileString}).");
+        }
+
+        //Validate the Faces of the Tile String are Valid
+        foreach($faces as $face) {
+            if(!in_array($face, array(self::TILE_TYPE_GRASS, self::TILE_TYPE_CITY, self::TILE_TYPE_ROAD))) {
+                throw new \InvalidArgumentException("Invalid format for Tile Face ({$face}).");
+            }
+        }
+
+        //Return new Faces Object
+        return new self(
+            $faces[0],
+            $faces[1],
+            $faces[2],
+            $faces[3],
+            $faces[4]
+        );
+    }
+
+    /**
      * Rotates a Tile clockwise
      */
     public function rotate()
@@ -58,18 +89,10 @@ class Tile
     }
 
     /**
-     * Get the Tile faces
-     *
-     * @return array
+     * Convert Tile Faces to String
      */
-    public function getTileFaces()
+    public function toString()
     {
-        return array(
-            $this->north,
-            $this->east,
-            $this->south,
-            $this->west,
-            $this->center
-        );
+        return "{$this->north}:{$this->east}:{$this->south}:{$this->west}:{$this->center}";
     }
 }

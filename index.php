@@ -3,5 +3,9 @@
 //Autoload application
 require __DIR__ . '/vendor/autoload.php';
 
-$game = new Codecassonne\Game();
+//Create Tile Mapper
+$mapper = new \Codecassonne\Tile\Mapper\File(__DIR__ . '/tiles.ini');
+
+//Initialise Game and Run It
+$game = new Codecassonne\Game($mapper);
 $game->run();
