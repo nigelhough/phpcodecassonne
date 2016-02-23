@@ -46,6 +46,30 @@ class Tile
     }
 
     /**
+     * Create a Tile from a string
+     *
+     * @param string $tileString   Tile as a String
+     *
+     * @returns self
+     */
+    public static function createFromString($tileString)
+    {
+        $faces = explode(':', $tileString);
+        if(count($faces) != 5) {
+            throw new \InvalidArgumentException('Invalid string format for Tile.');
+        }
+
+        //Return new Faces Object
+        return new self(
+            $faces[0],
+            $faces[1],
+            $faces[2],
+            $faces[3],
+            $faces[4]
+        );
+    }
+
+    /**
      * Rotates a Tile clockwise
      */
     public function rotate()
@@ -58,18 +82,10 @@ class Tile
     }
 
     /**
-     * Get the Tile faces
-     *
-     * @return array
+     * Convert Tile Faces to String
      */
-    public function getTileFaces()
+    public function toString()
     {
-        return array(
-            $this->north,
-            $this->east,
-            $this->south,
-            $this->west,
-            $this->center
-        );
+        return "{$this->north}:{$this->east}:{$this->south}:{$this->west}:{$this->center}";
     }
 }

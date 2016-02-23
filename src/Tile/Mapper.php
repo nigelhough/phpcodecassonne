@@ -10,16 +10,12 @@ Class Mapper
     /** @var string Path to Tile configuration File */
     protected $tileConfigPath;
 
-    /** @var Factory Factory to create Tiles */
-    protected $tileFactory;
-
     /**
      * Construct the Data Mapper
      *
      * @param string    $tileConfigPath Path to Tile configuration File
-     * @param Factory   $tileFactory    Factory to create Tiles
      */
-    public function __construct($tileConfigPath, Factory $tileFactory)
+    public function __construct($tileConfigPath)
     {
         // Validate Configuration file
         if (!file_exists($tileConfigPath)) {
@@ -30,7 +26,6 @@ Class Mapper
         }
 
         $this->tileConfigPath = $tileConfigPath;
-        $this->tileFactory = $tileFactory;
     }
 
     /**
@@ -58,11 +53,8 @@ Class Mapper
         //Iterate over Tiles in config file
         foreach($tileDetails['tiles'] as $tileString)
         {
-            //Create Tile Faces from String
-            $tileFaces = Faces::createFromString($tileString);
-
-            //Create Tile with factory from Tile Faces
-            $tiles[] = $this->tileFactory->create($tileFaces);
+            //Create Tile from String
+            $tiles[] = Tile::createFromString($tileString);
         }
 
         return $tiles;

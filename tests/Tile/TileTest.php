@@ -121,13 +121,105 @@ class TileTest extends \PHPUnit_Framework_TestCase
         );
 
         //Assert Tile Layout is loaded correctly
-        $this->assertSame($tileFaces, $tile->getTileFaces());
+        $this->assertSame(implode(':', $tileFaces), $tile->toString());
 
         //Rotate Tile
         $tile->rotate();
 
         //Assert Rotated Tile Layout is Expected
-        $this->assertSame($rotatedFaces, $tile->getTileFaces());
+        $this->assertSame(implode(':', $rotatedFaces), $tile->toString());
+    }
+
+    /**
+     * Test creating Tile from Invalid String
+     *
+     * @expectedException \InvalidArgumentException
+     */
+    public function testCreateFromInvalidString()
+    {
+        Tile::createFromString('I Love Cheese');
+    }
+
+    /**
+     * Data Provide for Tile String Tests
+     */
+    public function tileStringProvider()
+    {
+        return array(
+            /** Matching Faces */
+            array(
+                array(
+                    Tile::TILE_TYPE_ROAD,
+                    Tile::TILE_TYPE_ROAD,
+                    Tile::TILE_TYPE_ROAD,
+                    Tile::TILE_TYPE_ROAD,
+                    Tile::TILE_TYPE_GRASS,
+                ),
+                Tile::TILE_TYPE_ROAD.":".Tile::TILE_TYPE_ROAD.":".Tile::TILE_TYPE_ROAD.":".Tile::TILE_TYPE_ROAD.":".Tile::TILE_TYPE_GRASS,
+            ),
+            /** Mirrored Faces */
+            array(
+                array(
+                    Tile::TILE_TYPE_ROAD,
+                    Tile::TILE_TYPE_CITY,
+                    Tile::TILE_TYPE_ROAD,
+                    Tile::TILE_TYPE_CITY,
+                    Tile::TILE_TYPE_GRASS,
+                ),
+                Tile::TILE_TYPE_ROAD.":".Tile::TILE_TYPE_CITY.":".Tile::TILE_TYPE_ROAD.":".Tile::TILE_TYPE_CITY.":".Tile::TILE_TYPE_GRASS,
+            ),
+            /** Matching Faces */
+            array(
+                array(
+                    Tile::TILE_TYPE_GRASS,
+                    Tile::TILE_TYPE_ROAD,
+                    Tile::TILE_TYPE_CITY,
+                    Tile::TILE_TYPE_GRASS,
+                    Tile::TILE_TYPE_ROAD,
+                ),
+                Tile::TILE_TYPE_GRASS.":".Tile::TILE_TYPE_ROAD.":".Tile::TILE_TYPE_CITY.":".Tile::TILE_TYPE_GRASS.":".Tile::TILE_TYPE_ROAD,
+            ),
+        );
+    }
+
+    /**
+     * Test the Tile toString function
+     *
+     * @param array $tileFaces          The Tile Faces
+     * @param string $expectedString    The Expected Faces as a String
+     *
+     * @dataProvider tileStringProvider
+     */
+    public function testToString(array $tileFaces, $expectedString)
+    {
+        //Create Tile
+        $tile = new Tile(
+            $tileFaces[0],
+            $tileFaces[1],
+            $tileFaces[2],
+            $tileFaces[3],
+            $tileFaces[4]
+        );
+
+        //Assert the Faces object gives the expected string
+        $this->assertSame($expectedString, $tile->toString());
+    }
+
+    /**
+     * Test the Tile createFromString function
+     *
+     * @param array $expectedFaces   The Expected Tile Faces
+     * @param string $facesString    Faces as a String
+     *
+     * @dataProvider tileStringProvider
+     */
+    public function testFromString(array $expectedFaces, $facesString)
+    {
+        //Create Tile from String
+        $tile = Tile::createFromString($facesString);
+
+        //Assert that the toString function returns the string used to create the object
+        $this->assertSame($tile->toString(), $facesString);
     }
 
 }
