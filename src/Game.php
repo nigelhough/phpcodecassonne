@@ -37,7 +37,7 @@ class Game
 
         while (!$this->bag->isEmpty()) {
             $currentTile = $this->bag->drawFrom();
-            echo $this->bag->getTileCount().PHP_EOL;
+            echo implode(':', $currentTile->getTileFaces()) . ', ' . $this->bag->getTileCount() . ' remaining.' . PHP_EOL;
         }
     }
 
