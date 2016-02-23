@@ -56,7 +56,14 @@ class Tile
     {
         $faces = explode(':', $tileString);
         if(count($faces) != 5) {
-            throw new \InvalidArgumentException('Invalid string format for Tile.');
+            throw new \InvalidArgumentException("Invalid format for Tile ({$tileString}).");
+        }
+
+        //Validate the Faces of the Tile String are Valid
+        foreach($faces as $face) {
+            if(!in_array($face, array(self::TILE_TYPE_GRASS, self::TILE_TYPE_CITY, self::TILE_TYPE_ROAD))) {
+                throw new \InvalidArgumentException("Invalid format for Tile Face ({$face}).");
+            }
         }
 
         //Return new Faces Object

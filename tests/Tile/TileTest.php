@@ -131,13 +131,46 @@ class TileTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Data Provider for Create From Invalid String Test
+     * @return array
+     */
+    public function invalidCreateFromStringProvider()
+    {
+        return array(
+            /** Invalid String */
+            array(
+                'I Like Cheese',
+            ),
+            /** String with not enough attributes */
+            array(
+                Tile::TILE_TYPE_ROAD.":".Tile::TILE_TYPE_ROAD.":".Tile::TILE_TYPE_ROAD.":".Tile::TILE_TYPE_ROAD,
+            ),
+            /** String with too many attributes*/
+            array(
+                Tile::TILE_TYPE_ROAD.":".Tile::TILE_TYPE_ROAD.":".Tile::TILE_TYPE_ROAD.":".Tile::TILE_TYPE_ROAD.":".Tile::TILE_TYPE_ROAD.":".Tile::TILE_TYPE_ROAD,
+            ),
+            /** Invalid with invalid seperators */
+            array(
+                Tile::TILE_TYPE_ROAD.";".Tile::TILE_TYPE_ROAD.";".Tile::TILE_TYPE_ROAD.";".Tile::TILE_TYPE_ROAD.";".Tile::TILE_TYPE_GRASS,
+            ),
+            /** String with Invalid characters appended to constants */
+            array(
+                Tile::TILE_TYPE_ROAD."A:".Tile::TILE_TYPE_ROAD."B:".Tile::TILE_TYPE_ROAD."C:".Tile::TILE_TYPE_ROAD."D:".Tile::TILE_TYPE_GRASS,
+            ),
+        );
+    }
+
+    /**
      * Test creating Tile from Invalid String
      *
+     * @param string $tileString    Tile as a String
+     *
+     * @dataProvider invalidCreateFromStringProvider
      * @expectedException \InvalidArgumentException
      */
-    public function testCreateFromInvalidString()
+    public function testCreateFromInvalidString($tileString)
     {
-        Tile::createFromString('I Love Cheese');
+        Tile::createFromString($tileString);
     }
 
     /**
