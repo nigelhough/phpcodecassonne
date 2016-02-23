@@ -7,9 +7,9 @@ namespace Codecassonne\Tile;
  */
 class Tile
 {
-    const TILE_TYPE_GRASS   = 1;
-    const TILE_TYPE_ROAD    = 2;
-    const TILE_TYPE_CITY    = 3;
+    const TILE_TYPE_GRASS   = 'G';
+    const TILE_TYPE_ROAD    = 'R';
+    const TILE_TYPE_CITY    = 'C';
 
     /** @var  int   Type on Northern face of Tile*/
     private $north;
