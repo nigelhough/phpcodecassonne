@@ -109,13 +109,13 @@ class Map {
             for($renderTemp = 7; $renderTemp > 0; $renderTemp--) {
                 for($j = 0; $j < $columnNumber; $j++) {
 
-                    if(in_array($renderTemp, array(1,7))) {
-                        echo " ----------- ";
+                    if(!$this->isOccupied($i, $j)) {
+                        echo "             ";
                         continue;
                     }
 
-                    if(!$this->isOccupied($i, $j)) {
-                        echo " |         | ";
+                    if(in_array($renderTemp, array(1,7))) {
+                        echo " ----------- ";
                         continue;
                     }
 
