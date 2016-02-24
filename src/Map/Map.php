@@ -107,7 +107,6 @@ class Map {
      */
     public function render()
     {
-        echo "\033[0;33m";
         for($x = $this->bottomLeft->getX(); $x <= $this->topRight->getX(); $x++) {
 
             for($renderTemp = 7; $renderTemp > 0; $renderTemp--) {
@@ -138,6 +137,5 @@ class Map {
             }
         }
         echo PHP_EOL;
-        echo "\033[0m";
     }
 }
