@@ -15,18 +15,14 @@ class Map {
     /** @var  Coordinate Top right coordinate of maps Minimum Bounding Rectangle */
     private $topRight;
 
-    public function __construct()
+    /**
+     * Construct the Map
+     *
+     * @param Tile $startingTile    The game starting tile
+     */
+    public function __construct(Tile $startingTile)
     {
         $this->tiles = array();
-
-        //Set the game starting tile
-        $startingTile = new Tile(
-            Tile::TILE_TYPE_CITY,
-            Tile::TILE_TYPE_ROAD,
-            Tile::TILE_TYPE_GRASS,
-            Tile::TILE_TYPE_ROAD,
-            Tile::TILE_TYPE_ROAD
-        );
 
         //Set the Map starting coordinate
         $startingCoordinate = new Coordinate(0, 0);
@@ -60,7 +56,7 @@ class Map {
      *
      * @param Coordinate $coordinate Coordinate to update Maps Minimum Bounding Rectangle With
      */
-    public function updateMinimumBoundingRectangle(Coordinate $coordinate)
+    private function updateMinimumBoundingRectangle(Coordinate $coordinate)
     {
         //Update the Bottom Left Coordinate of the map
         $this->bottomLeft = new Coordinate(

@@ -60,14 +60,18 @@ class Game
      */
     private function init()
     {
-        $this->map = new Map();
+        //Create and fill bag of Tiles
         $this->bag = new Bag();
-
         $tiles = $this->tileMapper->findAll();
-
         foreach($tiles as $tile) {
             $this->bag->put($tile);
         }
+
+        //Get the starting Tile
+        $startingTile = $this->bag->drawFrom();
+
+        //Create new game map
+        $this->map = new Map($startingTile);
 
         $this->bag->shuffle();
     }
