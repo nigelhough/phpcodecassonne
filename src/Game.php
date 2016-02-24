@@ -68,5 +68,7 @@ class Game
         foreach($tiles as $tile) {
             $this->bag->put($tile);
         }
+
+        $this->bag->shuffle();
     }
 }

@@ -54,4 +54,12 @@ class Bag
     {
         return count($this->tiles);
     }
+
+    /**
+     * Shuffle the tiles in the bag
+     */
+    public function shuffle()
+    {
+        shuffle($this->tiles);
+    }
 }
