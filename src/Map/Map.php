@@ -2,75 +2,108 @@
 
 namespace Codecassonne\Map;
 
-
 use Codecassonne\Tile\Tile;
 
 class Map {
 
-    /** @var  array two dimensional array of Tiles to represent positioning on the map */
+    /** @var  array Tiles to represent positioning on the map */
     private $tiles;
+
+    /** @var  Coordinate Bottom left coordinate of maps Minimum Bounding Rectangle */
+    private $bottomLeft;
+
+    /** @var  Coordinate Top right coordinate of maps Minimum Bounding Rectangle */
+    private $topRight;
 
     public function __construct()
     {
         $this->tiles = array();
+
+        //Set the game starting tile
+        $startingTile = new Tile(
+            Tile::TILE_TYPE_CITY,
+            Tile::TILE_TYPE_ROAD,
+            Tile::TILE_TYPE_GRASS,
+            Tile::TILE_TYPE_ROAD,
+            Tile::TILE_TYPE_ROAD
+        );
+
+        //Set the Map starting coordinate
+        $startingCoordinate = new Coordinate(0, 0);
+        $this->bottomLeft = $startingCoordinate;
+        $this->topRight = $startingCoordinate;
+
+        //Place the starting tile
+        $this->place($startingTile, $startingCoordinate);
     }
 
     /**
      * Place a tile on the map
      *
-     * @param Tile $tile
-     * @param $xCoord
-     * @param $yCoord
+     * @param Tile          $tile       Tile to lay
+     * @param Coordinate    $coordinate Coordinate to lay place in
      *
      * @throws \Exception
      */
-    public function place(Tile $tile, $xCoord, $yCoord)
+    public function place(Tile $tile, Coordinate $coordinate)
     {
-        if(!$this->isValidPlacement($tile, $xCoord, $yCoord)) {
+        if(!$this->isValidPlacement($tile, $coordinate)) {
             throw new \Exception("Invalid tile placement");
         }
 
-        if(!array_key_exists($xCoord, $this->tiles)) {
-            $this->tiles[$xCoord] = array();
-        }
-
-        $this->tiles[$xCoord][$yCoord] = $tile;
+        $this->tiles[$coordinate->toHash()] = $tile;
+        $this->updateMinimumBoundingRectangle($coordinate);
     }
 
     /**
-     * Check if placing $tile at position ($xCoord, $yCoord) is valid
+     * Update the Maps Minimum Bounding Rectangle with a new Coordinate
      *
-     * @param Tile $tile
-     * @param $xCoord
-     * @param $yCoord
+     * @param Coordinate $coordinate Coordinate to update Maps Minimum Bounding Rectangle With
+     */
+    public function updateMinimumBoundingRectangle(Coordinate $coordinate)
+    {
+        //Update the Bottom Left Coordinate of the map
+        $this->bottomLeft = new Coordinate(
+            min(array($coordinate->getX(), $this->bottomLeft->getX())),
+            min(array($coordinate->getY(), $this->bottomLeft->getY()))
+        );
+
+        //Update the Top Right Coordinate of the map
+        $this->topRight = new Coordinate(
+            max(array($coordinate->getX(), $this->topRight->getX())),
+            max(array($coordinate->getY(), $this->topRight->getY()))
+        );
+    }
+
+    /**
+     * Check if placing $tile at position is valid
+     *
+     * @param Tile          $tile       Tile to lay
+     * @param Coordinate    $coordinate Coordinate to check is valid
      *
      * @return bool
      */
-    private function isValidPlacement(Tile $tile, $xCoord, $yCoord)
+    private function isValidPlacement(Tile $tile, Coordinate $coordinate)
     {
-        if($this->isOccupied($xCoord, $yCoord)) {
+        if($this->isOccupied($coordinate)) {
             return false;
         }
 
-        // @TODO validate placement
+        // @TODO validate tile placement
 
         return true;
     }
 
     /**
-     * Check if position ($xCoord, $yCoord) is occupied
+     * Check if position is occupied
      *
-     * @param $xCoord
-     * @param $yCoord
+     * @param Coordinate $coordinate    Position to check is occupied
      *
      * @return bool
      */
-    private function isOccupied($xCoord, $yCoord)
+    private function isOccupied(Coordinate $coordinate)
     {
-        if(!array_key_exists($xCoord, $this->tiles)) {
-            return false;
-        }
-        return array_key_exists($yCoord, $this->tiles[$xCoord]);
+        return array_key_exists($coordinate->toHash(), $this->tiles);
     }
 
     /**
@@ -100,16 +133,17 @@ class Map {
     /**
      * Draw current state of the map
      */
-    public function draw()
+    public function render()
     {
-        $rowNumber = $this->getRowNumber();
-        $columnNumber = $this->getColumnNumber();
+        for($x = $this->bottomLeft->getX(); $x <= $this->topRight->getX(); $x++) {
 
-        for($i = 0; $i < $rowNumber; $i++) {
             for($renderTemp = 7; $renderTemp > 0; $renderTemp--) {
-                for($j = 0; $j < $columnNumber; $j++) {
 
-                    if(!$this->isOccupied($i, $j)) {
+                for($y = $this->bottomLeft->getY(); $y <= $this->topRight->getY(); $y++) {
+
+                    $currentCoordinate = new Coordinate($x, $y);
+
+                    if(!$this->isOccupied($currentCoordinate)) {
                         echo "             ";
                         continue;
                     }
@@ -119,11 +153,11 @@ class Map {
                         continue;
                     }
 
-                    $t = $this->tiles[$i][$j];
+                    $currentTile = $this->tiles[$currentCoordinate->toHash()];
                     switch($renderTemp) {
-                        case 6: echo " |    {$t->getNorth()}    | "; break;
-                        case 4: echo " |{$t->getWest()}   {$t->getCenter()}   {$t->getEast()}| "; break;
-                        case 2: echo " |    {$t->getSouth()}    | "; break;
+                        case 6: echo " |    {$currentTile->getNorth()}    | "; break;
+                        case 4: echo " |{$currentTile->getWest()}   {$currentTile->getCenter()}   {$currentTile->getEast()}| "; break;
+                        case 2: echo " |    {$currentTile->getSouth()}    | "; break;
                         default: echo " |         | ";
                     }
                 }

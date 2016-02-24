@@ -3,7 +3,8 @@
 namespace Codecassonne;
 use Codecassonne\Map\Map;
 use Codecassonne\Tile\Bag;
-use Codecassonne\Tile\Mapper\File as Mapper;
+use Codecassonne\Tile\Mapper\MapperInterface as Mapper;
+use Codecassonne\Map\Coordinate;
 
 /**
  * Class Game
@@ -37,11 +38,12 @@ class Game
     public function run()
     {
         $this->init();
-        $xCoord = $yCoord = 0;
+        $xCoord = 0;
+        $yCoord = 1;
         while (!$this->bag->isEmpty()) {
             $currentTile = $this->bag->drawFrom();
 
-            $this->map->place($currentTile, $xCoord, $yCoord);
+            $this->map->place($currentTile, new Coordinate($xCoord, $yCoord));
             if (rand(1, 10)%2 == 0) {
                 $xCoord++;
             } else {
@@ -49,7 +51,7 @@ class Game
             }
             echo $currentTile->toString() . ', ' . $this->bag->getTileCount() . ' remaining.' . PHP_EOL;
         }
-        $this->map->draw();
+        $this->map->render();
     }
 
     /**
