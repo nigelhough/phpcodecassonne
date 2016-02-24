@@ -38,19 +38,26 @@ class Game
     public function run()
     {
         $this->init();
-        $xCoord = 0;
-        $yCoord = 1;
+        echo `clear`;
+        echo 'Starting.' . PHP_EOL;
+        $this->map->render();
+        sleep(1);
+
         while (!$this->bag->isEmpty()) {
             $currentTile = $this->bag->drawFrom();
 
-            $this->map->place($currentTile, new Coordinate($xCoord, $yCoord));
-            if (rand(1, 10)%2 == 0) {
-                $xCoord++;
-            } else {
-                $yCoord++;
-            }
+            $playPosition = $this->map->getPlayablePosition();
+
+            $this->map->place($currentTile, $playPosition);
+
+            echo `clear`;
             echo $currentTile->toString() . ', ' . $this->bag->getTileCount() . ' remaining.' . PHP_EOL;
+            $this->map->render();
+            sleep(1);
         }
+
+        echo `clear`;
+        echo 'Game Ended.' . PHP_EOL;
         $this->map->render();
     }
 
