@@ -105,36 +105,13 @@ class Map {
     {
         return array_key_exists($coordinate->toHash(), $this->tiles);
     }
-
-    /**
-     * Get the number of rows
-     *
-     * @return int
-     */
-    private function getRowNumber()
-    {
-        return max(array_keys($this->tiles)) + 1;
-    }
-
-    /**
-     * Get the number of columns
-     *
-     * @return int
-     */
-    private function getColumnNumber()
-    {
-        $max = 0;
-        foreach($this->tiles as $row) {
-            $max = max(count($row), $max);
-        }
-        return $max;
-    }
-
+    
     /**
      * Draw current state of the map
      */
     public function render()
     {
+        echo "\033[0;33m";
         for($x = $this->bottomLeft->getX(); $x <= $this->topRight->getX(); $x++) {
 
             for($renderTemp = 7; $renderTemp > 0; $renderTemp--) {
@@ -165,5 +142,6 @@ class Map {
             }
         }
         echo PHP_EOL;
+        echo "\033[0m";
     }
 }
