@@ -53,7 +53,7 @@ class CoordinateTest extends \PHPUnit_Framework_TestCase
      *
      * @param int       $xCoordinate                X Coordinate
      * @param int       $yCoordinate                Y Coordinate
-     * @param bool      $expectedException          Is an Exception Expected
+     * @param string    $expectedException          Exception Exception
      * @param string    $expectedExceptionMessage   Expected Exception Message
      *
      * @dataProvider constructorProvider
