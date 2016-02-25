@@ -4,7 +4,6 @@ namespace Codecassonne;
 use Codecassonne\Map\Map;
 use Codecassonne\Tile\Bag;
 use Codecassonne\Tile\Mapper\MapperInterface as Mapper;
-use Codecassonne\Map\Coordinate;
 
 /**
  * Class Game

@@ -21,7 +21,7 @@ class Map {
     /**
      * Construct the Map
      *
-     * @param Tile $startingTile    The game starting tile
+     * @param Tile $startingTile The game starting tile
      */
     public function __construct(Tile $startingTile)
     {
