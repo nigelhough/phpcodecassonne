@@ -83,15 +83,11 @@ class Map {
      */
     public function getPlayablePosition()
     {
-        //return array_shift($this->playablePositions);
-
         $playablePositions = $this->playablePositions;
         shuffle($playablePositions);
 
         $position = array_shift($playablePositions);
         return $position;
-
-        return array_shift($playablePositions);
     }
 
     /**
