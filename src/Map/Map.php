@@ -18,18 +18,14 @@ class Map {
     /** @var  Coordinate Top right coordinate of maps Minimum Bounding Rectangle */
     private $topRight;
 
-    public function __construct()
+    /**
+     * Construct the Map
+     *
+     * @param Tile $startingTile    The game starting tile
+     */
+    public function __construct(Tile $startingTile)
     {
         $this->tiles = array();
-
-        //Set the game starting tile
-        $startingTile = new Tile(
-            Tile::TILE_TYPE_CITY,
-            Tile::TILE_TYPE_ROAD,
-            Tile::TILE_TYPE_GRASS,
-            Tile::TILE_TYPE_ROAD,
-            Tile::TILE_TYPE_ROAD
-        );
 
         //Set the Map starting coordinate
         $startingCoordinate = new Coordinate(0, 0);
@@ -167,7 +163,6 @@ class Map {
      */
     public function render()
     {
-        echo "\033[0;33m";
         for($x = $this->bottomLeft->getX(); $x <= $this->topRight->getX(); $x++) {
 
             for($renderTemp = 7; $renderTemp > 0; $renderTemp--) {
@@ -198,6 +193,5 @@ class Map {
             }
         }
         echo PHP_EOL;
-        echo "\033[0m";
     }
 }
