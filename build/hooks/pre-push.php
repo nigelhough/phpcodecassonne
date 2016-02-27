@@ -4,7 +4,7 @@
 echo 'Checking Push ...' . PHP_EOL;
 
 echo 'Running Unit Tests...' . PHP_EOL;
-exec('vendor/bin/phpunit -c tests/phpunit.xml', $testResults, $unitTests);
+exec('vendor/bin/phpunit -c tests/phpunit.xml --coverage-html tests/coverage', $testResults, $unitTests);
 
 if ($unitTests !== 0) {
 
