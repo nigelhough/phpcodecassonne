@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * The default test suite for Codecassonne.
+-->
+<phpunit bootstrap="bootstrap.php" backupGlobals="false">
+    <testsuites>
+        <!-- Tests for the Codecassonne namespaces -->
+        <testsuite name="codecassonne-src">
+            <directory suffix="Test.php">.</directory>
+        </testsuite>
+    </testsuites>
+
+    <!-- Code Coverage Filtering -->
+    <filter>
+        <blacklist>
+            <directory>vendor</directory>
+            <directory>tests</directory>
+        </blacklist>
+        <whitelist>
+            <directory suffix=".php">../src</directory>
+            <exclude>
+                <directory>vendor</directory>
+                <directory>tests</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+
+</phpunit>

@@ -108,4 +108,30 @@ class BagTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException("Exception");
         $emptyBag->drawFrom();
     }
+
+    /**
+     * Test shuffling the bag of tiles
+     * May be a risk of the shuffle returning the same array so choose a large bag
+     */
+    public function testBagShuffle()
+    {
+        $bagReflection = new \ReflectionClass('Codecassonne\Tile\Bag');
+        $tilesReflection = $bagReflection->getProperty('tiles');
+        $tilesReflection->setAccessible(true);
+
+        //Create a bag of tiles
+        $emptyBag = $this->generateBag(100);
+
+        //Get the Bag Tiles
+        $tiles = $tilesReflection->getValue($emptyBag);
+
+        //Shuffle Bag
+        $emptyBag->shuffle();
+
+        //Get the Shuffled Tiles
+        $shuffledTiles = $tilesReflection->getValue($emptyBag);
+
+        //Assert the shuffled tiles is not the same as the un-shuffled
+        $this->assertNotSame($tiles, $shuffledTiles);
+    }
 }
