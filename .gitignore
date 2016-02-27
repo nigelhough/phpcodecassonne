@@ -50,3 +50,5 @@ crashlytics-build.properties
 #Ignore Composer Dependencies
 /vendor/
 
+#Ignore Unit Test Coverage
+/tests/coverage
