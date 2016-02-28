@@ -7,16 +7,16 @@ use Codecassonne\Tile\Tile;
 class Map {
 
     /** @var  Tile[] Tiles to represent positioning on the map */
-    private $tiles;
+    private $tiles = array();
 
     /** @var  Coordinate[] Playable positions on the map */
-    private $playablePositions;
+    private $playablePositions = array();
 
     /** @var  Coordinate Bottom left coordinate of maps Minimum Bounding Rectangle */
-    private $bottomLeft;
+    private $bottomLeft = 0;
 
     /** @var  Coordinate Top right coordinate of maps Minimum Bounding Rectangle */
-    private $topRight;
+    private $topRight = 0;
 
     /**
      * Construct the Map
@@ -33,11 +33,11 @@ class Map {
         $this->topRight = $startingCoordinate;
 
         //Place the starting tile
-        $this->place($startingTile, $startingCoordinate);
+        $this->addTile($startingTile, $startingCoordinate);
     }
 
     /**
-     * Place a tile on the map
+     * Attempt to place a tile on the map
      *
      * @param Tile          $tile       Tile to lay
      * @param Coordinate    $coordinate Coordinate to lay place in
@@ -50,6 +50,19 @@ class Map {
             throw new \Exception("Invalid tile placement");
         }
 
+        $this->addTile($tile, $coordinate);
+    }
+
+    /**
+     * Add tile to the map tiles and update map details
+     *
+     * @param Tile          $tile       Tile to lay
+     * @param Coordinate    $coordinate Coordinate to lay place in
+     *
+     * @throws \Exception
+     */
+    private function addTile(Tile $tile, Coordinate $coordinate)
+    {
         $this->tiles[$coordinate->toHash()] = $tile;
         $this->updateMinimumBoundingRectangle($coordinate);
         $this->updatePlayablePositions($coordinate);
@@ -136,6 +149,9 @@ class Map {
         if($this->isOccupied($coordinate)) {
             return false;
         }
+        if(!$this->isPlayablePosition($coordinate)) {
+            return false;
+        }
 
         // @TODO validate tile placement
 
@@ -152,6 +168,18 @@ class Map {
     private function isOccupied(Coordinate $coordinate)
     {
         return array_key_exists($coordinate->toHash(), $this->tiles);
+    }
+
+    /*
+     * Check if a coordinate is in the playable positions array
+     *
+     * @param Coordinate $coordinate    Position to check is occupied
+     *
+     * @returns bool
+     */
+    private function isPlayablePosition(Coordinate $coordinate)
+    {
+        return array_key_exists($coordinate->toHash(), $this->playablePositions);
     }
     
     /**
