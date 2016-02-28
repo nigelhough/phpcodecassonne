@@ -40,7 +40,7 @@ class MapTest extends \PHPUnit_Framework_TestCase
             array(
                 new Coordinate(10, 06),
                 new Coordinate(19, 84),
-                false,
+                true,
             ),
         );
     }
@@ -269,13 +269,13 @@ class MapTest extends \PHPUnit_Framework_TestCase
         $this->placeTiles($map, $placingTile, new Coordinate(0, 1), $isMatching);
 
         //Attempt to place the tile in the East location. Matching start Tile East, Place Tile West
-        $this->placeTiles($map, $placingTile, new Coordinate(0, 1), $isMatching);
+        $this->placeTiles($map, $placingTile, new Coordinate(1, 0), $isMatching);
 
         //Attempt to place the tile in the South location. Matching start Tile South, Place Tile North
-        $this->placeTiles($map, $placingTile, new Coordinate(0, 1), $isMatching);
+        $this->placeTiles($map, $placingTile, new Coordinate(0, -1), $isMatching);
 
         //Attempt to place the tile in the West location. Matching start Tile West, Place Tile East
-        $this->placeTiles($map, $placingTile, new Coordinate(0, 1), $isMatching);
+        $this->placeTiles($map, $placingTile, new Coordinate(-1, 0), $isMatching);
     }
 
     /**
@@ -744,7 +744,7 @@ class MapTest extends \PHPUnit_Framework_TestCase
         try {
             //Attempt to place tile
             $map->place($tile, $coordinate);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             //Catch any Exception
             $exception = $e;
         }
