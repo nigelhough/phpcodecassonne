@@ -217,125 +217,6 @@ class MapTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Data Provider for the matching tiles test
-     *
-     * @return array
-     */
-    public function OLDmatchingTilesProvider()
-    {
-        return array(
-            /** Attempt Matching two grass tiles on 1 side */
-            array(
-                new Map(Tile::createFromString('G:G:G:G:G')),
-                Tile::createFromString('G:G:G:G:G'),
-                new Coordinate(0, 1),
-                '',
-            ),
-            /** Attempt Matching two city tiles on 1 side */
-            array(
-                new Map(Tile::createFromString('C:C:C:C:C')),
-                Tile::createFromString('C:C:C:C:C'),
-                new Coordinate(0, 1),
-                '',
-            ),
-            /** Attempt Matching twp road tiles on 1 side */
-            array(
-                new Map(Tile::createFromString('R:R:R:R:R')),
-                Tile::createFromString('R:R:R:R:R'),
-                new Coordinate(0, 1),
-                '',
-            ),
-            /** Attempt Matching grass and road tiles on 1 side */
-            array(
-                new Map(Tile::createFromString('G:G:G:G:G')),
-                Tile::createFromString('R:R:R:R:R'),
-                new Coordinate(0, 1),
-                'Exception',
-            ),
-            /** Attempt Matching grass and city tiles on 1 side */
-            array(
-                new Map(Tile::createFromString('G:G:G:G:G')),
-                Tile::createFromString('C:C:C:C:C'),
-                new Coordinate(0, 1),
-                'Exception',
-            ),
-            /** Attempt Matching road and city tiles on 1 side */
-            array(
-                new Map(Tile::createFromString('R:R:R:R:R')),
-                Tile::createFromString('C:C:C:C:C'),
-                new Coordinate(0, 1),
-                'Exception',
-            ),
-            /** Attempt Matching one side of placing tile */
-            array(
-                new Map(Tile::createFromString('G:G:G:G:G')),
-                Tile::createFromString('R:R:R:G:R'),
-                new Coordinate(0, 1),
-                '',
-            ),
-            /** Attempt Matching one side of placing tile wrong Orientation */
-            array(
-                new Map(Tile::createFromString('G:G:G:G:G')),
-                Tile::createFromString('R:R:G:R:R'),
-                new Coordinate(0, 1),
-                'Exception',
-            ),
-        );
-    }
-
-    /**
-     * Data Provider for the matching tiles test
-     *
-     * @return array
-     */
-    public function mapProvider()
-    {
-        $map = new Map(Tile::createFromString('G:R:C:G:G'));
-        $map->render();
-
-        echo " ================================================== " . PHP_EOL . PHP_EOL;
-
-        $map = new Map(Tile::createFromString('C:R:C:G:G'));
-        $map->place(Tile::createFromString('G:R:C:G:R'), new Coordinate(0, 2));
-        $map->place(Tile::createFromString('G:R:C:G:C'), new Coordinate(2, 2));
-        $map->place(Tile::createFromString('C:R:C:G:R'), new Coordinate(2, 0));
-        $map->render();
-
-        echo " ================================================== " . PHP_EOL . PHP_EOL;
-
-        $map = new Map(Tile::createFromString('C:R:C:G:G'));
-        $map->place(Tile::createFromString('G:R:C:G:R'), new Coordinate(1, 0));
-        $map->place(Tile::createFromString('G:R:C:G:C'), new Coordinate(0, 1));
-        $map->place(Tile::createFromString('C:R:C:G:R'), new Coordinate(-1, 0));
-        $map->place(Tile::createFromString('C:R:C:G:R'), new Coordinate(0, -1));
-        $map->render();
-
-        echo " ================================================== " . PHP_EOL . PHP_EOL;
-
-        $map = new Map(Tile::createFromString('C:R:C:G:G'));
-        $map->place(Tile::createFromString('G:R:C:G:R'), new Coordinate(1, 1));
-        $map->place(Tile::createFromString('G:R:C:G:C'), new Coordinate(2, 0));
-        $map->place(Tile::createFromString('C:R:C:G:R'), new Coordinate(1, -1));
-        $map->render();
-
-        exit;
-    }
-
-    /**
-     * Provides the tile faces that can be matched
-     *
-     * @return array
-     */
-    public function tileFaces()
-    {
-        return array(
-            Tile::TILE_TYPE_GRASS,
-            Tile::TILE_TYPE_CITY,
-            Tile::TILE_TYPE_ROAD
-        );
-    }
-
-    /**
      * Gets the Tile Face combinations and if they match
      *
      * @return array
@@ -499,14 +380,26 @@ class MapTest extends \PHPUnit_Framework_TestCase
             (new Coordinate(-2, 0))->toHash() => $matchingTile,
         );
 
-        //Create Map
+        // Create Map
         $map = new Map($startingTile);
-        //Make Map properties accessible
+        // Make Map properties accessible
         $mapReflection = new \ReflectionClass('Codecassonne\Map\Map');
         $tilesReflection = $mapReflection->getProperty('tiles');
         $tilesReflection->setAccessible(true);
-        //Get the Bag Tiles
+        // Set the Bag Tiles
         $tilesReflection->setValue($map, $tiles);
+        //Call Playable Positions for played positions
+        $updatePlayableReflection = new \ReflectionMethod('Codecassonne\Map\Map', 'updatePlayablePositions');
+        $updatePlayableReflection->setAccessible(true);
+        $updatePlayableReflection->invoke($map, (new Coordinate(0, 2)));
+        $updatePlayableReflection->invoke($map, (new Coordinate(2, 0)));
+        $updatePlayableReflection->invoke($map, (new Coordinate(0, -2)));
+        $updatePlayableReflection->invoke($map, (new Coordinate(-2, 0)));
+        //Update the maps minimum bounding rectangle
+        $minimumBoundingRectangleReflection = new \ReflectionMethod('Codecassonne\Map\Map', 'updateMinimumBoundingRectangle');
+        $minimumBoundingRectangleReflection->setAccessible(true);
+        $minimumBoundingRectangleReflection->invoke($map, (new Coordinate(-2 , -2)));
+        $minimumBoundingRectangleReflection->invoke($map, (new Coordinate(2  , 2)));
 
         /**
          * Attempt to place the tile in the North location. Matching:
@@ -638,6 +531,19 @@ class MapTest extends \PHPUnit_Framework_TestCase
         $tilesReflection->setAccessible(true);
         //Get the Bag Tiles
         $tilesReflection->setValue($map, $tiles);
+        //Call Playable Positions for played positions
+        $updatePlayableReflection = new \ReflectionMethod('Codecassonne\Map\Map', 'updatePlayablePositions');
+        $updatePlayableReflection->setAccessible(true);
+        $updatePlayableReflection->invoke($map, (new Coordinate(-1, 1)));
+        $updatePlayableReflection->invoke($map, (new Coordinate(1, 1)));
+        $updatePlayableReflection->invoke($map, (new Coordinate(0, 0)));
+        $updatePlayableReflection->invoke($map, (new Coordinate(-1, -1)));
+        $updatePlayableReflection->invoke($map, (new Coordinate(1, -1)));
+        //Update the maps minimum bounding rectangle
+        $minimumBoundingRectangleReflection = new \ReflectionMethod('Codecassonne\Map\Map', 'updateMinimumBoundingRectangle');
+        $minimumBoundingRectangleReflection->setAccessible(true);
+        $minimumBoundingRectangleReflection->invoke($map, (new Coordinate(-1 , -1)));
+        $minimumBoundingRectangleReflection->invoke($map, (new Coordinate(1  , 1)));
 
         //Test Placing Tile B, touching Tiles A, C, E
         $this->placeTiles($map, $tileB, new Coordinate(0, 1), $isMatching);
@@ -778,13 +684,33 @@ class MapTest extends \PHPUnit_Framework_TestCase
         );
 
         //Create Map
-        $map = new Map($tileE);
+        $map = new Map(Tile::createFromString("{$grass}:{$grass}:{$grass}:{$grass}:{$grass}"));
         //Make Map properties accessible
         $mapReflection = new \ReflectionClass('Codecassonne\Map\Map');
         $tilesReflection = $mapReflection->getProperty('tiles');
         $tilesReflection->setAccessible(true);
         //Get the Bag Tiles
         $tilesReflection->setValue($map, $tiles);
+        //Call Playable Positions for played positions
+        $updatePlayableReflection = new \ReflectionMethod('Codecassonne\Map\Map', 'updatePlayablePositions');
+        $updatePlayableReflection->setAccessible(true);
+        $updatePlayableReflection->invoke($map, (new Coordinate(-1 , 2)));
+        $updatePlayableReflection->invoke($map, (new Coordinate(1  , 2)));
+        $updatePlayableReflection->invoke($map, (new Coordinate(-2 , 1)));
+        $updatePlayableReflection->invoke($map, (new Coordinate(0  , 1)));
+        $updatePlayableReflection->invoke($map, (new Coordinate(2  , 1)));
+        $updatePlayableReflection->invoke($map, (new Coordinate(-1 , 0)));
+        $updatePlayableReflection->invoke($map, (new Coordinate(1  , 0)));
+        $updatePlayableReflection->invoke($map, (new Coordinate(-2 , -1)));
+        $updatePlayableReflection->invoke($map, (new Coordinate(0  , -1)));
+        $updatePlayableReflection->invoke($map, (new Coordinate(2  , -1)));
+        $updatePlayableReflection->invoke($map, (new Coordinate(-1 , -2)));
+        $updatePlayableReflection->invoke($map, (new Coordinate(1  , -2)));
+        //Update the maps minimum bounding rectangle
+        $minimumBoundingRectangleReflection = new \ReflectionMethod('Codecassonne\Map\Map', 'updateMinimumBoundingRectangle');
+        $minimumBoundingRectangleReflection->setAccessible(true);
+        $minimumBoundingRectangleReflection->invoke($map, (new Coordinate(-2 , -2)));
+        $minimumBoundingRectangleReflection->invoke($map, (new Coordinate(2  , 2)));
 
         //Test Placing Tile E
         $this->placeTiles($map, $tileE, new Coordinate(-1, 1), $isMatching);
@@ -797,6 +723,7 @@ class MapTest extends \PHPUnit_Framework_TestCase
 
         //Test Placing Tile H
         $this->placeTiles($map, $tileH, new Coordinate(1, -1), $isMatching);
+
     }
 
     /**
