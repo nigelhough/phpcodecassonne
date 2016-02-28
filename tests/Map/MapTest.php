@@ -360,19 +360,22 @@ class MapTest extends \PHPUnit_Framework_TestCase
      *
      * @return array
      */
-    public function oneFaceProvider()
+    public function twoTilesProvider()
     {
         return $this->getFaceCombinations();
     }
 
     /**
-     * Two tile single face matching test
-     * 
-     * @dataProvider oneFaceProvider
+     * Two tiles single face matching test
+     *
+     * @param string    $face1          First Face to match
+     * @param string    $face2          Second Face to match
+     * @param string    $isMatching     Do the Faces match
+     *
+     * @dataProvider twoTilesProvider
      */
-    public function testOneFaceMatching($face1, $face2, $isMatching)
+    public function testTwoTilesMatching($face1, $face2, $isMatching)
     {
-
         //Create starting tiles with all sides the first face (only matching one face at a time)
         $startingTile = Tile::createFromString($face1 . ':' . $face1 . ':' .$face1 . ':' .$face1 . ':' .$face1);
 
@@ -393,7 +396,6 @@ class MapTest extends \PHPUnit_Framework_TestCase
         //Attempt to place the tile in the West location. Matching start Tile West, Place Tile East
         $this->placeTiles($map, $placingTile, new Coordinate(0, 1), $isMatching);
     }
-
 
     /**
      * Test Placing tiles on an Empty Map
