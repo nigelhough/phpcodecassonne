@@ -398,6 +398,146 @@ class MapTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Data Provider for the three tile two face test
+     *
+     * @return array
+     */
+    public function threeTilesProvider()
+    {
+        $testFaces = array();
+
+        $faceSet1 = $this->getFaceCombinations();
+        $faceSet2 = $this->getFaceCombinations();
+
+        foreach($faceSet1 as $set1) {
+            foreach($faceSet2 as $set2) {
+                $testFaces[] = array(
+                    $set1[0],
+                    $set1[1],
+                    $set2[0],
+                    $set2[1],
+                    ($set1[2] && $set2[2])
+                );
+            }
+        }
+
+        return $testFaces;
+    }
+
+    /**
+     *
+     * @param string    $face1          First Face to match
+     * @param string    $face2          Second Face to match
+     * @param string    $face3          Third Face to match
+     * @param string    $face4          Fourth Face to match
+     * @param bool      $isMatching     Do all Faces match
+     *
+     * @dataProvider threeTilesProvider
+     *
+     * Visual representation of test, numbers represent face Ids, (X's don't matter)
+                              -----------
+                              |    4    |
+                              |         |
+                              |4   X   4|
+                              |         |
+                              |    4    |
+                              -----------
+                              -----------
+                              |    3    |
+                              |         |
+                              |X   X   X|
+                              |         |
+                              |    2    |
+                              -----------
+    -----------  -----------  -----------  -----------  -----------
+    |    4    |  |    X    |  |    1    |  |    X    |  |    4    |
+    |         |  |         |  |         |  |         |  |         |
+    |4   4   4|  |3   X   2|  |1   X   1|  |2   X   3|  |4   X   4|
+    |         |  |         |  |         |  |         |  |         |
+    |    4    |  |    X    |  |    1    |  |    X    |  |    4    |
+    -----------  -----------  -----------  -----------  -----------
+                              -----------
+                              |    2    |
+                              |         |
+                              |X   X   X|
+                              |         |
+                              |    3    |
+                              -----------
+                              -----------
+                              |    4    |
+                              |         |
+                              |4   X   4|
+                              |         |
+                              |    4    |
+                              -----------
+     */
+    public function testThreeTilesMatching($face1, $face2, $face3, $face4, $isMatching)
+    {
+        $grass = Tile::TILE_TYPE_GRASS;
+
+        //Create starting tiles with all sides the first face (only matching one face on this tile)
+        $startingTile = Tile::createFromString("{$face1}:{$face1}:{$face1}:{$face1}:{$grass}");
+        $startingCoordinate = new Coordinate(0, 0);
+
+        //Create second tile with all sides the second face (only matching one face on this tile)
+        $matchingTile =  Tile::createFromString("{$face4}:{$face4}:{$face4}:{$face4}:{$grass}");
+
+        //Create tile to place matching 2 faces with starting and second tile
+        $northPlacement = Tile::createFromString("{$face3}:{$grass}:{$face2}:{$grass}:{$grass}");
+        $eastPlacement = Tile::createFromString("{$grass}:{$face3}:{$grass}:{$face2}:{$grass}");
+        $southPlacement = Tile::createFromString("{$face2}:{$grass}:{$face3}:{$grass}:{$grass}");
+        $westPlacement = Tile::createFromString("{$grass}:{$face2}:{$grass}:{$face3}:{$grass}");
+
+        //Create Tiles array to add to Map
+        $tiles = array(
+            $startingCoordinate->toHash() => $startingTile,
+            //Place Second tile in all matching locations
+            (new Coordinate(0, 2))->toHash() => $matchingTile,
+            (new Coordinate(2, 0))->toHash() => $matchingTile,
+            (new Coordinate(0, -2))->toHash() => $matchingTile,
+            (new Coordinate(-2, 0))->toHash() => $matchingTile,
+        );
+
+        //Create Map
+        $map = new Map($startingTile);
+        //Make Map properties accessible
+        $mapReflection = new \ReflectionClass('Codecassonne\Map\Map');
+        $tilesReflection = $mapReflection->getProperty('tiles');
+        $tilesReflection->setAccessible(true);
+        //Get the Bag Tiles
+        $tilesReflection->setValue($map, $tiles);
+
+        /**
+         * Attempt to place the tile in the North location. Matching:
+         * * Start Tile North, Place Tile South
+         * * Second Tile South, Place Tile North
+         */
+        $this->placeTiles($map, $northPlacement, new Coordinate(0, 1), $isMatching);
+
+        /**
+         * Attempt to place the tile in the East location. Matching:
+         * * Start Tile East, Place Tile West
+         * * Second Tile West, Place Tile East
+         */
+        $this->placeTiles($map, $eastPlacement, new Coordinate(1, 0), $isMatching);
+
+        /**
+         * Attempt to place the tile in the South location. Matching:
+         * * Start Tile South, Place Tile North
+         * * Second Tile North, Place Tile South
+         */
+        $this->placeTiles($map, $southPlacement, new Coordinate(0, -1), $isMatching);
+
+        /**
+         * Attempt to place the tile in the West location. Matching:
+         * * Start Tile West, Place Tile East
+         * * Second Tile East, Place Tile West
+         */
+        $this->placeTiles($map, $westPlacement, new Coordinate(-1, 0), $isMatching);
+
+    }
+
+    /**
      * Test Placing tiles on an Empty Map
      *
      * @param Map           $map                Map to lay tiles on
