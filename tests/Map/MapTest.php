@@ -214,6 +214,217 @@ class MapTest extends \PHPUnit_Framework_TestCase
         ob_end_clean();
 
         return $renderedMap;
+    }
 
+    /**
+     * Data Provider for the matching tiles test
+     *
+     * @return array
+     */
+    public function OLDmatchingTilesProvider()
+    {
+        return array(
+            /** Attempt Matching two grass tiles on 1 side */
+            array(
+                new Map(Tile::createFromString('G:G:G:G:G')),
+                Tile::createFromString('G:G:G:G:G'),
+                new Coordinate(0, 1),
+                '',
+            ),
+            /** Attempt Matching two city tiles on 1 side */
+            array(
+                new Map(Tile::createFromString('C:C:C:C:C')),
+                Tile::createFromString('C:C:C:C:C'),
+                new Coordinate(0, 1),
+                '',
+            ),
+            /** Attempt Matching twp road tiles on 1 side */
+            array(
+                new Map(Tile::createFromString('R:R:R:R:R')),
+                Tile::createFromString('R:R:R:R:R'),
+                new Coordinate(0, 1),
+                '',
+            ),
+            /** Attempt Matching grass and road tiles on 1 side */
+            array(
+                new Map(Tile::createFromString('G:G:G:G:G')),
+                Tile::createFromString('R:R:R:R:R'),
+                new Coordinate(0, 1),
+                'Exception',
+            ),
+            /** Attempt Matching grass and city tiles on 1 side */
+            array(
+                new Map(Tile::createFromString('G:G:G:G:G')),
+                Tile::createFromString('C:C:C:C:C'),
+                new Coordinate(0, 1),
+                'Exception',
+            ),
+            /** Attempt Matching road and city tiles on 1 side */
+            array(
+                new Map(Tile::createFromString('R:R:R:R:R')),
+                Tile::createFromString('C:C:C:C:C'),
+                new Coordinate(0, 1),
+                'Exception',
+            ),
+            /** Attempt Matching one side of placing tile */
+            array(
+                new Map(Tile::createFromString('G:G:G:G:G')),
+                Tile::createFromString('R:R:R:G:R'),
+                new Coordinate(0, 1),
+                '',
+            ),
+            /** Attempt Matching one side of placing tile wrong Orientation */
+            array(
+                new Map(Tile::createFromString('G:G:G:G:G')),
+                Tile::createFromString('R:R:G:R:R'),
+                new Coordinate(0, 1),
+                'Exception',
+            ),
+        );
+    }
+
+    /**
+     * Data Provider for the matching tiles test
+     *
+     * @return array
+     */
+    public function mapProvider()
+    {
+        $map = new Map(Tile::createFromString('G:R:C:G:G'));
+        $map->render();
+
+        echo " ================================================== " . PHP_EOL . PHP_EOL;
+
+        $map = new Map(Tile::createFromString('C:R:C:G:G'));
+        $map->place(Tile::createFromString('G:R:C:G:R'), new Coordinate(0, 2));
+        $map->place(Tile::createFromString('G:R:C:G:C'), new Coordinate(2, 2));
+        $map->place(Tile::createFromString('C:R:C:G:R'), new Coordinate(2, 0));
+        $map->render();
+
+        echo " ================================================== " . PHP_EOL . PHP_EOL;
+
+        $map = new Map(Tile::createFromString('C:R:C:G:G'));
+        $map->place(Tile::createFromString('G:R:C:G:R'), new Coordinate(1, 0));
+        $map->place(Tile::createFromString('G:R:C:G:C'), new Coordinate(0, 1));
+        $map->place(Tile::createFromString('C:R:C:G:R'), new Coordinate(-1, 0));
+        $map->place(Tile::createFromString('C:R:C:G:R'), new Coordinate(0, -1));
+        $map->render();
+
+        echo " ================================================== " . PHP_EOL . PHP_EOL;
+
+        $map = new Map(Tile::createFromString('C:R:C:G:G'));
+        $map->place(Tile::createFromString('G:R:C:G:R'), new Coordinate(1, 1));
+        $map->place(Tile::createFromString('G:R:C:G:C'), new Coordinate(2, 0));
+        $map->place(Tile::createFromString('C:R:C:G:R'), new Coordinate(1, -1));
+        $map->render();
+
+        exit;
+    }
+
+    /**
+     * Provides the tile faces that can be matched
+     *
+     * @return array
+     */
+    public function tileFaces()
+    {
+        return array(
+            Tile::TILE_TYPE_GRASS,
+            Tile::TILE_TYPE_CITY,
+            Tile::TILE_TYPE_ROAD
+        );
+    }
+
+    /**
+     * Gets the Tile Face combinations and if they match
+     *
+     * @return array
+     */
+    public function getFaceCombinations()
+    {
+        return array(
+            array(Tile::TILE_TYPE_GRASS,    Tile::TILE_TYPE_GRASS,  true),
+            array(Tile::TILE_TYPE_GRASS,    Tile::TILE_TYPE_CITY,   false),
+            array(Tile::TILE_TYPE_GRASS,    Tile::TILE_TYPE_ROAD,   false),
+            array(Tile::TILE_TYPE_CITY,     Tile::TILE_TYPE_GRASS,  false),
+            array(Tile::TILE_TYPE_CITY,     Tile::TILE_TYPE_CITY,   true),
+            array(Tile::TILE_TYPE_CITY,     Tile::TILE_TYPE_ROAD,   false),
+            array(Tile::TILE_TYPE_ROAD,     Tile::TILE_TYPE_GRASS,  false),
+            array(Tile::TILE_TYPE_ROAD,     Tile::TILE_TYPE_CITY,   false),
+            array(Tile::TILE_TYPE_ROAD,     Tile::TILE_TYPE_ROAD,   true),
+        );
+    }
+
+    /**
+     * Data Provider for the two tile single face test
+     *
+     * @return array
+     */
+    public function oneFaceProvider()
+    {
+        return $this->getFaceCombinations();
+    }
+
+    /**
+     * Two tile single face matching test
+     * 
+     * @dataProvider oneFaceProvider
+     */
+    public function testOneFaceMatching($face1, $face2, $isMatching)
+    {
+
+        //Create starting tiles with all sides the first face (only matching one face at a time)
+        $startingTile = Tile::createFromString($face1 . ':' . $face1 . ':' .$face1 . ':' .$face1 . ':' .$face1);
+
+        //Creating a placing tile with all sides the second face (only matching one face at a time
+        $placingTile =  Tile::createFromString($face2 . ':' . $face2 . ':' .$face2 . ':' .$face2 . ':' .$face2);
+
+        $map = new Map($startingTile);
+
+        //Attempt to place the tile in the North location. Matching start Tile North, Place Tile South
+        $this->placeTiles($map, $placingTile, new Coordinate(0, 1), $isMatching);
+
+        //Attempt to place the tile in the East location. Matching start Tile East, Place Tile West
+        $this->placeTiles($map, $placingTile, new Coordinate(0, 1), $isMatching);
+
+        //Attempt to place the tile in the South location. Matching start Tile South, Place Tile North
+        $this->placeTiles($map, $placingTile, new Coordinate(0, 1), $isMatching);
+
+        //Attempt to place the tile in the West location. Matching start Tile West, Place Tile East
+        $this->placeTiles($map, $placingTile, new Coordinate(0, 1), $isMatching);
+    }
+
+
+    /**
+     * Test Placing tiles on an Empty Map
+     *
+     * @param Map           $map                Map to lay tiles on
+     * @param Tile          $tile               Tile to lay on Map
+     * @param Coordinate    $coordinate         Coordinates to Lay Tile
+     * @param bool          $isMatching         Are Tile faces matching
+     *
+     * @dataProvider matchingTilesProvider
+     */
+    public function placeTiles(Map $map, Tile $tile, Coordinate $coordinate, $isMatching)
+    {
+        /** @var \Exception $exception */
+        $exception = null;
+
+        try {
+            //Attempt to place tile
+            $map->place($tile, $coordinate);
+        } catch (Exception $e) {
+            //Catch any Exception
+            $exception = $e;
+        }
+
+        if ($isMatching) {
+            //If the faces match assert no Exception
+            $this->assertNull($exception);
+        } else {
+            $this->assertInstanceOf('Exception', $exception);
+            //If the faces do not match assert Exception
+            $this->assertSame('Invalid tile placement', $exception->getMessage());
+        }
     }
 }
