@@ -82,4 +82,22 @@ class Coordinate
     {
         return $this->yCoordinate;
     }
+
+    /**
+     * Get coordinates that touch this coordinate
+     *
+     * return self[]
+     */
+    public function getTouchingCoordinates()
+    {
+        //Return offset coordinates
+        return array(
+            new self($this->xCoordinate,      $this->yCoordinate + 1),
+            new self($this->xCoordinate + 1,  $this->yCoordinate),
+            new self($this->xCoordinate,      $this->yCoordinate - 1),
+            new self($this->xCoordinate - 1,  $this->yCoordinate),
+        );
+    }
+
+
 }

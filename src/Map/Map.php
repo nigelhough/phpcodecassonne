@@ -115,25 +115,15 @@ class Map {
             unset($this->playablePositions[$coordinate->toHash()]);
         }
 
-        // Add offset positions to playable positions
-        $northCoordinate = new Coordinate($coordinate->getX(), $coordinate->getY() + 1);
-        $eastCoordinate = new Coordinate($coordinate->getX() + 1, $coordinate->getY());
-        $southCoordinate = new Coordinate($coordinate->getX(), $coordinate->getY() - 1);
-        $westCoordinate = new Coordinate($coordinate->getX() - 1, $coordinate->getY());
-
-        if(!isset($this->playablePositions[$northCoordinate->toHash()]) && !$this->isOccupied($northCoordinate)) {
-            $this->playablePositions[$northCoordinate->toHash()] = $northCoordinate;
+        /** @var Coordinate $touchingCoordinate */
+        foreach($coordinate->getTouchingCoordinates() as $touchingCoordinate) {
+            if(
+                !isset($this->playablePositions[$touchingCoordinate->toHash()]) &&
+                !$this->isOccupied($touchingCoordinate)
+            ) {
+                $this->playablePositions[$touchingCoordinate->toHash()] = $touchingCoordinate;
+            }
         }
-        if(!isset($this->playablePositions[$eastCoordinate->toHash()]) && !$this->isOccupied($eastCoordinate)) {
-            $this->playablePositions[$eastCoordinate->toHash()] = $eastCoordinate;
-        }
-        if(!isset($this->playablePositions[$southCoordinate->toHash()]) && !$this->isOccupied($southCoordinate)) {
-            $this->playablePositions[$southCoordinate->toHash()] = $southCoordinate;
-        }
-        if(!isset($this->playablePositions[$westCoordinate->toHash()]) && !$this->isOccupied($westCoordinate)) {
-            $this->playablePositions[$westCoordinate->toHash()] = $westCoordinate;
-        }
-
     }
 
     /**
