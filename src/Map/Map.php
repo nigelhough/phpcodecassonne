@@ -203,12 +203,21 @@ class Map {
      */
     public function render()
     {
-        for($y = $this->topRight->getY(); $y >= $this->bottomLeft->getY(); $y--) {
+        echo '    ';
+        for($x = $this->bottomLeft->getX(); $x <= $this->topRight->getX(); $x++) {
+            echo str_pad($x, 13, ' ', STR_PAD_BOTH);
+        }
+        echo PHP_EOL;
 
+        for($y = $this->topRight->getY(); $y >= $this->bottomLeft->getY(); $y--) {
             for($renderTemp = 7; $renderTemp > 0; $renderTemp--) {
+                if ($renderTemp == 4) {
+                    echo str_pad($y, 4, ' ', STR_PAD_RIGHT);
+                } else {
+                    echo '    ';
+                }
 
                 for($x = $this->bottomLeft->getX(); $x <= $this->topRight->getX(); $x++) {
-
                     $currentCoordinate = new Coordinate($x, $y);
 
                     if(!$this->isOccupied($currentCoordinate)) {
@@ -224,7 +233,9 @@ class Map {
                     $currentTile = $this->tiles[$currentCoordinate->toHash()];
                     switch($renderTemp) {
                         case 6: echo " |    {$currentTile->getNorth()}    | "; break;
-                        case 4: echo " |{$currentTile->getWest()}   {$currentTile->getCenter()}   {$currentTile->getEast()}| "; break;
+                        case 4:
+                            echo " |{$currentTile->getWest()}   {$currentTile->getCenter()}   {$currentTile->getEast()}| ";
+                            break;
                         case 2: echo " |    {$currentTile->getSouth()}    | "; break;
                         default: echo " |         | ";
                     }
