@@ -49,5 +49,6 @@ crashlytics-build.properties
 
 #Ignore Composer Dependencies
 /vendor/
+
 #Ignore PHPUnit Test Coverage Output
 /tests/coverage
