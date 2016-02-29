@@ -136,14 +136,43 @@ class Map {
      */
     private function isValidPlacement(Tile $tile, Coordinate $coordinate)
     {
+        //Check position being played on is occupied
         if($this->isOccupied($coordinate)) {
             return false;
         }
+        //Check the position being played on is playable
         if(!$this->isPlayablePosition($coordinate)) {
             return false;
         }
 
-        // @TODO validate tile placement
+        //Check the position being played is a valid move
+        /** @var Coordinate $touchingCoordinate */
+        foreach($coordinate->getTouchingCoordinates() as $key => $touchingCoordinate) {
+            // Continue if the touching coordinate is not occupied, go to next face
+            if(!$this->isOccupied($touchingCoordinate)) {
+                continue;
+            }
+
+            // Get the faces on the tile and touching tile to be matched
+            if($key == 'North') {
+                $tileFace = $tile->getNorth();
+                $matchingFace = $this->tiles[$touchingCoordinate->toHash()]->getSouth();
+            } elseif($key == 'East') {
+                $tileFace = $tile->getEast();
+                $matchingFace = $this->tiles[$touchingCoordinate->toHash()]->getWest();
+            } elseif($key == 'South') {
+                $tileFace = $tile->getSouth();
+                $matchingFace = $this->tiles[$touchingCoordinate->toHash()]->getNorth();
+            } else { //West
+                $tileFace = $tile->getWest();
+                $matchingFace = $this->tiles[$touchingCoordinate->toHash()]->getEast();
+            }
+
+            //If these tile faces don't match, return false
+            if($tileFace != $matchingFace) {
+                return false;
+            }
+        }
 
         return true;
     }

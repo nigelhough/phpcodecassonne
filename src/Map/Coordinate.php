@@ -92,10 +92,10 @@ class Coordinate
     {
         //Return offset coordinates
         return array(
-            new self($this->xCoordinate,      $this->yCoordinate + 1),
-            new self($this->xCoordinate + 1,  $this->yCoordinate),
-            new self($this->xCoordinate,      $this->yCoordinate - 1),
-            new self($this->xCoordinate - 1,  $this->yCoordinate),
+            'North' => new self($this->xCoordinate,      $this->yCoordinate + 1),
+            'East'  => new self($this->xCoordinate + 1,  $this->yCoordinate),
+            'South' => new self($this->xCoordinate,      $this->yCoordinate - 1),
+            'West'  => new self($this->xCoordinate - 1,  $this->yCoordinate),
         );
     }
 
