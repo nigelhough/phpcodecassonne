@@ -54,4 +54,28 @@ class Bag
     {
         return count($this->tiles);
     }
+
+    /**
+     * Shuffle the tiles in the bag
+     * Guarantees the tiles will come back in a different order
+     */
+    public function shuffle()
+    {
+        // If there is less than 2 tiles just return without action
+        if (count($this->tiles) <= 1) {
+            return;
+        }
+
+        // If the array only has 2 elements, just reverse it
+        if (count($this->tiles) == 2) {
+            $this->tiles = array_reverse($this->tiles);
+            return;
+        }
+
+        //If not shuffle the tiles until they are different until the original
+        $unshuffledTiles = $this->tiles;
+        while ($unshuffledTiles === $this->tiles) {
+            shuffle($this->tiles);
+        }
+    }
 }

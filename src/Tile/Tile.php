@@ -95,4 +95,44 @@ class Tile
     {
         return "{$this->north}:{$this->east}:{$this->south}:{$this->west}:{$this->center}";
     }
+
+    /**
+     * @return int
+     */
+    public function getNorth()
+    {
+        return $this->north;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSouth()
+    {
+        return $this->south;
+    }
+
+    /**
+     * @return int
+     */
+    public function getEast()
+    {
+        return $this->east;
+    }
+
+    /**
+     * @return int
+     */
+    public function getWest()
+    {
+        return $this->west;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCenter()
+    {
+        return $this->center;
+    }
 }
