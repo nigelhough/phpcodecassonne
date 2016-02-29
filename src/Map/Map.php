@@ -197,17 +197,17 @@ class Map {
     {
         return array_key_exists($coordinate->toHash(), $this->playablePositions);
     }
-    
+
     /**
      * Draw current state of the map
      */
     public function render()
     {
-        for($x = $this->bottomLeft->getX(); $x <= $this->topRight->getX(); $x++) {
+        for($y = $this->topRight->getY(); $y >= $this->bottomLeft->getY(); $y--) {
 
             for($renderTemp = 7; $renderTemp > 0; $renderTemp--) {
 
-                for($y = $this->bottomLeft->getY(); $y <= $this->topRight->getY(); $y++) {
+                for($x = $this->bottomLeft->getX(); $x <= $this->topRight->getX(); $x++) {
 
                     $currentCoordinate = new Coordinate($x, $y);
 
