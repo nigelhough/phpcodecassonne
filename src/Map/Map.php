@@ -89,18 +89,15 @@ class Map {
     }
 
     /**
-     * Get a random Playable Position
+     * Get a the Playable Position
      * @todo Remove this function it is only temporary while the logic is done here, a player would eventually do this
      *
      * @return Coordinate
      */
-    public function getPlayablePosition()
+    public function getPlayablePositions()
     {
         $playablePositions = $this->playablePositions;
-        shuffle($playablePositions);
-
-        $position = array_shift($playablePositions);
-        return $position;
+        return $playablePositions;
     }
 
     /**
