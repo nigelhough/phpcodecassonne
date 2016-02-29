@@ -7,9 +7,10 @@ namespace Codecassonne\Tile;
  */
 class Tile
 {
-    const TILE_TYPE_GRASS   = 'G';
-    const TILE_TYPE_ROAD    = 'R';
-    const TILE_TYPE_CITY    = 'C';
+    const TILE_TYPE_GRASS     = 'G';
+    const TILE_TYPE_ROAD      = 'R';
+    const TILE_TYPE_CITY      = 'C';
+    const TILE_TYPE_CLOISTER  = 'M';
 
     /** @var  int   Type on Northern face of Tile*/
     private $north;
@@ -55,14 +56,18 @@ class Tile
     public static function createFromString($tileString)
     {
         $faces = explode(':', $tileString);
-        if(count($faces) != 5) {
+        if (count($faces) != 5) {
             throw new \InvalidArgumentException("Invalid format for Tile ({$tileString}).");
         }
 
         //Validate the Faces of the Tile String are Valid
-        foreach($faces as $face) {
-            if(!in_array($face, array(self::TILE_TYPE_GRASS, self::TILE_TYPE_CITY, self::TILE_TYPE_ROAD))) {
+        foreach ($faces as $edge => $face) {
+            if (!in_array($face, array(self::TILE_TYPE_GRASS, self::TILE_TYPE_CITY, self::TILE_TYPE_ROAD, self::TILE_TYPE_CLOISTER))) {
                 throw new \InvalidArgumentException("Invalid format for Tile Face ({$face}).");
+            }
+
+            if ($face == self::TILE_TYPE_CLOISTER && $edge !== 4) {
+                throw new \InvalidArgumentException("Cloister can only exist as the tile centre");
             }
         }
 
