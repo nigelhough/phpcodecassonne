@@ -6,7 +6,7 @@ use Codecassonne\Tile\Tile;
 
 class Map {
 
-    /** @var  array Tiles to represent positioning on the map */
+    /** @var  Tile[] Tiles to represent positioning on the map */
     private $tiles;
 
     /** @var  Coordinate Bottom left coordinate of maps Minimum Bounding Rectangle */
