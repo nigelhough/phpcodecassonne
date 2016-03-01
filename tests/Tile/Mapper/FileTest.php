@@ -36,9 +36,9 @@ class FileTest extends \PHPUnit_Framework_TestCase
     /**
      * Test Constructing a Tile Mapper File
      *
-     * @param string    $testFile                   Test Tile File
-     * @param string    $expectedException          Exception Exception
-     * @param string    $expectedExceptionMessage   Expected Exception Message
+     * @param string $testFile Test Tile File
+     * @param string $expectedException Exception Exception
+     * @param string $expectedExceptionMessage Expected Exception Message
      *
      * @dataProvider constructorProvider
      */
@@ -46,8 +46,9 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $testFile,
         $expectedException,
         $expectedExceptionMessage
-    ) {
-        if($expectedException) {
+    )
+    {
+        if ($expectedException) {
             $this->setExpectedException($expectedException, $expectedExceptionMessage);
         }
         new File($testFile);
@@ -101,10 +102,10 @@ class FileTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param string    $fileContents               Content of Tiles file
-     * @param Tile[]    $expectedTiles              Expected Tiles to be Created
-     * @param string    $expectedException          Exception Exception
-     * @param string    $expectedExceptionMessage   Expected Exception Message
+     * @param string $fileContents Content of Tiles file
+     * @param Tile[] $expectedTiles Expected Tiles to be Created
+     * @param string $expectedException Exception Exception
+     * @param string $expectedExceptionMessage Expected Exception Message
      *
      * @dataProvider findAllProvider
      */
@@ -113,9 +114,10 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $expectedTiles,
         $expectedException,
         $expectedExceptionMessage
-    ) {
+    )
+    {
         //Assert any Expected Exceptions
-        if($expectedException) {
+        if ($expectedException) {
             $this->setExpectedException($expectedException, $expectedExceptionMessage);
         }
 
@@ -129,7 +131,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $tiles = $testFile->findAll();
 
         //Assert Created Tiles are as expected
-        foreach($tiles as $key => $tile) {
+        foreach ($tiles as $key => $tile) {
             $this->assertSame(
                 $expectedTiles[$key]->toString(),
                 $tile->toString()
@@ -140,7 +142,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
     /**
      * Create a temp file and return path
      *
-     * @param string $fileContents  Contents of temp file
+     * @param string $fileContents Contents of temp file
      *
      * @return string
      */

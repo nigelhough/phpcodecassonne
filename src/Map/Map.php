@@ -6,8 +6,11 @@ use Codecassonne\Tile\Tile;
 
 class Map {
 
-    /** @var  array Tiles to represent positioning on the map */
+    /** @var  Tile[] Tiles to represent positioning on the map */
     private $tiles;
+
+    /** @var  Coordinate[] Playable positions on the map */
+    private $playablePositions;
 
     /** @var  Coordinate Bottom left coordinate of maps Minimum Bounding Rectangle */
     private $bottomLeft;
@@ -18,7 +21,7 @@ class Map {
     /**
      * Construct the Map
      *
-     * @param Tile $startingTile    The game starting tile
+     * @param Tile $startingTile The game starting tile
      */
     public function __construct(Tile $startingTile)
     {
@@ -49,6 +52,7 @@ class Map {
 
         $this->tiles[$coordinate->toHash()] = $tile;
         $this->updateMinimumBoundingRectangle($coordinate);
+        $this->updatePlayablePositions($coordinate);
     }
 
     /**
@@ -69,6 +73,54 @@ class Map {
             max(array($coordinate->getX(), $this->topRight->getX())),
             max(array($coordinate->getY(), $this->topRight->getY()))
         );
+    }
+
+    /**
+     * Get a random Playable Position
+     * @todo Remove this function it is only temporary while the logic is done here, a player would eventually do this
+     *
+     * @return Coordinate
+     */
+    public function getPlayablePosition()
+    {
+        $playablePositions = $this->playablePositions;
+        shuffle($playablePositions);
+
+        $position = array_shift($playablePositions);
+        return $position;
+    }
+
+    /**
+     * Update the playable positions on the map based based on a tile laid in a new coordinate
+     *
+     * @param Coordinate $coordinate Coordinate to update Maps Minimum Bounding Rectangle With
+     */
+    private function updatePlayablePositions(Coordinate $coordinate)
+    {
+        // Remove laid coordinate from playable positions
+        if(isset($this->playablePositions[$coordinate->toHash()])) {
+            unset($this->playablePositions[$coordinate->toHash()]);
+        }
+
+        // Add offset positions to playable positions
+        $northCoordinate = new Coordinate($coordinate->getX(), $coordinate->getY() + 1);
+        $eastCoordinate = new Coordinate($coordinate->getX() + 1, $coordinate->getY());
+        $southCoordinate = new Coordinate($coordinate->getX(), $coordinate->getY() - 1);
+        $westCoordinate = new Coordinate($coordinate->getX() - 1, $coordinate->getY());
+
+        if(!isset($this->playablePositions[$northCoordinate->toHash()]) && !$this->isOccupied($northCoordinate)) {
+            $this->playablePositions[$northCoordinate->toHash()] = $northCoordinate;
+        }
+        if(!isset($this->playablePositions[$eastCoordinate->toHash()]) && !$this->isOccupied($eastCoordinate)) {
+            $this->playablePositions[$eastCoordinate->toHash()] = $eastCoordinate;
+        }
+        if(!isset($this->playablePositions[$southCoordinate->toHash()]) && !$this->isOccupied($southCoordinate)) {
+            $this->playablePositions[$southCoordinate->toHash()] = $southCoordinate;
+        }
+        if(!isset($this->playablePositions[$westCoordinate->toHash()]) && !$this->isOccupied($westCoordinate)) {
+            $this->playablePositions[$westCoordinate->toHash()] = $westCoordinate;
+        }
+
     }
 
     /**

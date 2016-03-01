@@ -9,52 +9,52 @@ class CoordinateTest extends \PHPUnit_Framework_TestCase
      */
     public function constructorProvider()
     {
-       return array(
-           /** Valid Coordinates */
-           array(
-               10,
-               06,
-               '',
-               '',
-           ),
-           /** Invalid X Coordinate */
-           array(
-               'Cheese',
-               06,
-               'InvalidArgumentException',
-               'X Coordinate must be an integer',
-           ),
-           /** Invalid X and Y Coordinate. X Fails first */
-           array(
-               'Cheese',
-               'Sticks',
-               'InvalidArgumentException',
-               'X Coordinate must be an integer',
-           ),
-           /** Invalid Y Coordinate */
-           array(
-               10,
-               'Cheese',
-               'InvalidArgumentException',
-               'Y Coordinate must be an integer',
-           ),
-           /** Random Y Coordinate */
-           array(
-               10,
-               new \Exception(),
-               'InvalidArgumentException',
-               'Y Coordinate must be an integer',
-           ),
-       );
+        return array(
+            /** Valid Coordinates */
+            array(
+                10,
+                06,
+                '',
+                '',
+            ),
+            /** Invalid X Coordinate */
+            array(
+                'Cheese',
+                06,
+                'InvalidArgumentException',
+                'X Coordinate must be an integer',
+            ),
+            /** Invalid X and Y Coordinate. X Fails first */
+            array(
+                'Cheese',
+                'Sticks',
+                'InvalidArgumentException',
+                'X Coordinate must be an integer',
+            ),
+            /** Invalid Y Coordinate */
+            array(
+                10,
+                'Cheese',
+                'InvalidArgumentException',
+                'Y Coordinate must be an integer',
+            ),
+            /** Random Y Coordinate */
+            array(
+                10,
+                new \Exception(),
+                'InvalidArgumentException',
+                'Y Coordinate must be an integer',
+            ),
+        );
     }
 
     /**
      * Test Creating Coordinate Objects
      *
-     * @param int       $xCoordinate                X Coordinate
-     * @param int       $yCoordinate                Y Coordinate
-     * @param string    $expectedException          Exception Exception
-     * @param string    $expectedExceptionMessage   Expected Exception Message
+     * @param int $xCoordinate X Coordinate
+     * @param int $yCoordinate Y Coordinate
+     * @param string $expectedException Exception Exception
+     * @param string $expectedExceptionMessage Expected Exception Message
      *
      * @dataProvider constructorProvider
      */
@@ -63,9 +63,9 @@ class CoordinateTest extends \PHPUnit_Framework_TestCase
         $yCoordinate,
         $expectedException,
         $expectedExceptionMessage
-    ) {
-        if($expectedException)
-        {
+    )
+    {
+        if ($expectedException) {
             $this->setExpectedException($expectedException, $expectedExceptionMessage);
         }
 
@@ -164,11 +164,11 @@ class CoordinateTest extends \PHPUnit_Framework_TestCase
     /**
      * Test the To String function
      *
-     * @param Coordinate    $testCoordinate     Coordinate to test
-     * @param string        $expectedString     Expected string response
-     * @param string        $expectedHash       Expected hash response
-     * @param int           $expectedX          Expected X Coordinate
-     * @param int           $expectedY          Expected Y Coordinate
+     * @param Coordinate $testCoordinate Coordinate to test
+     * @param string $expectedString Expected string response
+     * @param string $expectedHash Expected hash response
+     * @param int $expectedX Expected X Coordinate
+     * @param int $expectedY Expected Y Coordinate
      *
      * @dataProvider    coordinateProvider
      */
@@ -178,7 +178,8 @@ class CoordinateTest extends \PHPUnit_Framework_TestCase
         $expectedHash,
         $expectedX,
         $expectedY
-    ) {
+    )
+    {
         /** Test To String Function */
         $this->assertSame($expectedString, $testCoordinate->toString());
 
@@ -234,9 +235,9 @@ class CoordinateTest extends \PHPUnit_Framework_TestCase
     /**
      * Test Coordinate Is Equal function
      *
-     * @param Coordinate    $testCoordinate1    First Test Coordinate
-     * @param Coordinate    $testCoordinate2    First Test Coordinate
-     * @param bool          $coordinatesMatch   Do the Coordinates Match
+     * @param Coordinate $testCoordinate1 First Test Coordinate
+     * @param Coordinate $testCoordinate2 First Test Coordinate
+     * @param bool $coordinatesMatch Do the Coordinates Match
      *
      * @dataProvider coordinateISEqualProvider
      */
@@ -244,7 +245,8 @@ class CoordinateTest extends \PHPUnit_Framework_TestCase
         Coordinate $testCoordinate1,
         Coordinate $testCoordinate2,
         $coordinatesMatch
-    ) {
+    )
+    {
 
         /** Test Coordinate 1 is equal to itself */
         $this->assertTrue($testCoordinate1->isEqual($testCoordinate1));
@@ -252,7 +254,7 @@ class CoordinateTest extends \PHPUnit_Framework_TestCase
         /** Test Coordinate 2 is equal to itself */
         $this->assertTrue($testCoordinate2->isEqual($testCoordinate2));
 
-        if($coordinatesMatch) {
+        if ($coordinatesMatch) {
             /** Test Coordinate 1 is equal to Coordinate2 */
             $this->assertTrue($testCoordinate1->isEqual($testCoordinate2));
         } else {
