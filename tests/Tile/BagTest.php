@@ -45,22 +45,17 @@ class BagTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test isEmpy method
+     * Test Tile Quantity functions isEmpy and getTileCount methods
+     *
+     * @param Bag   $bag        Bag to test
+     * @param bool  $isEmpty    Is the bag expected to be empty
+     * @param int   $tileCount  No of tiles expected in the bag
      *
      * @dataProvider bagProvider
      */
-    public function testIsEmpty(Bag $bag, $isEmpty, $tileCount)
+    public function testTileQuantity(Bag $bag, $isEmpty, $tileCount)
     {
         $this->assertEquals($bag->isEmpty(), $isEmpty);
-    }
-
-    /**
-     * Test getTileCount method
-     *
-     * @dataProvider bagProvider
-     */
-    public function testGetTileCount(Bag $bag, $isEmpty, $tileCount)
-    {
         $this->assertEquals($bag->getTileCount(), $tileCount);
     }
 
