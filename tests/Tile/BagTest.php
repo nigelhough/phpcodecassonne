@@ -67,6 +67,10 @@ class BagTest extends \PHPUnit_Framework_TestCase
     /**
      * Test put and drawFrom methods
      *
+     * @param Bag   $bag        Bag of tiles to put and draw from
+     * @param bool  $isEmpty    Is the bag expected to be empty at the end
+     * @param int   $tileCount  The starting Tile count
+     *
      * @dataProvider bagProvider
      */
     public function testPutAndDrawFrom(Bag $bag, $isEmpty, $tileCount)
@@ -107,5 +111,70 @@ class BagTest extends \PHPUnit_Framework_TestCase
         $emptyBag = $this->generateBag(0);
         $this->setExpectedException("Exception");
         $emptyBag->drawFrom();
+    }
+
+    /**
+     * Data provider for the shuffle test
+     *
+     * @return array
+     */
+    public function shuffleProvider()
+    {
+        return array(
+            array(0, true),
+            array(1, true),
+            array(2, false),
+            array(3, false),
+        );
+    }
+
+    /**
+     * Test shuffling the bag of tiles, function guarantees a different order for arrays with a length >= 2
+     * Checks the array length and object Ids to ensure objects are not altered in the function
+     *
+     * @param int   $bagSize                Bag Size to test
+     * @param bool  $expectedMatchingOrder  Are tiles expected to be in the same order
+     *
+     * @dataProvider shuffleProvider
+     */
+    public function testBagShuffle($bagSize, $expectedMatchingOrder)
+    {
+        $bagReflection = new \ReflectionClass('Codecassonne\Tile\Bag');
+        $tilesReflection = $bagReflection->getProperty('tiles');
+        $tilesReflection->setAccessible(true);
+
+        //Create a bag of tiles
+        $bag = $this->generateBag($bagSize);
+
+        //Get the Bag Tiles
+        $unshuffledTiles = $tilesReflection->getValue($bag);
+        $unshuffledTileHashes = array_map(function($tile) { return spl_object_hash($tile);}, $unshuffledTiles);
+
+        //Shuffle Bag
+        $bag->shuffle();
+
+        //Get the Shuffled Tiles
+        $shuffledTiles = $tilesReflection->getValue($bag);
+        $shuffledTileHashes = array_map(function($tile) { return spl_object_hash($tile);}, $shuffledTiles);
+
+        //Assert the bag size is the same
+        $this->assertEquals(count($unshuffledTiles), count($shuffledTiles));
+
+        if($expectedMatchingOrder) {
+            //Assert the shuffled tiles is in the same order as the un-shuffled
+            $this->assertSame($unshuffledTileHashes, $shuffledTileHashes);
+        } else {
+            //Assert the shuffled tiles is not the same order as the un-shuffled
+            $this->assertNotSame($unshuffledTileHashes, $shuffledTileHashes);
+        }
+
+        //Sort the Tile hashes
+        sort($shuffledTileHashes);
+        sort($unshuffledTileHashes);
+
+        //Assert the Tile object hashes are the same once sorted, the original tiles haven't been affected
+        $this->assertSame($unshuffledTileHashes, $shuffledTileHashes);
+
+
     }
 }

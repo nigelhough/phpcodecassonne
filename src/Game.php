@@ -1,8 +1,10 @@
 <?php
 
 namespace Codecassonne;
+use Codecassonne\Map\Map;
 use Codecassonne\Tile\Bag;
-use Codecassonne\Tile\Mapper\File as Mapper;
+use Codecassonne\Tile\Mapper\MapperInterface as Mapper;
+use Codecassonne\Map\Coordinate;
 
 /**
  * Class Game
@@ -11,6 +13,8 @@ use Codecassonne\Tile\Mapper\File as Mapper;
  */
 class Game
 {
+    /** @var Map    The map to lay tiles on  */
+    private $map;
 
     /** @var Bag   A bag to hold our Tiles */
     private $bag;
@@ -34,11 +38,20 @@ class Game
     public function run()
     {
         $this->init();
-
+        $xCoord = 0;
+        $yCoord = 1;
         while (!$this->bag->isEmpty()) {
             $currentTile = $this->bag->drawFrom();
+
+            $this->map->place($currentTile, new Coordinate($xCoord, $yCoord));
+            if (rand(1, 10)%2 == 0) {
+                $xCoord++;
+            } else {
+                $yCoord++;
+            }
             echo $currentTile->toString() . ', ' . $this->bag->getTileCount() . ' remaining.' . PHP_EOL;
         }
+        $this->map->render();
     }
 
     /**
@@ -47,12 +60,19 @@ class Game
      */
     private function init()
     {
+        //Create and fill bag of Tiles
         $this->bag = new Bag();
-
         $tiles = $this->tileMapper->findAll();
-
         foreach($tiles as $tile) {
             $this->bag->put($tile);
         }
+
+        //Get the starting Tile
+        $startingTile = $this->bag->drawFrom();
+
+        //Create new game map
+        $this->map = new Map($startingTile);
+
+        $this->bag->shuffle();
     }
 }
