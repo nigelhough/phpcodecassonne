@@ -1,10 +1,10 @@
 <?php
 
 //Autoload application
-require __DIR__ . '/vendor/autoload.php';
+require dirname(__DIR__) . '/vendor/autoload.php';
 
 //Create Tile Mapper
-$mapper = new \Codecassonne\Tile\Mapper\File(__DIR__ . '/tiles.ini');
+$mapper = new \Codecassonne\Tile\Mapper\File(dirname(__DIR__) . '/tiles.ini');
 
 //Initialise Game and Run It
 $game = new Codecassonne\Game($mapper);
