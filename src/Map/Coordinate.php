@@ -7,23 +7,23 @@ namespace Codecassonne\Map;
  */
 class Coordinate
 {
-    /** @var int $xCoordinate    X Coordinate */
+    /** @var int $xCoordinate X Coordinate */
     protected $xCoordinate;
 
-    /** @var int $yCoordinate    Y Coordinate */
+    /** @var int $yCoordinate Y Coordinate */
     protected $yCoordinate;
 
     /**
-     * @param int $xCoordinate   X Coordinate
-     * @param int $yCoordinate   Y Coordinate
+     * @param int $xCoordinate X Coordinate
+     * @param int $yCoordinate Y Coordinate
      */
     public function __construct($xCoordinate, $yCoordinate)
     {
         //Validate Passed Parameters
-        if(!is_int($xCoordinate)) {
+        if (!is_int($xCoordinate)) {
             throw new \InvalidArgumentException("X Coordinate must be an integer");
         }
-        if(!is_int($yCoordinate)) {
+        if (!is_int($yCoordinate)) {
             throw new \InvalidArgumentException("Y Coordinate must be an integer");
         }
 
@@ -54,7 +54,7 @@ class Coordinate
     /**
      * Compares this to another coordinate
      *
-     * @param self $coordinate  Other Coordinate to compare with
+     * @param self $coordinate Other Coordinate to compare with
      *
      * @return bool
      */
@@ -92,10 +92,10 @@ class Coordinate
     {
         //Return offset coordinates
         return array(
-            'North' => new self($this->xCoordinate,      $this->yCoordinate + 1),
-            'East'  => new self($this->xCoordinate + 1,  $this->yCoordinate),
-            'South' => new self($this->xCoordinate,      $this->yCoordinate - 1),
-            'West'  => new self($this->xCoordinate - 1,  $this->yCoordinate),
+            'North' => new self($this->xCoordinate, $this->yCoordinate + 1),
+            'East' => new self($this->xCoordinate + 1, $this->yCoordinate),
+            'South' => new self($this->xCoordinate, $this->yCoordinate - 1),
+            'West' => new self($this->xCoordinate - 1, $this->yCoordinate),
         );
     }
 
