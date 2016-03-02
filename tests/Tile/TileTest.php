@@ -157,6 +157,10 @@ class TileTest extends \PHPUnit_Framework_TestCase
             array(
                 Tile::TILE_TYPE_ROAD."A:".Tile::TILE_TYPE_ROAD."B:".Tile::TILE_TYPE_ROAD."C:".Tile::TILE_TYPE_ROAD."D:".Tile::TILE_TYPE_GRASS,
             ),
+            /** Invalid positioning for cloister */
+            array(
+                Tile::TILE_TYPE_CLOISTER.":".Tile::TILE_TYPE_GRASS.":".Tile::TILE_TYPE_GRASS.":".Tile::TILE_TYPE_GRASS.":".Tile::TILE_TYPE_GRASS,
+            )
         );
     }
 
@@ -211,6 +215,17 @@ class TileTest extends \PHPUnit_Framework_TestCase
                     Tile::TILE_TYPE_ROAD,
                 ),
                 Tile::TILE_TYPE_GRASS.":".Tile::TILE_TYPE_ROAD.":".Tile::TILE_TYPE_CITY.":".Tile::TILE_TYPE_GRASS.":".Tile::TILE_TYPE_ROAD,
+            ),
+            /** Cloister */
+            array(
+                array(
+                    Tile::TILE_TYPE_GRASS,
+                    Tile::TILE_TYPE_GRASS,
+                    Tile::TILE_TYPE_GRASS,
+                    Tile::TILE_TYPE_GRASS,
+                    Tile::TILE_TYPE_CLOISTER,
+                ),
+                Tile::TILE_TYPE_GRASS.":".Tile::TILE_TYPE_GRASS.":".Tile::TILE_TYPE_GRASS.":".Tile::TILE_TYPE_GRASS.":".Tile::TILE_TYPE_CLOISTER,
             ),
         );
     }
