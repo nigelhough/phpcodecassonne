@@ -75,61 +75,66 @@ class MapTest extends \PHPUnit_Framework_TestCase
         return array(
             array(
                 Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
-                " ----------- " . PHP_EOL .
-                " |    G    | " . PHP_EOL .
-                " |         | " . PHP_EOL .
-                " |R   R   R| " . PHP_EOL .
-                " |         | " . PHP_EOL .
-                " |    C    | " . PHP_EOL .
-                " ----------- " . PHP_EOL .
+                "          0      " . PHP_EOL .
+                "     ----------- " . PHP_EOL .
+                "     |    G    | " . PHP_EOL .
+                "     |         | " . PHP_EOL .
+                "0    |R   R   R| " . PHP_EOL .
+                "     |         | " . PHP_EOL .
+                "     |    C    | " . PHP_EOL .
+                "     ----------- " . PHP_EOL .
                 "" . PHP_EOL .
                 "",
             ),
             array(
                 Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
-                " ----------- " . PHP_EOL .
-                " |    G    | " . PHP_EOL .
-                " |         | " . PHP_EOL .
-                " |G   G   G| " . PHP_EOL .
-                " |         | " . PHP_EOL .
-                " |    G    | " . PHP_EOL .
-                " ----------- " . PHP_EOL .
+                "          0      " . PHP_EOL .
+                "     ----------- " . PHP_EOL .
+                "     |    G    | " . PHP_EOL .
+                "     |         | " . PHP_EOL .
+                "0    |G   G   G| " . PHP_EOL .
+                "     |         | " . PHP_EOL .
+                "     |    G    | " . PHP_EOL .
+                "     ----------- " . PHP_EOL .
                 "" . PHP_EOL .
                 "",
             ),
             array(
                 Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
-                " ----------- " . PHP_EOL .
-                " |    R    | " . PHP_EOL .
-                " |         | " . PHP_EOL .
-                " |R   R   R| " . PHP_EOL .
-                " |         | " . PHP_EOL .
-                " |    R    | " . PHP_EOL .
-                " ----------- " . PHP_EOL .
+                "          0      " . PHP_EOL .
+                "     ----------- " . PHP_EOL .
+                "     |    R    | " . PHP_EOL .
+                "     |         | " . PHP_EOL .
+                "0    |R   R   R| " . PHP_EOL .
+                "     |         | " . PHP_EOL .
+                "     |    R    | " . PHP_EOL .
+                "     ----------- " . PHP_EOL .
                 "" . PHP_EOL .
                 "",
             ),
             array(
                 Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                " ----------- " . PHP_EOL .
-                " |    C    | " . PHP_EOL .
-                " |         | " . PHP_EOL .
-                " |C   C   C| " . PHP_EOL .
-                " |         | " . PHP_EOL .
-                " |    C    | " . PHP_EOL .
-                " ----------- " . PHP_EOL .
+                "          0      " . PHP_EOL .
+                "     ----------- " . PHP_EOL .
+                "     |    C    | " . PHP_EOL .
+                "     |         | " . PHP_EOL .
+                "0    |C   C   C| " . PHP_EOL .
+                "     |         | " . PHP_EOL .
+                "     |    C    | " . PHP_EOL .
+                "     ----------- " . PHP_EOL .
                 "" . PHP_EOL .
                 "",
             ),
             array(
                 Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS),
-                " ----------- " . PHP_EOL .
-                " |    C    | " . PHP_EOL .
-                " |         | " . PHP_EOL .
-                " |C   G   C| " . PHP_EOL .
-                " |         | " . PHP_EOL .
-                " |    C    | " . PHP_EOL .
-                " ----------- " . PHP_EOL .
+                "          0      " . PHP_EOL .
+                "     ----------- " . PHP_EOL .
+                "     |    C    | " . PHP_EOL .
+                "     |         | " . PHP_EOL .
+                "0    |C   G   C| " . PHP_EOL .
+                "     |         | " . PHP_EOL .
+                "     |    C    | " . PHP_EOL .
+                "     ----------- " . PHP_EOL .
                 "" . PHP_EOL .
                 "",
             ),
@@ -174,20 +179,21 @@ class MapTest extends \PHPUnit_Framework_TestCase
         );
 
         $expectedOutput =
-            " -----------  ----------- " . PHP_EOL .
-            " |    G    |  |    C    | " . PHP_EOL .
-            " |         |  |         | " . PHP_EOL .
-            " |R   R   R|  |R   R   R| " . PHP_EOL .
-            " |         |  |         | " . PHP_EOL .
-            " |    C    |  |    G    | " . PHP_EOL .
-            " -----------  ----------- " . PHP_EOL .
-            "              ----------- " . PHP_EOL .
-            "              |    G    | " . PHP_EOL .
-            "              |         | " . PHP_EOL .
-            "              |R   R   R| " . PHP_EOL .
-            "              |         | " . PHP_EOL .
-            "              |    G    | " . PHP_EOL .
-            "              ----------- " . PHP_EOL . PHP_EOL;
+            "          0            1      " . PHP_EOL .
+            "     -----------  ----------- " . PHP_EOL .
+            "     |    C    |  |    G    | " . PHP_EOL .
+            "     |         |  |         | " . PHP_EOL .
+            "1    |R   R   R|  |R   R   R| " . PHP_EOL .
+            "     |         |  |         | " . PHP_EOL .
+            "     |    G    |  |    G    | " . PHP_EOL .
+            "     -----------  ----------- " . PHP_EOL .
+            "     -----------              " . PHP_EOL .
+            "     |    G    |              " . PHP_EOL .
+            "     |         |              " . PHP_EOL .
+            "0    |R   R   R|              " . PHP_EOL .
+            "     |         |              " . PHP_EOL .
+            "     |    C    |              " . PHP_EOL .
+            "     -----------              " . PHP_EOL . PHP_EOL;
 
         //Assert the Output was as expected
         $this->assertSame($expectedOutput, $this->getRenderedMap($map));
