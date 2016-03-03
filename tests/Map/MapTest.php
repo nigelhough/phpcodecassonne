@@ -764,4 +764,27 @@ class MapTest extends \PHPUnit_Framework_TestCase
             $this->assertSame('Invalid tile placement', $exception->getMessage());
         }
     }
+
+    /**
+     * Test the get Playable Positions
+     */
+    public function testPlayablePositions()
+    {
+        $grass = Tile::TILE_TYPE_GRASS;
+
+        //Create Map
+        $map = new Map(Tile::createFromString("{$grass}:{$grass}:{$grass}:{$grass}:{$grass}"));
+        //Make Map properties accessible
+        $mapReflection = new \ReflectionClass('Codecassonne\Map\Map');
+        $playablePositionsReflection = $mapReflection->getProperty('playablePositions');
+        $playablePositionsReflection->setAccessible(true);
+
+        //Set the Bag Tiles
+        $playablePositionsReflection->setValue($map, array(1, 2, 3));
+
+        $this->assertSame(
+            array(1, 2, 3),
+            $map->getPlayablePositions()
+        );
+    }
 }
