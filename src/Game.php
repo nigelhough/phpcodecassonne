@@ -44,10 +44,22 @@ class Game
 
         while (!$this->bag->isEmpty()) {
             $currentTile = $this->bag->drawFrom();
-
-            $playPosition = $this->map->getPlayablePosition();
-
-            $this->map->place($currentTile, $playPosition);
+            $playPositions = $this->map->getPlayablePositions();
+            // Loop over playable positions
+            foreach($playPositions as $position) {
+                //Loop over orientations
+                for($i = 0; $i < 4; $i++) {
+                    // Rotate tile
+                    $currentTile->rotate();
+                    try {
+                        $this->map->place($currentTile, $position);
+                        //If successfully placed, break out of rotation loop and positions loop
+                        break 2;
+                    } catch(\Exception $e) {
+                        echo 'Invalid Tile' . PHP_EOL;
+                    }
+                }
+            }
 
             echo `clear`;
             echo $currentTile->toString() . ', ' . $this->bag->getTileCount() . ' remaining.' . PHP_EOL;

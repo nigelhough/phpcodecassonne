@@ -7,16 +7,16 @@ use Codecassonne\Tile\Tile;
 class Map {
 
     /** @var  Tile[] Tiles to represent positioning on the map */
-    private $tiles;
+    private $tiles = array();
 
     /** @var  Coordinate[] Playable positions on the map */
-    private $playablePositions;
+    private $playablePositions = array();
 
     /** @var  Coordinate Bottom left coordinate of maps Minimum Bounding Rectangle */
-    private $bottomLeft;
+    private $bottomLeft = 0;
 
     /** @var  Coordinate Top right coordinate of maps Minimum Bounding Rectangle */
-    private $topRight;
+    private $topRight = 0;
 
     /**
      * Construct the Map
@@ -33,11 +33,11 @@ class Map {
         $this->topRight = $startingCoordinate;
 
         //Place the starting tile
-        $this->place($startingTile, $startingCoordinate);
+        $this->addTile($startingTile, $startingCoordinate);
     }
 
     /**
-     * Place a tile on the map
+     * Attempt to place a tile on the map
      *
      * @param Tile          $tile       Tile to lay
      * @param Coordinate    $coordinate Coordinate to lay place in
@@ -50,6 +50,19 @@ class Map {
             throw new \Exception("Invalid tile placement");
         }
 
+        $this->addTile($tile, $coordinate);
+    }
+
+    /**
+     * Add tile to the map tiles and update map details
+     *
+     * @param Tile          $tile       Tile to lay
+     * @param Coordinate    $coordinate Coordinate to lay place in
+     *
+     * @throws \Exception
+     */
+    private function addTile(Tile $tile, Coordinate $coordinate)
+    {
         $this->tiles[$coordinate->toHash()] = $tile;
         $this->updateMinimumBoundingRectangle($coordinate);
         $this->updatePlayablePositions($coordinate);
@@ -76,18 +89,15 @@ class Map {
     }
 
     /**
-     * Get a random Playable Position
+     * Get a the Playable Position
      * @todo Remove this function it is only temporary while the logic is done here, a player would eventually do this
      *
      * @return Coordinate
      */
-    public function getPlayablePosition()
+    public function getPlayablePositions()
     {
         $playablePositions = $this->playablePositions;
-        shuffle($playablePositions);
-
-        $position = array_shift($playablePositions);
-        return $position;
+        return $playablePositions;
     }
 
     /**
@@ -102,25 +112,15 @@ class Map {
             unset($this->playablePositions[$coordinate->toHash()]);
         }
 
-        // Add offset positions to playable positions
-        $northCoordinate = new Coordinate($coordinate->getX(), $coordinate->getY() + 1);
-        $eastCoordinate = new Coordinate($coordinate->getX() + 1, $coordinate->getY());
-        $southCoordinate = new Coordinate($coordinate->getX(), $coordinate->getY() - 1);
-        $westCoordinate = new Coordinate($coordinate->getX() - 1, $coordinate->getY());
-
-        if(!isset($this->playablePositions[$northCoordinate->toHash()]) && !$this->isOccupied($northCoordinate)) {
-            $this->playablePositions[$northCoordinate->toHash()] = $northCoordinate;
+        /** @var Coordinate $touchingCoordinate */
+        foreach($coordinate->getTouchingCoordinates() as $touchingCoordinate) {
+            if(
+                !isset($this->playablePositions[$touchingCoordinate->toHash()]) &&
+                !$this->isOccupied($touchingCoordinate)
+            ) {
+                $this->playablePositions[$touchingCoordinate->toHash()] = $touchingCoordinate;
+            }
         }
-        if(!isset($this->playablePositions[$eastCoordinate->toHash()]) && !$this->isOccupied($eastCoordinate)) {
-            $this->playablePositions[$eastCoordinate->toHash()] = $eastCoordinate;
-        }
-        if(!isset($this->playablePositions[$southCoordinate->toHash()]) && !$this->isOccupied($southCoordinate)) {
-            $this->playablePositions[$southCoordinate->toHash()] = $southCoordinate;
-        }
-        if(!isset($this->playablePositions[$westCoordinate->toHash()]) && !$this->isOccupied($westCoordinate)) {
-            $this->playablePositions[$westCoordinate->toHash()] = $westCoordinate;
-        }
-
     }
 
     /**
@@ -133,11 +133,43 @@ class Map {
      */
     private function isValidPlacement(Tile $tile, Coordinate $coordinate)
     {
+        //Check position being played on is occupied
         if($this->isOccupied($coordinate)) {
             return false;
         }
+        //Check the position being played on is playable
+        if(!$this->isPlayablePosition($coordinate)) {
+            return false;
+        }
 
-        // @TODO validate tile placement
+        //Check the position being played is a valid move
+        /** @var Coordinate $touchingCoordinate */
+        foreach($coordinate->getTouchingCoordinates() as $key => $touchingCoordinate) {
+            // Continue if the touching coordinate is not occupied, go to next face
+            if(!$this->isOccupied($touchingCoordinate)) {
+                continue;
+            }
+
+            // Get the faces on the tile and touching tile to be matched
+            if($key == 'North') {
+                $tileFace = $tile->getNorth();
+                $matchingFace = $this->tiles[$touchingCoordinate->toHash()]->getSouth();
+            } elseif($key == 'East') {
+                $tileFace = $tile->getEast();
+                $matchingFace = $this->tiles[$touchingCoordinate->toHash()]->getWest();
+            } elseif($key == 'South') {
+                $tileFace = $tile->getSouth();
+                $matchingFace = $this->tiles[$touchingCoordinate->toHash()]->getNorth();
+            } else { //West
+                $tileFace = $tile->getWest();
+                $matchingFace = $this->tiles[$touchingCoordinate->toHash()]->getEast();
+            }
+
+            //If these tile faces don't match, return false
+            if($tileFace != $matchingFace) {
+                return false;
+            }
+        }
 
         return true;
     }
@@ -153,18 +185,39 @@ class Map {
     {
         return array_key_exists($coordinate->toHash(), $this->tiles);
     }
-    
+
+    /*
+     * Check if a coordinate is in the playable positions array
+     *
+     * @param Coordinate $coordinate    Position to check is occupied
+     *
+     * @returns bool
+     */
+    private function isPlayablePosition(Coordinate $coordinate)
+    {
+        return array_key_exists($coordinate->toHash(), $this->playablePositions);
+    }
+
     /**
      * Draw current state of the map
      */
     public function render()
     {
+        echo '    ';
         for($x = $this->bottomLeft->getX(); $x <= $this->topRight->getX(); $x++) {
+            echo str_pad($x, 13, ' ', STR_PAD_BOTH);
+        }
+        echo PHP_EOL;
 
+        for($y = $this->topRight->getY(); $y >= $this->bottomLeft->getY(); $y--) {
             for($renderTemp = 7; $renderTemp > 0; $renderTemp--) {
+                if ($renderTemp == 4) {
+                    echo str_pad($y, 4, ' ', STR_PAD_RIGHT);
+                } else {
+                    echo '    ';
+                }
 
-                for($y = $this->bottomLeft->getY(); $y <= $this->topRight->getY(); $y++) {
-
+                for($x = $this->bottomLeft->getX(); $x <= $this->topRight->getX(); $x++) {
                     $currentCoordinate = new Coordinate($x, $y);
 
                     if(!$this->isOccupied($currentCoordinate)) {
@@ -180,7 +233,9 @@ class Map {
                     $currentTile = $this->tiles[$currentCoordinate->toHash()];
                     switch($renderTemp) {
                         case 6: echo " |    {$currentTile->getNorth()}    | "; break;
-                        case 4: echo " |{$currentTile->getWest()}   {$currentTile->getCenter()}   {$currentTile->getEast()}| "; break;
+                        case 4:
+                            echo " |{$currentTile->getWest()}   {$currentTile->getCenter()}   {$currentTile->getEast()}| ";
+                            break;
                         case 2: echo " |    {$currentTile->getSouth()}    | "; break;
                         default: echo " |         | ";
                     }
