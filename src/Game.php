@@ -5,6 +5,8 @@ namespace Codecassonne;
 use Codecassonne\Map\Map;
 use Codecassonne\Tile\Bag;
 use Codecassonne\Tile\Mapper\MapperInterface as Mapper;
+use Codecassonne\Turn\Action;
+use Codecassonne\Turn\PlayerInterface as Player;
 
 /**
  * Class Game
@@ -21,15 +23,21 @@ class Game
 
     /** @var Mapper     A Mapper to get Tile Data from */
     private $tileMapper;
+    /**
+     * @var Player
+     */
+    private $player;
 
     /**
      * Construct the Game
      *
      * @param Mapper $tileMapper A Mapper to get Tile Data from
+     * @param Player $player
      */
-    public function __construct(Mapper $tileMapper)
+    public function __construct(Mapper $tileMapper, Player $player)
     {
         $this->tileMapper = $tileMapper;
+        $this->player = $player;
     }
 
     /**
@@ -38,27 +46,16 @@ class Game
     public function run()
     {
         $this->init();
-
         $this->map->render(false, 400000);
 
         while (!$this->bag->isEmpty()) {
             $currentTile = $this->bag->drawFrom();
-            $playPositions = $this->map->getPlayablePositions();
-            shuffle($playPositions);
-            // Loop over playable positions
-            foreach ($playPositions as $position) {
-                //Loop over orientations
-                for ($i = 0; $i < 4; $i++) {
-                    // Rotate tile
-                    try {
-                        $this->map->place($currentTile, $position);
-                        //If successfully placed, break out of rotation loop and positions loop
-                        break 2;
-                    } catch (\Exception $e) {
-                        $currentTile->rotate();
-                    }
-                }
+
+            $action = $this->player->playTurn(clone $this->map, clone $currentTile);
+            if (!$action instanceof Action) {
+                throw new \Exception('Player instance must return Action');
             }
+            $action->run($this->map, $currentTile);
 
             $this->map->render(false, 400000);
         }
