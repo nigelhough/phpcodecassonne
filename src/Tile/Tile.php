@@ -104,6 +104,23 @@ class Tile
     }
 
     /**
+     * Rotate tile to a given orientation
+     *
+     * @param int $rotation
+     */
+    public function rotateTo($rotation)
+    {
+        if ($rotation % 90 !== 0) {
+            throw new \InvalidArgumentException('Rotation must be in steps of 90');
+        }
+        $rotation %= 360;
+
+        while ($this->rotation !== $rotation) {
+            $this->rotate();
+        }
+    }
+
+    /**
      * Convert Tile Faces to String
      */
     public function toString()
