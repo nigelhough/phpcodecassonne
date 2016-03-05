@@ -20,14 +20,6 @@ class Coordinate
      */
     public function __construct(int $xCoordinate, int $yCoordinate)
     {
-        //Validate Passed Parameters
-        if(!is_int($xCoordinate)) {
-            throw new \InvalidArgumentException("X Coordinate must be an integer");
-        }
-        if(!is_int($yCoordinate)) {
-            throw new \InvalidArgumentException("Y Coordinate must be an integer");
-        }
-
         $this->xCoordinate = $xCoordinate;
         $this->yCoordinate = $yCoordinate;
     }
