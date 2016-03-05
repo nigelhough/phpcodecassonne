@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Codecassonne\Tile\Mapper;
 use Codecassonne\Tile\Tile;
@@ -16,7 +17,7 @@ Class File implements MapperInterface
      *
      * @param string    $tileConfigPath Path to Tile configuration File
      */
-    public function __construct($tileConfigPath)
+    public function __construct(string $tileConfigPath)
     {
         // Validate Configuration file
         if (!file_exists($tileConfigPath)) {
@@ -34,7 +35,7 @@ Class File implements MapperInterface
      *
      * @returns Tile[]
      */
-    public function findAll()
+    public function findAll(): array
     {
         // Parse the config File
         $tileDetails = parse_ini_file($this->tileConfigPath);

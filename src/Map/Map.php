@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Codecassonne\Map;
 
@@ -79,9 +80,9 @@ class Map {
      * Get a random Playable Position
      * @todo Remove this function it is only temporary while the logic is done here, a player would eventually do this
      *
-     * @return Coordinate
+     * @return Coordinate[]
      */
-    public function getPlayablePosition()
+    public function getPlayablePositions(): array
     {
         $playablePositions = $this->playablePositions;
         shuffle($playablePositions);
@@ -131,7 +132,7 @@ class Map {
      *
      * @return bool
      */
-    private function isValidPlacement(Tile $tile, Coordinate $coordinate)
+    private function isValidPlacement(Tile $tile, Coordinate $coordinate): bool
     {
         if($this->isOccupied($coordinate)) {
             return false;
@@ -149,11 +150,11 @@ class Map {
      *
      * @return bool
      */
-    private function isOccupied(Coordinate $coordinate)
+    private function isOccupied(Coordinate $coordinate): bool
     {
         return array_key_exists($coordinate->toHash(), $this->tiles);
     }
-    
+
     /**
      * Draw current state of the map
      */

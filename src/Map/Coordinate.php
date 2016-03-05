@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Codecassonne\Map;
 
@@ -17,7 +18,7 @@ class Coordinate
      * @param int $xCoordinate   X Coordinate
      * @param int $yCoordinate   Y Coordinate
      */
-    public function __construct($xCoordinate, $yCoordinate)
+    public function __construct(int $xCoordinate, int $yCoordinate)
     {
         //Validate Passed Parameters
         if(!is_int($xCoordinate)) {
@@ -36,7 +37,7 @@ class Coordinate
      *
      * @return string
      */
-    public function toString()
+    public function toString(): string
     {
         return $this->xCoordinate . ',' . $this->yCoordinate;
     }
@@ -46,7 +47,7 @@ class Coordinate
      *
      * @return string
      */
-    public function toHash()
+    public function toHash(): string
     {
         return md5($this->toString());
     }
@@ -58,7 +59,7 @@ class Coordinate
      *
      * @return bool
      */
-    public function isEqual(self $coordinate)
+    public function isEqual(self $coordinate): bool
     {
         return ($this->toHash() === $coordinate->toHash());
     }
@@ -68,7 +69,7 @@ class Coordinate
      *
      * @return int
      */
-    public function getX()
+    public function getX(): int
     {
         return $this->xCoordinate;
     }
@@ -78,7 +79,7 @@ class Coordinate
      *
      * @return int
      */
-    public function getY()
+    public function getY(): int
     {
         return $this->yCoordinate;
     }

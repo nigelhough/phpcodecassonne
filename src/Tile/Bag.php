@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Codecassonne\Tile;
 
@@ -27,7 +28,7 @@ class Bag
      *
      * @throws \Exception
      */
-    public function drawFrom()
+    public function drawFrom(): Tile
     {
         if($this->isEmpty()) {
             throw new \Exception("The bag is empty");
@@ -40,7 +41,7 @@ class Bag
      *
      * @return bool
      */
-    public function isEmpty()
+    public function isEmpty(): bool
     {
         return empty($this->tiles);
     }
@@ -50,7 +51,7 @@ class Bag
      *
      * @return int
      */
-    public function getTileCount()
+    public function getTileCount(): int
     {
         return count($this->tiles);
     }
