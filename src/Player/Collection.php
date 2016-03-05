@@ -25,7 +25,17 @@ class Collection
     {
         $this->players = $players;
 
-        $this->current = count($players);
+        $this->current = count($players) - 1;
+    }
+
+    /**
+     * Get amount of players
+     *
+     * @return int
+     */
+    public function getPlayerCount()
+    {
+        return count($this->players);
     }
 
     /**
