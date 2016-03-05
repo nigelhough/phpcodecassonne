@@ -5,7 +5,7 @@ namespace Codecassonne\Player;
 use Codecassonne\Map\Map;
 use Codecassonne\Tile\Tile;
 use Codecassonne\Turn\Action;
-use Codecassonne\Turn\PlayerInterface;
+use Codecassonne\Player\PlayerInterface;
 
 class Marvin implements PlayerInterface
 {
@@ -26,6 +26,7 @@ class Marvin implements PlayerInterface
      * @param Tile $tile
      *
      * @return Action
+     * @throws \Exception
      */
     public function playTurn(Map $map, Tile $tile)
     {

@@ -1,9 +1,10 @@
 <?php
 
-namespace Codecassonne\Turn;
+namespace Codecassonne\Player;
 
 use Codecassonne\Map\Map;
 use Codecassonne\Tile\Tile;
+use Codecassonne\Turn\Action;
 
 interface PlayerInterface
 {

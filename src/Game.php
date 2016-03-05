@@ -3,10 +3,10 @@
 namespace Codecassonne;
 
 use Codecassonne\Map\Map;
+use Codecassonne\Player\Collection as Players;
 use Codecassonne\Tile\Bag;
 use Codecassonne\Tile\Mapper\MapperInterface as Mapper;
 use Codecassonne\Turn\Action;
-use Codecassonne\Turn\PlayerInterface as Player;
 
 /**
  * Class Game
@@ -24,20 +24,20 @@ class Game
     /** @var Mapper     A Mapper to get Tile Data from */
     private $tileMapper;
     /**
-     * @var Player
+     * @var Players
      */
-    private $player;
+    private $players;
 
     /**
      * Construct the Game
      *
-     * @param Mapper $tileMapper A Mapper to get Tile Data from
-     * @param Player $player
+     * @param Mapper  $tileMapper A Mapper to get Tile Data from
+     * @param Players $players
      */
-    public function __construct(Mapper $tileMapper, Player $player)
+    public function __construct(Mapper $tileMapper, Players $players)
     {
         $this->tileMapper = $tileMapper;
-        $this->player = $player;
+        $this->players = $players;
     }
 
     /**
@@ -51,11 +51,17 @@ class Game
         while (!$this->bag->isEmpty()) {
             $currentTile = $this->bag->drawFrom();
 
-            $action = $this->player->playTurn(clone $this->map, clone $currentTile);
+            $player = $this->players->next();
+            $action = $player->playTurn(clone $this->map, clone $currentTile);
             if (!$action instanceof Action) {
                 throw new \Exception('Player instance must return Action');
             }
-            $action->run($this->map, $currentTile);
+
+            try {
+                $action->run($this->map, $currentTile);
+            } catch (\Exception $e) {
+                echo 'Invalid Move' . PHP_EOl;
+            }
 
             $this->map->render(false, 400000);
         }
