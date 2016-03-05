@@ -105,41 +105,41 @@ class Tile
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getNorth(): int
+    public function getNorth(): string
     {
         return $this->north;
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getSouth(): int
+    public function getSouth(): string
     {
         return $this->south;
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getEast(): int
+    public function getEast(): string
     {
         return $this->east;
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getWest(): int
+    public function getWest(): string
     {
         return $this->west;
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getCenter(): int
+    public function getCenter(): string
     {
         return $this->center;
     }
