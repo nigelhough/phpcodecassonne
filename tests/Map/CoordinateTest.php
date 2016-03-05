@@ -15,35 +15,30 @@ class CoordinateTest extends \PHPUnit_Framework_TestCase
                 10,
                 06,
                 '',
-                '',
             ),
             /** Invalid X Coordinate */
             array(
                 'Cheese',
                 06,
-                'InvalidArgumentException',
-                'X Coordinate must be an integer',
+                'TypeError',
             ),
             /** Invalid X and Y Coordinate. X Fails first */
             array(
                 'Cheese',
                 'Sticks',
-                'InvalidArgumentException',
-                'X Coordinate must be an integer',
+                'TypeError',
             ),
             /** Invalid Y Coordinate */
             array(
                 10,
                 'Cheese',
-                'InvalidArgumentException',
-                'Y Coordinate must be an integer',
+                'TypeError',
             ),
             /** Random Y Coordinate */
             array(
                 10,
                 new \Exception(),
-                'InvalidArgumentException',
-                'Y Coordinate must be an integer',
+                'TypeError',
             ),
         );
     }
@@ -61,12 +56,10 @@ class CoordinateTest extends \PHPUnit_Framework_TestCase
     public function testConstructor(
         $xCoordinate,
         $yCoordinate,
-        $expectedException,
-        $expectedExceptionMessage
-    )
-    {
+        $expectedException
+    ) {
         if ($expectedException) {
-            $this->setExpectedException($expectedException, $expectedExceptionMessage);
+            $this->setExpectedException($expectedException);
         }
 
         new Coordinate($xCoordinate, $yCoordinate);
