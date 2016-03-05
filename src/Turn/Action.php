@@ -27,11 +27,18 @@ final class Action
      */
     public function __construct(Coordinate $coordinate, $rotation)
     {
-
         $this->coordinate = $coordinate;
         $this->rotation = $rotation;
     }
 
+    /**
+     * Run action again Map using Tile
+     *
+     * @param Map  $map
+     * @param Tile $tile
+     *
+     * @throws \Exception
+     */
     public function run(Map $map, Tile $tile)
     {
         $tile->rotateTo($this->rotation);
