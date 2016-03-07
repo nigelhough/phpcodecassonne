@@ -6,6 +6,7 @@ use Codecassonne\Tile\Tile;
 
 /**
  * Interface MapperInterface
+ *
  * @package Codecassonne\Tile\Mapper
  */
 interface MapperInterface

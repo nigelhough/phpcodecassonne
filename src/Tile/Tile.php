@@ -27,6 +27,12 @@ class Tile
     /** @var  int   Type in center of Tile*/
     private $center;
 
+    /** @var int    Current tile rotation */
+    private $rotation = 0;
+
+    /** @var string Image representing Tile */
+    private $tileImage;
+
     /**
      * Construct a new Tile
      *
@@ -44,6 +50,8 @@ class Tile
         $this->south = $south;
         $this->west = $west;
         $this->center = $center;
+
+        $this->tileImage = $north.$east.$south.$west.$center;
     }
 
     /**
@@ -62,11 +70,11 @@ class Tile
 
         //Validate the Faces of the Tile String are Valid
         foreach ($faces as $edge => $face) {
-            if (!in_array($face, array(self::TILE_TYPE_GRASS, self::TILE_TYPE_CITY, self::TILE_TYPE_ROAD, self::TILE_TYPE_CLOISTER))) {
+            if (!in_array($face, array(static::TILE_TYPE_GRASS, static::TILE_TYPE_CITY, static::TILE_TYPE_ROAD, static::TILE_TYPE_CLOISTER))) {
                 throw new \InvalidArgumentException("Invalid format for Tile Face ({$face}).");
             }
 
-            if ($face == self::TILE_TYPE_CLOISTER && $edge !== 4) {
+            if ($face == static::TILE_TYPE_CLOISTER && $edge !== 4) {
                 throw new \InvalidArgumentException("Cloister can only exist as the tile centre");
             }
         }
@@ -91,6 +99,8 @@ class Tile
         $this->west = $this->south;
         $this->south = $this->east;
         $this->east = $spare;
+
+        $this->rotation = ($this->rotation + 90) % 360;
     }
 
     /**
@@ -139,5 +149,25 @@ class Tile
     public function getCenter()
     {
         return $this->center;
+    }
+
+    /**
+     * Tile image name
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->tileImage . '.png';
+    }
+
+    /**
+     * Current tile rotation in degrees
+     *
+     * @return int
+     */
+    public function getRotation()
+    {
+        return $this->rotation;
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace Codecassonne;
+
 use Codecassonne\Map\Map;
 use Codecassonne\Tile\Bag;
 use Codecassonne\Tile\Mapper\MapperInterface as Mapper;
@@ -12,7 +13,7 @@ use Codecassonne\Tile\Mapper\MapperInterface as Mapper;
  */
 class Game
 {
-    /** @var Map    The map to lay tiles on  */
+    /** @var Map    The map to lay tiles on */
     private $map;
 
     /** @var Bag   A bag to hold our Tiles */
@@ -24,7 +25,7 @@ class Game
     /**
      * Construct the Game
      *
-     * @param Mapper $tileMapper    A Mapper to get Tile Data from
+     * @param Mapper $tileMapper A Mapper to get Tile Data from
      */
     public function __construct(Mapper $tileMapper)
     {
@@ -37,39 +38,32 @@ class Game
     public function run()
     {
         $this->init();
-        echo `clear`;
-        echo 'Starting.' . PHP_EOL;
-        $this->map->render();
-        sleep(1);
+
+        $this->map->render(false, 400000);
 
         while (!$this->bag->isEmpty()) {
             $currentTile = $this->bag->drawFrom();
             $playPositions = $this->map->getPlayablePositions();
+            shuffle($playPositions);
             // Loop over playable positions
-            foreach($playPositions as $position) {
+            foreach ($playPositions as $position) {
                 //Loop over orientations
-                for($i = 0; $i < 4; $i++) {
+                for ($i = 0; $i < 4; $i++) {
                     // Rotate tile
-                    $currentTile->rotate();
                     try {
                         $this->map->place($currentTile, $position);
                         //If successfully placed, break out of rotation loop and positions loop
                         break 2;
-                    } catch(\Exception $e) {
-                        echo 'Invalid Tile' . PHP_EOL;
+                    } catch (\Exception $e) {
+                        $currentTile->rotate();
                     }
                 }
             }
 
-            echo `clear`;
-            echo $currentTile->toString() . ', ' . $this->bag->getTileCount() . ' remaining.' . PHP_EOL;
-            $this->map->render();
-            sleep(1);
+            $this->map->render(false, 400000);
         }
 
-        echo `clear`;
-        echo 'Game Ended.' . PHP_EOL;
-        $this->map->render();
+        $this->map->render(true);
     }
 
     /**
@@ -81,7 +75,7 @@ class Game
         //Create and fill bag of Tiles
         $this->bag = new Bag();
         $tiles = $this->tileMapper->findAll();
-        foreach($tiles as $tile) {
+        foreach ($tiles as $tile) {
             $this->bag->put($tile);
         }
 
