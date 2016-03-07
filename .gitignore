@@ -53,5 +53,5 @@ crashlytics-build.properties
 #Ignore PHPUnit Test Coverage Output
 /tests/coverage
 
-# Ingore SonarQube analysis output
+# Ignore SonarQube analysis output
 .sonar/
