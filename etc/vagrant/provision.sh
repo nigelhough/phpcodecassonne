@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #
-# Set up the package repository, with PHP 5.6.
+# Set up the package repository, with PHP7
 #
 apt-get update
 apt-get install -y software-properties-common
