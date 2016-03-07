@@ -18,13 +18,13 @@ class Game
     /** @var Map    The map to lay tiles on */
     private $map;
 
-    /** @var Bag   A bag to hold our Tiles */
+    /** @var Bag A bag to hold our Tiles */
     private $bag;
 
-    /** @var Mapper     A Mapper to get Tile Data from */
+    /** @var Mapper A Mapper to get Tile Data from */
     private $tileMapper;
     /**
-     * @var Players
+     * @var Players Collection of players in the game
      */
     private $players;
 
@@ -32,7 +32,7 @@ class Game
      * Construct the Game
      *
      * @param Mapper  $tileMapper A Mapper to get Tile Data from
-     * @param Players $players
+     * @param Players $players    Collection of players in the game
      */
     public function __construct(Mapper $tileMapper, Players $players)
     {
@@ -52,12 +52,12 @@ class Game
             $currentTile = $this->bag->drawFrom();
 
             $player = $this->players->next();
-            $action = $player->playTurn(clone $this->map, clone $currentTile);
-            if (!$action instanceof Action) {
-                throw new \Exception('Player instance must return Action');
-            }
 
             try {
+                $action = $player->playTurn(clone $this->map, clone $currentTile);
+                if (!$action instanceof Action) {
+                    throw new \Exception('Player instance must return Action');
+                }
                 $action->run($this->map, $currentTile);
             } catch (\Exception $e) {
                 echo 'Invalid Move' . PHP_EOl;
