@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Codecassonne\Tile;
 
@@ -36,13 +37,13 @@ class Tile
     /**
      * Construct a new Tile
      *
-     * @param int $north    Type on Northern face of Tile
-     * @param int $east     Type on Eastern face of Tile
-     * @param int $south    Type on Southern face of Tile
-     * @param int $west     Type on Western face of Tile
-     * @param int $center   Type in center of Tile
+     * @param string $north    Type on Northern face of Tile
+     * @param string $east     Type on Eastern face of Tile
+     * @param string $south    Type on Southern face of Tile
+     * @param string $west     Type on Western face of Tile
+     * @param string $center   Type in center of Tile
      */
-    public function __construct($north, $east, $south, $west, $center)
+    public function __construct(string $north, string $east, string $south, string $west, string $center)
     {
         //Set Tile properties
         $this->north = $north;
@@ -61,7 +62,7 @@ class Tile
      *
      * @returns self
      */
-    public static function createFromString($tileString)
+    public static function createFromString(string $tileString): self
     {
         $faces = explode(':', $tileString);
         if (count($faces) != 5) {
@@ -105,48 +106,50 @@ class Tile
 
     /**
      * Convert Tile Faces to String
+     *
+     * @return string
      */
-    public function toString()
+    public function toString(): string
     {
         return "{$this->north}:{$this->east}:{$this->south}:{$this->west}:{$this->center}";
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getNorth()
+    public function getNorth(): string
     {
         return $this->north;
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getSouth()
+    public function getSouth(): string
     {
         return $this->south;
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getEast()
+    public function getEast(): string
     {
         return $this->east;
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getWest()
+    public function getWest(): string
     {
         return $this->west;
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getCenter()
+    public function getCenter(): string
     {
         return $this->center;
     }

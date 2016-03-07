@@ -68,7 +68,6 @@ class Game
 
     /**
      * Initialise game variables
-     *
      */
     private function init()
     {

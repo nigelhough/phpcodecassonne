@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Codecassonne\Tile\Mapper;
 
@@ -16,6 +17,6 @@ interface MapperInterface
      *
      * @returns Tile[]
      */
-    public function findAll();
+    public function findAll(): array;
 
 }

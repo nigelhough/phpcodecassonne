@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Codecassonne\Map;
 
@@ -17,16 +18,8 @@ class Coordinate
      * @param int $xCoordinate X Coordinate
      * @param int $yCoordinate Y Coordinate
      */
-    public function __construct($xCoordinate, $yCoordinate)
+    public function __construct(int $xCoordinate, int $yCoordinate)
     {
-        //Validate Passed Parameters
-        if (!is_int($xCoordinate)) {
-            throw new \InvalidArgumentException("X Coordinate must be an integer");
-        }
-        if (!is_int($yCoordinate)) {
-            throw new \InvalidArgumentException("Y Coordinate must be an integer");
-        }
-
         $this->xCoordinate = $xCoordinate;
         $this->yCoordinate = $yCoordinate;
     }
@@ -36,7 +29,7 @@ class Coordinate
      *
      * @return string
      */
-    public function toString()
+    public function toString(): string
     {
         return $this->xCoordinate . ',' . $this->yCoordinate;
     }
@@ -46,7 +39,7 @@ class Coordinate
      *
      * @return string
      */
-    public function toHash()
+    public function toHash(): string
     {
         return md5($this->toString());
     }
@@ -68,7 +61,7 @@ class Coordinate
      *
      * @return int
      */
-    public function getX()
+    public function getX(): int
     {
         return $this->xCoordinate;
     }
@@ -78,7 +71,7 @@ class Coordinate
      *
      * @return int
      */
-    public function getY()
+    public function getY(): int
     {
         return $this->yCoordinate;
     }
@@ -88,7 +81,7 @@ class Coordinate
      *
      * return self[]
      */
-    public function getTouchingCoordinates()
+    public function getTouchingCoordinates(): array
     {
         //Return offset coordinates
         return array(
@@ -98,6 +91,4 @@ class Coordinate
             'West' => new self($this->xCoordinate - 1, $this->yCoordinate),
         );
     }
-
-
 }

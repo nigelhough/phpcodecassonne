@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Codecassonne\Map;
 
@@ -96,7 +97,7 @@ class Map
      *
      * @return Coordinate[]
      */
-    public function getPlayablePositions()
+    public function getPlayablePositions(): array
     {
         return $this->playablePositions;
     }
@@ -132,7 +133,7 @@ class Map
      *
      * @return bool
      */
-    private function isValidPlacement(Tile $tile, Coordinate $coordinate)
+    private function isValidPlacement(Tile $tile, Coordinate $coordinate): bool
     {
         //Check position being played on is occupied and playable
         if ($this->isOccupied($coordinate) || !$this->isPlayablePosition($coordinate)) {
@@ -178,7 +179,7 @@ class Map
      *
      * @return bool
      */
-    private function isOccupied(Coordinate $coordinate)
+    private function isOccupied(Coordinate $coordinate): bool
     {
         return array_key_exists($coordinate->toHash(), $this->tiles);
     }
@@ -190,7 +191,7 @@ class Map
      *
      * @returns bool
      */
-    private function isPlayablePosition(Coordinate $coordinate)
+    private function isPlayablePosition(Coordinate $coordinate): bool
     {
         return array_key_exists($coordinate->toHash(), $this->playablePositions);
     }
