@@ -3,8 +3,10 @@
 namespace Codecassonne;
 
 use Codecassonne\Map\Map;
+use Codecassonne\Player\Collection as Players;
 use Codecassonne\Tile\Bag;
 use Codecassonne\Tile\Mapper\MapperInterface as Mapper;
+use Codecassonne\Turn\Action;
 
 /**
  * Class Game
@@ -16,20 +18,26 @@ class Game
     /** @var Map    The map to lay tiles on */
     private $map;
 
-    /** @var Bag   A bag to hold our Tiles */
+    /** @var Bag A bag to hold our Tiles */
     private $bag;
 
-    /** @var Mapper     A Mapper to get Tile Data from */
+    /** @var Mapper A Mapper to get Tile Data from */
     private $tileMapper;
+    /**
+     * @var Players Collection of players in the game
+     */
+    private $players;
 
     /**
      * Construct the Game
      *
-     * @param Mapper $tileMapper A Mapper to get Tile Data from
+     * @param Mapper  $tileMapper A Mapper to get Tile Data from
+     * @param Players $players    Collection of players in the game
      */
-    public function __construct(Mapper $tileMapper)
+    public function __construct(Mapper $tileMapper, Players $players)
     {
         $this->tileMapper = $tileMapper;
+        $this->players = $players;
     }
 
     /**
@@ -38,26 +46,21 @@ class Game
     public function run()
     {
         $this->init();
-
         $this->map->render(false, 400000);
 
         while (!$this->bag->isEmpty()) {
             $currentTile = $this->bag->drawFrom();
-            $playPositions = $this->map->getPlayablePositions();
-            shuffle($playPositions);
-            // Loop over playable positions
-            foreach ($playPositions as $position) {
-                //Loop over orientations
-                for ($i = 0; $i < 4; $i++) {
-                    // Rotate tile
-                    try {
-                        $this->map->place($currentTile, $position);
-                        //If successfully placed, break out of rotation loop and positions loop
-                        break 2;
-                    } catch (\Exception $e) {
-                        $currentTile->rotate();
-                    }
+
+            $player = $this->players->next();
+
+            try {
+                $action = $player->playTurn(clone $this->map, clone $currentTile);
+                if (!$action instanceof Action) {
+                    throw new \Exception('Player instance must return Action');
                 }
+                $action->run($this->map, $currentTile);
+            } catch (\Exception $e) {
+                echo 'Invalid Move' . PHP_EOL;
             }
 
             $this->map->render(false, 400000);
