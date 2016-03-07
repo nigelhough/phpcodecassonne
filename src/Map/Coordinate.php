@@ -8,15 +8,15 @@ namespace Codecassonne\Map;
  */
 class Coordinate
 {
-    /** @var int $xCoordinate    X Coordinate */
+    /** @var int $xCoordinate X Coordinate */
     protected $xCoordinate;
 
-    /** @var int $yCoordinate    Y Coordinate */
+    /** @var int $yCoordinate Y Coordinate */
     protected $yCoordinate;
 
     /**
-     * @param int $xCoordinate   X Coordinate
-     * @param int $yCoordinate   Y Coordinate
+     * @param int $xCoordinate X Coordinate
+     * @param int $yCoordinate Y Coordinate
      */
     public function __construct(int $xCoordinate, int $yCoordinate)
     {
@@ -47,11 +47,11 @@ class Coordinate
     /**
      * Compares this to another coordinate
      *
-     * @param self $coordinate  Other Coordinate to compare with
+     * @param self $coordinate Other Coordinate to compare with
      *
      * @return bool
      */
-    public function isEqual(self $coordinate): bool
+    public function isEqual(self $coordinate)
     {
         return ($this->toHash() === $coordinate->toHash());
     }
@@ -74,5 +74,21 @@ class Coordinate
     public function getY(): int
     {
         return $this->yCoordinate;
+    }
+
+    /**
+     * Get coordinates that touch this coordinate
+     *
+     * return self[]
+     */
+    public function getTouchingCoordinates(): array
+    {
+        //Return offset coordinates
+        return array(
+            'North' => new self($this->xCoordinate, $this->yCoordinate + 1),
+            'East' => new self($this->xCoordinate + 1, $this->yCoordinate),
+            'South' => new self($this->xCoordinate, $this->yCoordinate - 1),
+            'West' => new self($this->xCoordinate - 1, $this->yCoordinate),
+        );
     }
 }

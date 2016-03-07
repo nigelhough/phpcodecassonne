@@ -256,4 +256,62 @@ class CoordinateTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * Data provider for the get touching parameters function
+     *
+     * @return array
+     */
+    public function touchingProvider()
+    {
+        return array(
+            array(
+                new Coordinate(0, 0),
+                array(
+                    'North' => new Coordinate(0, 1),
+                    'East' => new Coordinate(1, 0),
+                    'South' => new Coordinate(0, -1),
+                    'West' => new Coordinate(-1, 0),
+                ),
+            ),
+            array(
+                new Coordinate(10, 10),
+                array(
+                    'North' => new Coordinate(10, 11),
+                    'East' => new Coordinate(11, 10),
+                    'South' => new Coordinate(10, 9),
+                    'West' => new Coordinate(9, 10),
+                ),
+            ),
+            array(
+                new Coordinate(-10, -10),
+                array(
+                    'North' => new Coordinate(-10, -9),
+                    'East' => new Coordinate(-9, -10),
+                    'South' => new Coordinate(-10, -11),
+                    'West' => new Coordinate(-11, -10),
+                ),
+            ),
+        );
+    }
+
+    /**
+     * Test the get Touching Coordinates function
+     *
+     * @param Coordinate    $coordinate
+     * @param Coordinate[]  $expectedCoordinates
+     *
+     * @dataProvider touchingProvider
+     */
+    public function testGetTouching(Coordinate $coordinate, array $expectedCoordinates)
+    {
+        //Get touching coordinates
+        $touchingCoordinates = $coordinate->getTouchingCoordinates();
+
+        //Test all of the coordinates match expected
+        foreach($expectedCoordinates as $key => $expectedCoordinate) {
+            $this->assertTrue(
+                $expectedCoordinate->isEqual($touchingCoordinates[$key])
+            );
+        }
+    }
 }

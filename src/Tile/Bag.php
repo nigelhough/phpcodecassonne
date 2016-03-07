@@ -30,7 +30,7 @@ class Bag
      */
     public function drawFrom(): Tile
     {
-        if($this->isEmpty()) {
+        if ($this->isEmpty()) {
             throw new \Exception("The bag is empty");
         }
         return array_pop($this->tiles);

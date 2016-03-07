@@ -2,12 +2,13 @@
 declare(strict_types=1);
 
 namespace Codecassonne\Tile\Mapper;
+
 use Codecassonne\Tile\Tile;
 
 /**
  * Class Mapper
  */
-Class File implements MapperInterface
+class File implements MapperInterface
 {
     /** @var string Path to Tile configuration File */
     protected $tileConfigPath;
@@ -15,7 +16,7 @@ Class File implements MapperInterface
     /**
      * Construct the Data Mapper
      *
-     * @param string    $tileConfigPath Path to Tile configuration File
+     * @param string $tileConfigPath Path to Tile configuration File
      */
     public function __construct(string $tileConfigPath)
     {
@@ -23,7 +24,7 @@ Class File implements MapperInterface
         if (!file_exists($tileConfigPath)) {
             throw new \InvalidArgumentException('Tile Configuration file must exist.');
         }
-        if(!parse_ini_file($tileConfigPath)) {
+        if (!parse_ini_file($tileConfigPath)) {
             throw new \InvalidArgumentException('Unable to Parse Tile Configuration.');
         }
 
@@ -41,7 +42,7 @@ Class File implements MapperInterface
         $tileDetails = parse_ini_file($this->tileConfigPath);
 
         // Check the file is valid
-        if(
+        if (
             !isset($tileDetails['tiles']) ||
             !is_array($tileDetails['tiles']) ||
             empty($tileDetails['tiles'])
@@ -53,8 +54,7 @@ Class File implements MapperInterface
         $tiles = array();
 
         //Iterate over Tiles in config file
-        foreach($tileDetails['tiles'] as $tileString)
-        {
+        foreach ($tileDetails['tiles'] as $tileString) {
             //Create Tile from String
             $tiles[] = Tile::createFromString($tileString);
         }
