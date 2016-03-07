@@ -97,7 +97,7 @@ class Map
      *
      * @return Coordinate[]
      */
-    public function getPlayablePositions(): array
+    public function getPlayablePositions()
     {
         return $this->playablePositions;
     }
@@ -133,7 +133,7 @@ class Map
      *
      * @return bool
      */
-    private function isValidPlacement(Tile $tile, Coordinate $coordinate): bool
+    private function isValidPlacement(Tile $tile, Coordinate $coordinate)
     {
         //Check position being played on is occupied and playable
         if ($this->isOccupied($coordinate) || !$this->isPlayablePosition($coordinate)) {
@@ -179,7 +179,7 @@ class Map
      *
      * @return bool
      */
-    private function isOccupied(Coordinate $coordinate): bool
+    private function isOccupied(Coordinate $coordinate)
     {
         return array_key_exists($coordinate->toHash(), $this->tiles);
     }
@@ -191,7 +191,7 @@ class Map
      *
      * @returns bool
      */
-    private function isPlayablePosition(Coordinate $coordinate): bool
+    private function isPlayablePosition(Coordinate $coordinate)
     {
         return array_key_exists($coordinate->toHash(), $this->playablePositions);
     }
@@ -256,14 +256,14 @@ class Map
 
         echo '    ';
         for ($x = $this->bottomLeft->getX(); $x <= $this->topRight->getX(); $x++) {
-            echo str_pad($x, 13, ' ', STR_PAD_BOTH);
+            echo str_pad((string) $x, 13, ' ', STR_PAD_BOTH);
         }
         echo PHP_EOL;
 
         for ($y = $this->topRight->getY(); $y >= $this->bottomLeft->getY(); $y--) {
             for ($renderTemp = 7; $renderTemp > 0; $renderTemp--) {
                 if ($renderTemp == 4) {
-                    echo str_pad($y, 4, ' ', STR_PAD_RIGHT);
+                    echo str_pad((string) $y, 4, ' ', STR_PAD_RIGHT);
                 } else {
                     echo '    ';
                 }

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Codecassonne\Tile;
 
@@ -174,10 +175,6 @@ class TileTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [1],
-            [90.0],
-            ['90'],
-            ['Rotate'],
-            [M_PI],
             [-57]
         ];
     }

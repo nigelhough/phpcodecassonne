@@ -29,7 +29,7 @@ class Coordinate
      *
      * @return string
      */
-    public function toString(): string
+    public function toString()
     {
         return $this->xCoordinate . ',' . $this->yCoordinate;
     }
@@ -39,7 +39,7 @@ class Coordinate
      *
      * @return string
      */
-    public function toHash(): string
+    public function toHash()
     {
         return md5($this->toString());
     }
@@ -61,7 +61,7 @@ class Coordinate
      *
      * @return int
      */
-    public function getX(): int
+    public function getX()
     {
         return $this->xCoordinate;
     }
@@ -71,7 +71,7 @@ class Coordinate
      *
      * @return int
      */
-    public function getY(): int
+    public function getY()
     {
         return $this->yCoordinate;
     }
@@ -81,7 +81,7 @@ class Coordinate
      *
      * return self[]
      */
-    public function getTouchingCoordinates(): array
+    public function getTouchingCoordinates()
     {
         //Return offset coordinates
         return array(
