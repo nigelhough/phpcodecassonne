@@ -11,5 +11,9 @@ apt-get update
 #Install PHP7
 sudo apt-get install -y php7.0
 
-#Test
-echo "Hello World"
+# Install Nginx
+apt-get -y install nginx
+# Setup Nginx default block
+sudo cp /vagrant/etc/vagrant/default /etc/nginx/sites-available/default
+# Restart Nginx
+service nginx restart
