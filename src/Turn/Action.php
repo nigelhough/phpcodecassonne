@@ -32,7 +32,7 @@ final class Action
     }
 
     /**
-     * Run action again Map using Tile
+     * Run action against Map using Tile
      *
      * @param Map  $map
      * @param Tile $tile

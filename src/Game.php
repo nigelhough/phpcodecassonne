@@ -60,7 +60,7 @@ class Game
                 }
                 $action->run($this->map, $currentTile);
             } catch (\Exception $e) {
-                echo 'Invalid Move' . PHP_EOl;
+                echo 'Invalid Move' . PHP_EOL;
             }
 
             $this->map->render(false, 400000);
