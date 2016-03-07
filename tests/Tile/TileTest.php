@@ -131,6 +131,70 @@ class TileTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Range of valid data for rotateTo
+     *
+     * @return array
+     */
+    public function rotateToProvider()
+    {
+        return [
+            [-450, 270],
+            [-360, 0],
+            [-270, 90],
+            [-180, 180],
+            [-90, 270],
+            [0, 0],
+            [90, 90],
+            [180, 180],
+            [270, 270],
+            [360, 0],
+            [450, 90]
+        ];
+    }
+
+    /**
+     * @param $rotation
+     * @param $expected
+     *
+     * @dataProvider rotateToProvider
+     */
+    public function testRotateTo($rotation, $expected)
+    {
+        $tile = Tile::createFromString('G:C:R:C:C');
+
+        $tile->rotateTo($rotation);
+
+        $this->assertSame($expected, $tile->getRotation());
+    }
+
+    /**
+     * Provide invalid input for rotateTo test
+     */
+    public function invalidRotateProvider()
+    {
+        return [
+            [1],
+            [90.0],
+            ['90'],
+            ['Rotate'],
+            [M_PI],
+            [-57]
+        ];
+    }
+
+    /**
+     * @param $input
+     *
+     * @dataProvider invalidRotateProvider
+     * @expectedException \InvalidArgumentException
+     */
+    public function testRotateToInvalid($input)
+    {
+        $tile = Tile::createFromString('G:C:R:C:C');
+        $tile->rotateTo($input);
+    }
+
+    /**
      * Data Provider for Create From Invalid String Test
      * @return array
      */
@@ -157,6 +221,10 @@ class TileTest extends \PHPUnit_Framework_TestCase
             array(
                 Tile::TILE_TYPE_ROAD."A:".Tile::TILE_TYPE_ROAD."B:".Tile::TILE_TYPE_ROAD."C:".Tile::TILE_TYPE_ROAD."D:".Tile::TILE_TYPE_GRASS,
             ),
+            /** Invalid positioning for cloister */
+            array(
+                Tile::TILE_TYPE_CLOISTER.":".Tile::TILE_TYPE_GRASS.":".Tile::TILE_TYPE_GRASS.":".Tile::TILE_TYPE_GRASS.":".Tile::TILE_TYPE_GRASS,
+            )
         );
     }
 
@@ -211,6 +279,17 @@ class TileTest extends \PHPUnit_Framework_TestCase
                     Tile::TILE_TYPE_ROAD,
                 ),
                 Tile::TILE_TYPE_GRASS.":".Tile::TILE_TYPE_ROAD.":".Tile::TILE_TYPE_CITY.":".Tile::TILE_TYPE_GRASS.":".Tile::TILE_TYPE_ROAD,
+            ),
+            /** Cloister */
+            array(
+                array(
+                    Tile::TILE_TYPE_GRASS,
+                    Tile::TILE_TYPE_GRASS,
+                    Tile::TILE_TYPE_GRASS,
+                    Tile::TILE_TYPE_GRASS,
+                    Tile::TILE_TYPE_CLOISTER,
+                ),
+                Tile::TILE_TYPE_GRASS.":".Tile::TILE_TYPE_GRASS.":".Tile::TILE_TYPE_GRASS.":".Tile::TILE_TYPE_GRASS.":".Tile::TILE_TYPE_CLOISTER,
             ),
         );
     }

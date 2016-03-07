@@ -1,9 +1,12 @@
 <?php
 
 namespace Codecassonne;
+
 use Codecassonne\Map\Map;
+use Codecassonne\Player\Collection as Players;
 use Codecassonne\Tile\Bag;
 use Codecassonne\Tile\Mapper\MapperInterface as Mapper;
+use Codecassonne\Turn\Action;
 
 /**
  * Class Game
@@ -12,23 +15,29 @@ use Codecassonne\Tile\Mapper\MapperInterface as Mapper;
  */
 class Game
 {
-    /** @var Map    The map to lay tiles on  */
+    /** @var Map    The map to lay tiles on */
     private $map;
 
-    /** @var Bag   A bag to hold our Tiles */
+    /** @var Bag A bag to hold our Tiles */
     private $bag;
 
-    /** @var Mapper     A Mapper to get Tile Data from */
+    /** @var Mapper A Mapper to get Tile Data from */
     private $tileMapper;
+    /**
+     * @var Players Collection of players in the game
+     */
+    private $players;
 
     /**
      * Construct the Game
      *
-     * @param Mapper $tileMapper    A Mapper to get Tile Data from
+     * @param Mapper  $tileMapper A Mapper to get Tile Data from
+     * @param Players $players    Collection of players in the game
      */
-    public function __construct(Mapper $tileMapper)
+    public function __construct(Mapper $tileMapper, Players $players)
     {
         $this->tileMapper = $tileMapper;
+        $this->players = $players;
     }
 
     /**
@@ -37,51 +46,38 @@ class Game
     public function run()
     {
         $this->init();
-        echo `clear`;
-        echo 'Starting.' . PHP_EOL;
-        $this->map->render();
-        sleep(1);
+        $this->map->render(false, 400000);
 
         while (!$this->bag->isEmpty()) {
             $currentTile = $this->bag->drawFrom();
-            $playPositions = $this->map->getPlayablePositions();
-            // Loop over playable positions
-            foreach($playPositions as $position) {
-                //Loop over orientations
-                for($i = 0; $i < 4; $i++) {
-                    // Rotate tile
-                    $currentTile->rotate();
-                    try {
-                        $this->map->place($currentTile, $position);
-                        //If successfully placed, break out of rotation loop and positions loop
-                        break 2;
-                    } catch(\Exception $e) {
-                        echo 'Invalid Tile' . PHP_EOL;
-                    }
+
+            $player = $this->players->next();
+
+            try {
+                $action = $player->playTurn(clone $this->map, clone $currentTile);
+                if (!$action instanceof Action) {
+                    throw new \Exception('Player instance must return Action');
                 }
+                $action->run($this->map, $currentTile);
+            } catch (\Exception $e) {
+                echo 'Invalid Move' . PHP_EOL;
             }
 
-            echo `clear`;
-            echo $currentTile->toString() . ', ' . $this->bag->getTileCount() . ' remaining.' . PHP_EOL;
-            $this->map->render();
-            sleep(1);
+            $this->map->render(false, 400000);
         }
 
-        echo `clear`;
-        echo 'Game Ended.' . PHP_EOL;
-        $this->map->render();
+        $this->map->render(true);
     }
 
     /**
      * Initialise game variables
-     *
      */
     private function init()
     {
         //Create and fill bag of Tiles
         $this->bag = new Bag();
         $tiles = $this->tileMapper->findAll();
-        foreach($tiles as $tile) {
+        foreach ($tiles as $tile) {
             $this->bag->put($tile);
         }
 
