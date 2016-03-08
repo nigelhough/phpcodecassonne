@@ -17,6 +17,6 @@ interface MapperInterface
      *
      * @returns Tile[]
      */
-    public function findAll(): array;
+    public function findAll();
 
 }

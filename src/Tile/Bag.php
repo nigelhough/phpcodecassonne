@@ -28,7 +28,7 @@ class Bag
      *
      * @throws \Exception
      */
-    public function drawFrom(): Tile
+    public function drawFrom()
     {
         if ($this->isEmpty()) {
             throw new \Exception("The bag is empty");
@@ -41,7 +41,7 @@ class Bag
      *
      * @return bool
      */
-    public function isEmpty(): bool
+    public function isEmpty()
     {
         return empty($this->tiles);
     }
@@ -51,7 +51,7 @@ class Bag
      *
      * @return int
      */
-    public function getTileCount(): int
+    public function getTileCount()
     {
         return count($this->tiles);
     }

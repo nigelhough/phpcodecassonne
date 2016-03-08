@@ -36,7 +36,7 @@ class File implements MapperInterface
      *
      * @returns Tile[]
      */
-    public function findAll(): array
+    public function findAll()
     {
         // Parse the config File
         $tileDetails = parse_ini_file($this->tileConfigPath);

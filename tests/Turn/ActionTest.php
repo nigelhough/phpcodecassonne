@@ -12,7 +12,8 @@ class ActionTest extends \PHPUnit_Framework_TestCase
 
         $action = new Action(new Coordinate(0, 0), $rotation);
 
-        $tile = $this->getMock('\Codecassonne\Tile\Tile');
+        $tile = $this->getMockBuilder('\Codecassonne\Tile\Tile')
+            ->disableOriginalConstructor()->getMock();
         $tile->expects($this->once())
             ->method('rotateTo')
             ->with($rotation);

@@ -62,7 +62,7 @@ class Tile
      *
      * @returns self
      */
-    public static function createFromString(string $tileString): self
+    public static function createFromString(string $tileString)
     {
         $faces = explode(':', $tileString);
         if (count($faces) != 5) {
@@ -109,12 +109,9 @@ class Tile
      *
      * @param int $rotation
      */
-    public function rotateTo($rotation)
+    public function rotateTo(int $rotation)
     {
         // Invalid input
-        if (!is_int($rotation)) {
-            throw new \InvalidArgumentException('Rotation must be an integer');
-        }
         if ($rotation % 90 !== 0) {
             throw new \InvalidArgumentException('Rotation must be in steps of 90');
         }
@@ -136,7 +133,7 @@ class Tile
      *
      * @return string
      */
-    public function toString(): string
+    public function toString()
     {
         return "{$this->north}:{$this->east}:{$this->south}:{$this->west}:{$this->center}";
     }
@@ -144,7 +141,7 @@ class Tile
     /**
      * @return string
      */
-    public function getNorth(): string
+    public function getNorth()
     {
         return $this->north;
     }
@@ -152,7 +149,7 @@ class Tile
     /**
      * @return string
      */
-    public function getSouth(): string
+    public function getSouth()
     {
         return $this->south;
     }
@@ -160,7 +157,7 @@ class Tile
     /**
      * @return string
      */
-    public function getEast(): string
+    public function getEast()
     {
         return $this->east;
     }
@@ -168,7 +165,7 @@ class Tile
     /**
      * @return string
      */
-    public function getWest(): string
+    public function getWest()
     {
         return $this->west;
     }
@@ -176,7 +173,7 @@ class Tile
     /**
      * @return string
      */
-    public function getCenter(): string
+    public function getCenter()
     {
         return $this->center;
     }
