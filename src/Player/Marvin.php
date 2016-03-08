@@ -5,7 +5,7 @@ namespace Codecassonne\Player;
 use Codecassonne\Map\Map;
 use Codecassonne\Tile\Tile;
 use Codecassonne\Turn\Action;
-use Codecassonne\Player\PlayerInterface;
+use Codecassonne\Map\Exception\InvalidTilePlacement;
 
 class Marvin implements PlayerInterface
 {
@@ -46,7 +46,7 @@ class Marvin implements PlayerInterface
                     $map->place($tile, $position);
                     //If successfully placed, break out of rotation loop and positions loop
                     break 2;
-                } catch (\Exception $e) {
+                } catch (InvalidTilePlacement $e) {
                     $tile->rotate();
                 }
             }

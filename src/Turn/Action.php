@@ -37,7 +37,8 @@ final class Action
      * @param Map  $map
      * @param Tile $tile
      *
-     * @throws \Exception
+     * @throws \InvalidArgumentException
+     * @throws \Codecassonne\Map\Exception\InvalidTilePlacement
      */
     public function run(Map $map, Tile $tile)
     {

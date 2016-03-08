@@ -49,7 +49,7 @@ class Map
     public function place(Tile $tile, Coordinate $coordinate)
     {
         if (!$this->isValidPlacement($tile, $coordinate)) {
-            throw new \Exception("Invalid tile placement");
+            throw new Exception\InvalidTilePlacement("Invalid tile placement");
         }
 
         $this->addTile($tile, $coordinate);
