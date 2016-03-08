@@ -93,8 +93,6 @@ class Map
     /**
      * Get a the Playable Position
      *
-     * @todo Remove this function it is only temporary while the logic is done here, a player would eventually do this
-     *
      * @return Coordinate[]
      */
     public function getPlayablePositions()
