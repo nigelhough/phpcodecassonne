@@ -14,6 +14,6 @@ sudo apt-get install -y php7.0
 # Install Nginx
 apt-get -y install nginx
 # Setup Nginx default block
-sudo cp /vagrant/etc/vagrant/default /etc/nginx/sites-available/default
+sudo cp /vagrant/build/vagrant/default /etc/nginx/sites-available/default
 # Restart Nginx
 service nginx restart
