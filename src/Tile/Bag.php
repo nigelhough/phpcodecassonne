@@ -26,12 +26,12 @@ class Bag
      *
      * @return Tile
      *
-     * @throws \Exception
+     * @throws Exception\EmptyBag
      */
     public function drawFrom()
     {
         if ($this->isEmpty()) {
-            throw new \Exception("The bag is empty");
+            throw new Exception\EmptyBag("The bag is empty");
         }
         return array_pop($this->tiles);
     }
