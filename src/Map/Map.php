@@ -49,7 +49,7 @@ class Map
     public function place(Tile $tile, Coordinate $coordinate)
     {
         if (!$this->isValidPlacement($tile, $coordinate)) {
-            throw new \Exception("Invalid tile placement");
+            throw new Exception\InvalidTilePlacement("Invalid tile placement");
         }
 
         $this->addTile($tile, $coordinate);
@@ -92,8 +92,6 @@ class Map
 
     /**
      * Get a the Playable Position
-     *
-     * @todo Remove this function it is only temporary while the logic is done here, a player would eventually do this
      *
      * @return Coordinate[]
      */
