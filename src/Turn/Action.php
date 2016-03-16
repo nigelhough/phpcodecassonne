@@ -45,4 +45,21 @@ final class Action
         $tile->rotateTo($this->rotation);
         $map->place($tile, $this->coordinate);
     }
+
+
+    /**
+     * @return Coordinate
+     */
+    public function getCoordinate()
+    {
+        return $this->coordinate;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRotation()
+    {
+        return $this->rotation;
+    }
 }
