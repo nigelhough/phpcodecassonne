@@ -9,7 +9,7 @@ use Codecassonne\Tile\Tile;
 class ServiceTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     *
+     * Data provider for scoring test
      */
     public function scoringProvider()
     {
@@ -57,7 +57,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test the scoring service
+     * Test the scoring service, when passed a map and a coordinate to score the expected score is returned
      *
      * @param Map           $map                Map to score
      * @param Coordinate    $placedCoordinate   Coordinate to score
@@ -68,7 +68,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
     public function testScoring(Map $map,Coordinate $placedCoordinate, int $expectedScore)
     {
         //Test calculating the score
-        $score = Service::calculateScore($map, $placedCoordinate);
+        $score = ScoringService::calculateScore($map, $placedCoordinate);
 
         //Check the score is as expected
         $this->assertEquals($expectedScore, $score);
