@@ -19,6 +19,6 @@ Vagrant.configure(2) do |config|
     end
 
     # Provisioning (Shell Script)
-    config.vm.provision "shell", path: "etc/vagrant/provision.sh"
+    config.vm.provision "shell", path: "build/vagrant/provision.sh"
 
 end

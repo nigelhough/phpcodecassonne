@@ -750,7 +750,7 @@ class MapTest extends \PHPUnit_Framework_TestCase
         try {
             //Attempt to place tile
             $map->place($tile, $coordinate);
-        } catch (\Exception $e) {
+        } catch (Exception\InvalidTilePlacement $e) {
             //Catch any Exception
             $exception = $e;
         }

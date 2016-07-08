@@ -104,7 +104,7 @@ class BagTest extends \PHPUnit_Framework_TestCase
     public function testDrawFromEmpty()
     {
         $emptyBag = $this->generateBag(0);
-        $this->setExpectedException("Exception");
+        $this->setExpectedException('Codecassonne\Tile\Exception\EmptyBag');
         $emptyBag->drawFrom();
     }
 

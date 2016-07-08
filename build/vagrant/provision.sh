@@ -9,11 +9,11 @@ add-apt-repository -y ppa:ondrej/php
 apt-get update
 
 #Install PHP7
-sudo apt-get install -y php7.0
+sudo apt-get install -y php7.0 php7.0-xml
 
 # Install Nginx
 apt-get -y install nginx
 # Setup Nginx default block
-sudo cp /vagrant/etc/vagrant/default /etc/nginx/sites-available/default
+sudo cp /vagrant/build/vagrant/default /etc/nginx/sites-available/default
 # Restart Nginx
 service nginx restart
