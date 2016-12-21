@@ -14,6 +14,8 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
     public function scoringProvider()
     {
         return [
+            /** CITY TESTS */
+
             /** Create Two Tile City Map  */
             [
                 $this->createMap(
@@ -253,24 +255,24 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             [
                 $this->createMap(
                     [
-                        (new Coordinate(0, 0))->toHash()  =>
+                        (new Coordinate(0, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, 1))->toHash()  =>
+                        (new Coordinate(0, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 1))->toHash()  =>
+                        (new Coordinate(1, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 0))->toHash()  =>
+                        (new Coordinate(1, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(1, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, -1))->toHash() =>
+                        (new Coordinate(0, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(-1, -1))->toHash() =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 0))->toHash() =>
+                        (new Coordinate(-1, 0))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 1))->toHash() =>
-                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS. ":" . Tile::TILE_TYPE_CITY),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                     ]
                 ),
                 new Coordinate(-1, 1),
@@ -280,24 +282,24 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             [
                 $this->createMap(
                     [
-                        (new Coordinate(0, 0))->toHash()  =>
+                        (new Coordinate(0, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, 1))->toHash()  =>
+                        (new Coordinate(0, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 1))->toHash()  =>
+                        (new Coordinate(1, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 0))->toHash()  =>
+                        (new Coordinate(1, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(1, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, -1))->toHash() =>
+                        (new Coordinate(0, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(-1, -1))->toHash() =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 0))->toHash() =>
+                        (new Coordinate(-1, 0))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 1))->toHash() =>
-                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS. ":" . Tile::TILE_TYPE_CITY),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                     ]
                 ),
                 new Coordinate(0, 1),
@@ -307,24 +309,24 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             [
                 $this->createMap(
                     [
-                        (new Coordinate(0, 0))->toHash()  =>
+                        (new Coordinate(0, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, 1))->toHash()  =>
+                        (new Coordinate(0, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 1))->toHash()  =>
+                        (new Coordinate(1, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 0))->toHash()  =>
+                        (new Coordinate(1, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(1, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, -1))->toHash() =>
+                        (new Coordinate(0, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(-1, -1))->toHash() =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 0))->toHash() =>
+                        (new Coordinate(-1, 0))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 1))->toHash() =>
-                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS. ":" . Tile::TILE_TYPE_CITY),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                     ]
                 ),
                 new Coordinate(1, 1),
@@ -334,24 +336,24 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             [
                 $this->createMap(
                     [
-                        (new Coordinate(0, 0))->toHash()  =>
+                        (new Coordinate(0, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, 1))->toHash()  =>
+                        (new Coordinate(0, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 1))->toHash()  =>
+                        (new Coordinate(1, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 0))->toHash()  =>
+                        (new Coordinate(1, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(1, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, -1))->toHash() =>
+                        (new Coordinate(0, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(-1, -1))->toHash() =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 0))->toHash() =>
+                        (new Coordinate(-1, 0))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 1))->toHash() =>
-                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS. ":" . Tile::TILE_TYPE_CITY),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                     ]
                 ),
                 new Coordinate(-1, 0),
@@ -361,24 +363,24 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             [
                 $this->createMap(
                     [
-                        (new Coordinate(0, 0))->toHash()  =>
+                        (new Coordinate(0, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, 1))->toHash()  =>
+                        (new Coordinate(0, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 1))->toHash()  =>
+                        (new Coordinate(1, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 0))->toHash()  =>
+                        (new Coordinate(1, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(1, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, -1))->toHash() =>
+                        (new Coordinate(0, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(-1, -1))->toHash() =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 0))->toHash() =>
+                        (new Coordinate(-1, 0))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 1))->toHash() =>
-                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS. ":" . Tile::TILE_TYPE_CITY),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                     ]
                 ),
                 new Coordinate(0, 0),
@@ -388,24 +390,24 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             [
                 $this->createMap(
                     [
-                        (new Coordinate(0, 0))->toHash()  =>
+                        (new Coordinate(0, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, 1))->toHash()  =>
+                        (new Coordinate(0, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 1))->toHash()  =>
+                        (new Coordinate(1, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 0))->toHash()  =>
+                        (new Coordinate(1, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(1, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, -1))->toHash() =>
+                        (new Coordinate(0, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(-1, -1))->toHash() =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 0))->toHash() =>
+                        (new Coordinate(-1, 0))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 1))->toHash() =>
-                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS. ":" . Tile::TILE_TYPE_CITY),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                     ]
                 ),
                 new Coordinate(1, 0),
@@ -415,24 +417,24 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             [
                 $this->createMap(
                     [
-                        (new Coordinate(0, 0))->toHash()  =>
+                        (new Coordinate(0, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, 1))->toHash()  =>
+                        (new Coordinate(0, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 1))->toHash()  =>
+                        (new Coordinate(1, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 0))->toHash()  =>
+                        (new Coordinate(1, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(1, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, -1))->toHash() =>
+                        (new Coordinate(0, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(-1, -1))->toHash() =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 0))->toHash() =>
+                        (new Coordinate(-1, 0))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 1))->toHash() =>
-                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS. ":" . Tile::TILE_TYPE_CITY),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                     ]
                 ),
                 new Coordinate(-1, -1),
@@ -442,24 +444,24 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             [
                 $this->createMap(
                     [
-                        (new Coordinate(0, 0))->toHash()  =>
+                        (new Coordinate(0, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, 1))->toHash()  =>
+                        (new Coordinate(0, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 1))->toHash()  =>
+                        (new Coordinate(1, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 0))->toHash()  =>
+                        (new Coordinate(1, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(1, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, -1))->toHash() =>
+                        (new Coordinate(0, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(-1, -1))->toHash() =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 0))->toHash() =>
+                        (new Coordinate(-1, 0))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 1))->toHash() =>
-                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS. ":" . Tile::TILE_TYPE_CITY),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                     ]
                 ),
                 new Coordinate(0, -1),
@@ -469,24 +471,24 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             [
                 $this->createMap(
                     [
-                        (new Coordinate(0, 0))->toHash()  =>
+                        (new Coordinate(0, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, 1))->toHash()  =>
+                        (new Coordinate(0, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 1))->toHash()  =>
+                        (new Coordinate(1, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 0))->toHash()  =>
+                        (new Coordinate(1, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(1, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, -1))->toHash() =>
+                        (new Coordinate(0, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(-1, -1))->toHash() =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 0))->toHash() =>
+                        (new Coordinate(-1, 0))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 1))->toHash() =>
-                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS. ":" . Tile::TILE_TYPE_CITY),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                     ]
                 ),
                 new Coordinate(1, -1),
@@ -496,24 +498,24 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             [
                 $this->createMap(
                     [
-                        (new Coordinate(0, 0))->toHash()  =>
+                        (new Coordinate(0, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(0, 1))->toHash()  =>
+                        (new Coordinate(0, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 1))->toHash()  =>
+                        (new Coordinate(1, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 0))->toHash()  =>
+                        (new Coordinate(1, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(1, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, -1))->toHash() =>
+                        (new Coordinate(0, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(-1, -1))->toHash() =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 0))->toHash() =>
+                        (new Coordinate(-1, 0))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 1))->toHash() =>
-                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS. ":" . Tile::TILE_TYPE_CITY),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                     ]
                 ),
                 new Coordinate(-1, 1),
@@ -523,24 +525,24 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             [
                 $this->createMap(
                     [
-                        (new Coordinate(0, 0))->toHash()  =>
+                        (new Coordinate(0, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(0, 1))->toHash()  =>
+                        (new Coordinate(0, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 1))->toHash()  =>
+                        (new Coordinate(1, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 0))->toHash()  =>
+                        (new Coordinate(1, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(1, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, -1))->toHash() =>
+                        (new Coordinate(0, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(-1, -1))->toHash() =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 0))->toHash() =>
+                        (new Coordinate(-1, 0))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 1))->toHash() =>
-                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS. ":" . Tile::TILE_TYPE_CITY),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                     ]
                 ),
                 new Coordinate(0, 1),
@@ -550,24 +552,24 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             [
                 $this->createMap(
                     [
-                        (new Coordinate(0, 0))->toHash()  =>
+                        (new Coordinate(0, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(0, 1))->toHash()  =>
+                        (new Coordinate(0, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 1))->toHash()  =>
+                        (new Coordinate(1, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 0))->toHash()  =>
+                        (new Coordinate(1, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(1, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, -1))->toHash() =>
+                        (new Coordinate(0, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(-1, -1))->toHash() =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 0))->toHash() =>
+                        (new Coordinate(-1, 0))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 1))->toHash() =>
-                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS. ":" . Tile::TILE_TYPE_CITY),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                     ]
                 ),
                 new Coordinate(1, 1),
@@ -577,24 +579,24 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             [
                 $this->createMap(
                     [
-                        (new Coordinate(0, 0))->toHash()  =>
+                        (new Coordinate(0, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(0, 1))->toHash()  =>
+                        (new Coordinate(0, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 1))->toHash()  =>
+                        (new Coordinate(1, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 0))->toHash()  =>
+                        (new Coordinate(1, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(1, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, -1))->toHash() =>
+                        (new Coordinate(0, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(-1, -1))->toHash() =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 0))->toHash() =>
+                        (new Coordinate(-1, 0))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 1))->toHash() =>
-                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS. ":" . Tile::TILE_TYPE_CITY),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                     ]
                 ),
                 new Coordinate(-1, 0),
@@ -604,24 +606,24 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             [
                 $this->createMap(
                     [
-                        (new Coordinate(0, 0))->toHash()  =>
+                        (new Coordinate(0, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(0, 1))->toHash()  =>
+                        (new Coordinate(0, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 1))->toHash()  =>
+                        (new Coordinate(1, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 0))->toHash()  =>
+                        (new Coordinate(1, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(1, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, -1))->toHash() =>
+                        (new Coordinate(0, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(-1, -1))->toHash() =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 0))->toHash() =>
+                        (new Coordinate(-1, 0))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 1))->toHash() =>
-                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS. ":" . Tile::TILE_TYPE_CITY),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                     ]
                 ),
                 new Coordinate(0, 0),
@@ -631,24 +633,24 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             [
                 $this->createMap(
                     [
-                        (new Coordinate(0, 0))->toHash()  =>
+                        (new Coordinate(0, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(0, 1))->toHash()  =>
+                        (new Coordinate(0, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 1))->toHash()  =>
+                        (new Coordinate(1, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 0))->toHash()  =>
+                        (new Coordinate(1, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(1, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, -1))->toHash() =>
+                        (new Coordinate(0, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(-1, -1))->toHash() =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 0))->toHash() =>
+                        (new Coordinate(-1, 0))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 1))->toHash() =>
-                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS. ":" . Tile::TILE_TYPE_CITY),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                     ]
                 ),
                 new Coordinate(0, 1),
@@ -658,24 +660,24 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             [
                 $this->createMap(
                     [
-                        (new Coordinate(0, 0))->toHash()  =>
+                        (new Coordinate(0, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(0, 1))->toHash()  =>
+                        (new Coordinate(0, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 1))->toHash()  =>
+                        (new Coordinate(1, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 0))->toHash()  =>
+                        (new Coordinate(1, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(1, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, -1))->toHash() =>
+                        (new Coordinate(0, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(-1, -1))->toHash() =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 0))->toHash() =>
+                        (new Coordinate(-1, 0))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 1))->toHash() =>
-                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS. ":" . Tile::TILE_TYPE_CITY),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                     ]
                 ),
                 new Coordinate(-1, -1),
@@ -685,24 +687,24 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             [
                 $this->createMap(
                     [
-                        (new Coordinate(0, 0))->toHash()  =>
+                        (new Coordinate(0, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(0, 1))->toHash()  =>
+                        (new Coordinate(0, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 1))->toHash()  =>
+                        (new Coordinate(1, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 0))->toHash()  =>
+                        (new Coordinate(1, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(1, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, -1))->toHash() =>
+                        (new Coordinate(0, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(-1, -1))->toHash() =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 0))->toHash() =>
+                        (new Coordinate(-1, 0))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 1))->toHash() =>
-                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS. ":" . Tile::TILE_TYPE_CITY),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                     ]
                 ),
                 new Coordinate(0, -1),
@@ -712,24 +714,24 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             [
                 $this->createMap(
                     [
-                        (new Coordinate(0, 0))->toHash()  =>
+                        (new Coordinate(0, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(0, 1))->toHash()  =>
+                        (new Coordinate(0, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 1))->toHash()  =>
+                        (new Coordinate(1, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 0))->toHash()  =>
+                        (new Coordinate(1, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(1, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, -1))->toHash() =>
+                        (new Coordinate(0, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(-1, -1))->toHash() =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 0))->toHash() =>
+                        (new Coordinate(-1, 0))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 1))->toHash() =>
-                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS. ":" . Tile::TILE_TYPE_CITY),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                     ]
                 ),
                 new Coordinate(1, -1),
@@ -739,24 +741,24 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             [
                 $this->createMap(
                     [
-                        (new Coordinate(0, 0))->toHash()  =>
+                        (new Coordinate(0, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(0, 1))->toHash()  =>
+                        (new Coordinate(0, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(1, 1))->toHash()  =>
+                        (new Coordinate(1, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 0))->toHash()  =>
+                        (new Coordinate(1, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
                         (new Coordinate(1, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, -1))->toHash() =>
+                        (new Coordinate(0, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS),
                         (new Coordinate(-1, -1))->toHash() =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 0))->toHash() =>
+                        (new Coordinate(-1, 0))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(-1, 1))->toHash() =>
-                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS. ":" . Tile::TILE_TYPE_CITY),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                     ]
                 ),
                 new Coordinate(-1, 1),
@@ -766,24 +768,24 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             [
                 $this->createMap(
                     [
-                        (new Coordinate(0, 0))->toHash()  =>
+                        (new Coordinate(0, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(0, 1))->toHash()  =>
+                        (new Coordinate(0, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(1, 1))->toHash()  =>
+                        (new Coordinate(1, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 0))->toHash()  =>
+                        (new Coordinate(1, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
                         (new Coordinate(1, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, -1))->toHash() =>
+                        (new Coordinate(0, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS),
                         (new Coordinate(-1, -1))->toHash() =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 0))->toHash() =>
+                        (new Coordinate(-1, 0))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(-1, 1))->toHash() =>
-                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS. ":" . Tile::TILE_TYPE_CITY),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                     ]
                 ),
                 new Coordinate(0, 1),
@@ -793,24 +795,24 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             [
                 $this->createMap(
                     [
-                        (new Coordinate(0, 0))->toHash()  =>
+                        (new Coordinate(0, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(0, 1))->toHash()  =>
+                        (new Coordinate(0, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(1, 1))->toHash()  =>
+                        (new Coordinate(1, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 0))->toHash()  =>
+                        (new Coordinate(1, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
                         (new Coordinate(1, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, -1))->toHash() =>
+                        (new Coordinate(0, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS),
                         (new Coordinate(-1, -1))->toHash() =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 0))->toHash() =>
+                        (new Coordinate(-1, 0))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(-1, 1))->toHash() =>
-                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS. ":" . Tile::TILE_TYPE_CITY),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                     ]
                 ),
                 new Coordinate(1, 1),
@@ -820,24 +822,24 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             [
                 $this->createMap(
                     [
-                        (new Coordinate(0, 0))->toHash()  =>
+                        (new Coordinate(0, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(0, 1))->toHash()  =>
+                        (new Coordinate(0, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(1, 1))->toHash()  =>
+                        (new Coordinate(1, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 0))->toHash()  =>
+                        (new Coordinate(1, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
                         (new Coordinate(1, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, -1))->toHash() =>
+                        (new Coordinate(0, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS),
                         (new Coordinate(-1, -1))->toHash() =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 0))->toHash() =>
+                        (new Coordinate(-1, 0))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(-1, 1))->toHash() =>
-                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS. ":" . Tile::TILE_TYPE_CITY),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                     ]
                 ),
                 new Coordinate(-1, 0),
@@ -847,24 +849,24 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             [
                 $this->createMap(
                     [
-                        (new Coordinate(0, 0))->toHash()  =>
+                        (new Coordinate(0, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(0, 1))->toHash()  =>
+                        (new Coordinate(0, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(1, 1))->toHash()  =>
+                        (new Coordinate(1, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 0))->toHash()  =>
+                        (new Coordinate(1, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
                         (new Coordinate(1, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, -1))->toHash() =>
+                        (new Coordinate(0, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS),
                         (new Coordinate(-1, -1))->toHash() =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 0))->toHash() =>
+                        (new Coordinate(-1, 0))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(-1, 1))->toHash() =>
-                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS. ":" . Tile::TILE_TYPE_CITY),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                     ]
                 ),
                 new Coordinate(0, 0),
@@ -874,24 +876,24 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             [
                 $this->createMap(
                     [
-                        (new Coordinate(0, 0))->toHash()  =>
+                        (new Coordinate(0, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(0, 1))->toHash()  =>
+                        (new Coordinate(0, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(1, 1))->toHash()  =>
+                        (new Coordinate(1, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 0))->toHash()  =>
+                        (new Coordinate(1, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
                         (new Coordinate(1, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, -1))->toHash() =>
+                        (new Coordinate(0, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS),
                         (new Coordinate(-1, -1))->toHash() =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 0))->toHash() =>
+                        (new Coordinate(-1, 0))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(-1, 1))->toHash() =>
-                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS. ":" . Tile::TILE_TYPE_CITY),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                     ]
                 ),
                 new Coordinate(1, 0),
@@ -901,24 +903,24 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             [
                 $this->createMap(
                     [
-                        (new Coordinate(0, 0))->toHash()  =>
+                        (new Coordinate(0, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(0, 1))->toHash()  =>
+                        (new Coordinate(0, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(1, 1))->toHash()  =>
+                        (new Coordinate(1, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 0))->toHash()  =>
+                        (new Coordinate(1, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
                         (new Coordinate(1, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, -1))->toHash() =>
+                        (new Coordinate(0, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS),
                         (new Coordinate(-1, -1))->toHash() =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 0))->toHash() =>
+                        (new Coordinate(-1, 0))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(-1, 1))->toHash() =>
-                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS. ":" . Tile::TILE_TYPE_CITY),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                     ]
                 ),
                 new Coordinate(-1, -1),
@@ -928,24 +930,24 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             [
                 $this->createMap(
                     [
-                        (new Coordinate(0, 0))->toHash()  =>
+                        (new Coordinate(0, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(0, 1))->toHash()  =>
+                        (new Coordinate(0, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(1, 1))->toHash()  =>
+                        (new Coordinate(1, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 0))->toHash()  =>
+                        (new Coordinate(1, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
                         (new Coordinate(1, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, -1))->toHash() =>
+                        (new Coordinate(0, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS),
                         (new Coordinate(-1, -1))->toHash() =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 0))->toHash() =>
+                        (new Coordinate(-1, 0))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(-1, 1))->toHash() =>
-                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS. ":" . Tile::TILE_TYPE_CITY),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                     ]
                 ),
                 new Coordinate(0, -1),
@@ -955,24 +957,24 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             [
                 $this->createMap(
                     [
-                        (new Coordinate(0, 0))->toHash()  =>
+                        (new Coordinate(0, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(0, 1))->toHash()  =>
+                        (new Coordinate(0, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(1, 1))->toHash()  =>
+                        (new Coordinate(1, 1))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 0))->toHash()  =>
+                        (new Coordinate(1, 0))->toHash()   =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
                         (new Coordinate(1, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(0, -1))->toHash() =>
+                        (new Coordinate(0, -1))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS),
                         (new Coordinate(-1, -1))->toHash() =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(-1, 0))->toHash() =>
+                        (new Coordinate(-1, 0))->toHash()  =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(-1, 1))->toHash() =>
-                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS. ":" . Tile::TILE_TYPE_CITY),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                     ]
                 ),
                 new Coordinate(1, -1),
@@ -996,20 +998,499 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
                 6,
             ],
 
+            /** ROAD TESTS */
 
-//            /** Create Two Tile Road Map  */
-//            [
-//                $this->createMap(
-//                    [
-//                        (new Coordinate(0, 0))->toHash() =>
-//                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
-//                        (new Coordinate(0, 1))->toHash() =>
-//                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
-//                    ]
-//                ),
-//                new Coordinate(0, 1),
-//                2,
-//            ],
+            /** Create Two Tile Road Map  */
+            [
+                $this->createMap(
+                    [
+                        (new Coordinate(0, 0))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, 1))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                    ]
+                ),
+                new Coordinate(0, 1),
+                2,
+            ],
+            /** Create Three Tile Road Map, Place South Tile  */
+            [
+                $this->createMap(
+                    [
+                        (new Coordinate(0, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, 0))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, -1))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                    ]
+                ),
+                new Coordinate(0, 1),
+                2,
+            ],
+            /** Create Three Tile Road Map, Place Center Tile  */
+            [
+                $this->createMap(
+                    [
+                        (new Coordinate(0, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, 0))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, -1))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                    ]
+                ),
+                new Coordinate(0, 0),
+                4,
+            ],
+            /** Create Three Tile Road Map, Place North Tile  */
+            [
+                $this->createMap(
+                    [
+                        (new Coordinate(0, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, 0))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, -1))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                    ]
+                ),
+                new Coordinate(0, 1),
+                2,
+            ],
+            /** Create Five Tile Road Map, Place North Tile  */
+            [
+                $this->createMap(
+                    [
+                        (new Coordinate(0, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(-1, 0))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, 0))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(1, 0))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, -1))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                    ]
+                ),
+                new Coordinate(0, 1),
+                2,
+            ],
+            /** Create Five Tile Road Map, Place West Tile  */
+            [
+                $this->createMap(
+                    [
+                        (new Coordinate(0, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(-1, 0))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, 0))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(1, 0))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, -1))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                    ]
+                ),
+                new Coordinate(-1, 0),
+                2,
+            ],
+            /** Create Five Tile Road Map, Place Center Tile  */
+            [
+                $this->createMap(
+                    [
+                        (new Coordinate(0, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(-1, 0))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, 0))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(1, 0))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, -1))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                    ]
+                ),
+                new Coordinate(0, 0),
+                8,
+            ],
+            /** Create Five Tile Road Map, Place East Tile  */
+            [
+                $this->createMap(
+                    [
+                        (new Coordinate(0, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(-1, 0))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, 0))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(1, 0))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, -1))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                    ]
+                ),
+                new Coordinate(1, 0),
+                2,
+            ],
+            /** Create Five Tile Road Map, Place South Tile  */
+            [
+                $this->createMap(
+                    [
+                        (new Coordinate(0, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(-1, 0))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, 0))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(1, 0))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, -1))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                    ]
+                ),
+                new Coordinate(0, -1),
+                2,
+            ],
+            /** Create Five Tile Road Map, No Complete Roads, Place North Tile  */
+            [
+                $this->createMap(
+                    [
+                        (new Coordinate(0, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(-1, 0))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, 0))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(1, 0))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, -1))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                    ]
+                ),
+                new Coordinate(0, 1),
+                0,
+            ],
+            /** Create Five Tile Road Map, No Complete Roads, Place West Tile  */
+            [
+                $this->createMap(
+                    [
+                        (new Coordinate(0, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(-1, 0))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, 0))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(1, 0))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, -1))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                    ]
+                ),
+                new Coordinate(-1, 0),
+                0,
+            ],
+            /** Create Five Tile Road Map, No Complete Roads, Place Center Tile  */
+            [
+                $this->createMap(
+                    [
+                        (new Coordinate(0, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(-1, 0))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, 0))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(1, 0))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, -1))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                    ]
+                ),
+                new Coordinate(0, 0),
+                0,
+            ],
+            /** Create Five Tile Road Map, No Complete Roads, Place East Tile  */
+            [
+                $this->createMap(
+                    [
+                        (new Coordinate(0, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(-1, 0))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, 0))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(1, 0))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, -1))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                    ]
+                ),
+                new Coordinate(1, 0),
+                0,
+            ],
+            /** Create Five Tile Road Map, No Complete Roads, Place South Tile  */
+            [
+                $this->createMap(
+                    [
+                        (new Coordinate(0, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(-1, 0))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, 0))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(1, 0))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, -1))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                    ]
+                ),
+                new Coordinate(0, -1),
+                0,
+            ],
+            /** Create Nine Tile, 2 Circular Roads, Place North West */
+            [
+                $this->createMap(
+                    [
+                        (new Coordinate(0, 0))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, 1))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(1, 1))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
+                        (new Coordinate(1, 0))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(1, -1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, -1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(-1, -1))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
+                        (new Coordinate(-1, 0))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                    ]
+                ),
+                new Coordinate(-1, 1),
+                4,
+            ],
+            /** Create Nine Tile, 2 Circular Roads, Place North */
+            [
+                $this->createMap(
+                    [
+                        (new Coordinate(0, 0))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, 1))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(1, 1))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
+                        (new Coordinate(1, 0))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(1, -1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, -1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(-1, -1))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
+                        (new Coordinate(-1, 0))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                    ]
+                ),
+                new Coordinate(0, 1),
+                4,
+            ],
+            /** Create Nine Tile, 2 Circular Roads, Place East */
+            [
+                $this->createMap(
+                    [
+                        (new Coordinate(0, 0))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, 1))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(1, 1))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
+                        (new Coordinate(1, 0))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(1, -1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, -1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(-1, -1))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
+                        (new Coordinate(-1, 0))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                    ]
+                ),
+                new Coordinate(1, 1),
+                0,
+            ],
+            /** Create Nine Tile, 2 Circular Roads, Place West */
+            [
+                $this->createMap(
+                    [
+                        (new Coordinate(0, 0))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, 1))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(1, 1))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
+                        (new Coordinate(1, 0))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(1, -1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, -1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(-1, -1))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
+                        (new Coordinate(-1, 0))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                    ]
+                ),
+                new Coordinate(-1, 0),
+                4,
+            ],
+            /** Create Nine Tile, 2 Circular Roads, Place Center */
+            [
+                $this->createMap(
+                    [
+                        (new Coordinate(0, 0))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, 1))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(1, 1))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
+                        (new Coordinate(1, 0))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(1, -1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, -1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(-1, -1))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
+                        (new Coordinate(-1, 0))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                    ]
+                ),
+                new Coordinate(0, 0),
+                8,
+            ],
+            /** Create Nine Tile, 2 Circular Roads, Place East */
+            [
+                $this->createMap(
+                    [
+                        (new Coordinate(0, 0))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, 1))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(1, 1))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
+                        (new Coordinate(1, 0))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(1, -1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, -1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(-1, -1))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
+                        (new Coordinate(-1, 0))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                    ]
+                ),
+                new Coordinate(0, 1),
+                4,
+            ],
+            /** Create Nine Tile, 2 Circular Roads, Place South West */
+            [
+                $this->createMap(
+                    [
+                        (new Coordinate(0, 0))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, 1))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(1, 1))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
+                        (new Coordinate(1, 0))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(1, -1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, -1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(-1, -1))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
+                        (new Coordinate(-1, 0))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                    ]
+                ),
+                new Coordinate(-1, -1),
+                0,
+            ],
+            /** Create Nine Tile, 2 Circular Roads, Place South */
+            [
+                $this->createMap(
+                    [
+                        (new Coordinate(0, 0))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, 1))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(1, 1))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
+                        (new Coordinate(1, 0))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(1, -1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, -1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(-1, -1))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
+                        (new Coordinate(-1, 0))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                    ]
+                ),
+                new Coordinate(0, -1),
+                4,
+            ],
+            /** Create Nine Tile, 2 Circular Roads, Place South East */
+            [
+                $this->createMap(
+                    [
+                        (new Coordinate(0, 0))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, 1))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(1, 1))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
+                        (new Coordinate(1, 0))->toHash()   =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(1, -1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(0, -1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(-1, -1))->toHash() =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
+                        (new Coordinate(-1, 0))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                        (new Coordinate(-1, 1))->toHash()  =>
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                    ]
+                ),
+                new Coordinate(1, -1),
+                4,
+            ],
         ];
     }
 
@@ -1033,8 +1514,30 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         $tilesReflection = $mapReflection->getProperty('tiles');
         $tilesReflection->setAccessible(true);
 
-        // Set the Bag Tiles
+        // Set the Maps Tiles
         $tilesReflection->setValue($map, $tiles);
+
+        // Sets the map size, used to render the map, not required for tests unless visualising map
+        // Update the Bottom Left Coordinate of the map
+        $bottomLeftReflection = $mapReflection->getProperty('bottomLeft');
+        $bottomLeftReflection->setAccessible(true);
+        $bottomLeftReflection->setValue(
+            $map,
+            new Coordinate(
+                -3,
+                -3
+            )
+        );
+        // Update the Top Right Coordinate of the map
+        $topRightReflection = $mapReflection->getProperty('topRight');
+        $topRightReflection->setAccessible(true);
+        $topRightReflection->setValue(
+            $map,
+            new Coordinate(
+                3,
+                3
+            )
+        );
 
         return $map;
     }
@@ -1050,8 +1553,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testScoring(Map $map, Coordinate $placedCoordinate, int $expectedScore)
     {
-        $map->updateMinimumBoundingRectangle(new Coordinate(-2, -2));
-        $map->updateMinimumBoundingRectangle(new Coordinate(2, 2));
+        // Used to visualise test, can be removed
         $map->render();
 
         $scoringService = new Service();
