@@ -72,13 +72,13 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
                         (new Coordinate(0, 1))->toHash() =>
                             Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                         (new Coordinate(1, 1))->toHash() =>
-                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
                         (new Coordinate(1, 0))->toHash() =>
-                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
+                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
                     ]
                 ),
                 new Coordinate(0, 1),
-                6,
+                0,
             ],
             /** Create Five Tiles, 4 Cities Map, Score 4 City */
             [
@@ -997,23 +997,6 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
                     ]
                 ),
                 new Coordinate(1, -1),
-                6,
-            ],
-            /** Create Four Tile Circle City Map  */
-            [
-                $this->createMap(
-                    [
-                        (new Coordinate(0, 0))->toHash() =>
-                            Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(0, 1))->toHash() =>
-                            Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
-                        (new Coordinate(1, 1))->toHash() =>
-                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
-                        (new Coordinate(1, 0))->toHash() =>
-                            Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
-                    ]
-                ),
-                new Coordinate(0, 1),
                 6,
             ],
 
@@ -2496,7 +2479,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
                     ]
                 ),
                 new Coordinate(0, 1),
-                72,
+                54,
             ],
             /** Create Nine Cloister, All Fully Surrounded, Place North East Cloister */
             [
@@ -2554,7 +2537,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
                             Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
                     ]
                 ),
-                new Coordinate(0, 1),
+                new Coordinate(1, 1),
                 36,
             ],
             /** Create Nine Cloister, All Fully Surrounded, Place West Cloister */
@@ -2614,7 +2597,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
                     ]
                 ),
                 new Coordinate(-1, 0),
-                72,
+                54,
             ],
             /** Create Nine Cloister, All Fully Surrounded, Place Center Tile */
             [
@@ -2732,7 +2715,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
                     ]
                 ),
                 new Coordinate(1, 0),
-                72,
+                54,
             ],
             /** Create Nine Cloister, All Fully Surrounded, Place South West Cloister */
             [
@@ -2850,7 +2833,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
                     ]
                 ),
                 new Coordinate(0, -1),
-                72,
+                54,
             ],
             /** Create Nine Cloister, All Fully Surrounded, Place South West Cloister */
             [
@@ -2990,7 +2973,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
                     ]
                 ),
                 new Coordinate(0, 0),
-                12,
+                14,
             ],
             /** Two Tile City , Connected Multiple Roads, Complete Cloister */
             [
@@ -3023,7 +3006,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
                     ]
                 ),
                 new Coordinate(0, 0),
-                21,
+                23,
             ],
             /** Two Tile City , Connected Multiple Roads, Complete Cloister, Additional Unscored features */
             [
@@ -3068,7 +3051,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
                     ]
                 ),
                 new Coordinate(0, 0),
-                21,
+                23,
             ],
             /** Combined features, score City and 3 roads */
             [
@@ -3368,7 +3351,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         // Set the Maps Tiles
         $tilesReflection->setValue($map, $tiles);
 
-        // Sets the map size, used to render the map, not required for tests unless visualising map
+        // Sets the map size, used to render the map, not required for tests unless visualising map, good for debugging
         // Update the Bottom Left Coordinate of the map
         $bottomLeftReflection = $mapReflection->getProperty('bottomLeft');
         $bottomLeftReflection->setAccessible(true);
