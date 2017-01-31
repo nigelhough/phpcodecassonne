@@ -257,7 +257,7 @@ class CoordinateTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Data provider for the get touching parameters function
+     * Data provider for get touching coordinate test
      *
      * @return array
      */
@@ -311,6 +311,77 @@ class CoordinateTest extends \PHPUnit_Framework_TestCase
         foreach($expectedCoordinates as $key => $expectedCoordinate) {
             $this->assertTrue(
                 $expectedCoordinate->isEqual($touchingCoordinates[$key])
+            );
+        }
+    }
+
+    /**
+     * Data provider for get surrounding coordinates function
+     *
+     * @return array
+     */
+    public function surroundingProvider()
+    {
+        return array(
+            array(
+                new Coordinate(0, 0),
+                array(
+                    'North West' => new Coordinate(-1, 1),
+                    'North' => new Coordinate(0, 1),
+                    'North East' => new Coordinate(1, 1),
+                    'West' => new Coordinate(-1, 0),
+                    'East' => new Coordinate(1, 0),
+                    'South West' => new Coordinate(-1, -1),
+                    'South' => new Coordinate(0, -1),
+                    'South East' => new Coordinate(1, -1),
+                ),
+            ),
+            array(
+                new Coordinate(10, 10),
+                array(
+                    'North West' => new Coordinate(9, 11),
+                    'North' => new Coordinate(10, 11),
+                    'North East' => new Coordinate(11, 11),
+                    'West' => new Coordinate(9, 10),
+                    'East' => new Coordinate(11, 10),
+                    'South West' => new Coordinate(9, 9),
+                    'South' => new Coordinate(10, 9),
+                    'South East' => new Coordinate(11, 9),
+                ),
+            ),
+            array(
+                new Coordinate(-10, -10),
+                array(
+                    'North West' => new Coordinate(-11, -9),
+                    'North' => new Coordinate(-10, -9),
+                    'North East' => new Coordinate(-9, -9),
+                    'West' => new Coordinate(-11, -10),
+                    'East' => new Coordinate(-9, -10),
+                    'South West' => new Coordinate(-11, -11),
+                    'South' => new Coordinate(-10, -11),
+                    'South East' => new Coordinate(-9, -11),
+                ),
+            ),
+        );
+    }
+
+    /**
+     * Test the get Surrounding Coordinates function
+     *
+     * @param Coordinate    $coordinate
+     * @param Coordinate[]  $expectedCoordinates
+     *
+     * @dataProvider surroundingProvider
+     */
+    public function testGetSurrounding(Coordinate $coordinate, array $expectedCoordinates)
+    {
+        //Get surounding coordinates
+        $surroundingCoords = $coordinate->getSurroundingCoordinates();
+
+        //Test all of the coordinates match expected
+        foreach($expectedCoordinates as $key => $expectedCoordinate) {
+            $this->assertTrue(
+                $expectedCoordinate->isEqual($surroundingCoords[$key])
             );
         }
     }

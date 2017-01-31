@@ -91,4 +91,24 @@ class Coordinate
             'West' => new self($this->xCoordinate - 1, $this->yCoordinate),
         );
     }
+
+    /**
+     * Get coordinates that surround this coordinate
+     *
+     * return self[]
+     */
+    public function getSurroundingCoordinates()
+    {
+        //Return offset coordinates
+        return array(
+            'North West' => new self($this->xCoordinate - 1, $this->yCoordinate + 1),
+            'North' => new self($this->xCoordinate, $this->yCoordinate + 1),
+            'North East' => new self($this->xCoordinate + 1, $this->yCoordinate + 1),
+            'West' => new self($this->xCoordinate - 1, $this->yCoordinate),
+            'East' => new self($this->xCoordinate + 1, $this->yCoordinate),
+            'South West' => new self($this->xCoordinate - 1, $this->yCoordinate - 1),
+            'South' => new self($this->xCoordinate, $this->yCoordinate - 1),
+            'South East' => new self($this->xCoordinate + 1, $this->yCoordinate - 1),
+        );
+    }
 }
