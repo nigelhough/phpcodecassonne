@@ -56,6 +56,25 @@ class Map
     }
 
     /**
+     * Look at a tile in a coordinate
+     * Returns a copy so original tile can't be manipulated
+     *
+     * @param Coordinate $coordinate Position to look at
+     *
+     * @todo Throw custom exception
+     *
+     * @return Tile
+     * @throws \Exception
+     */
+    public function look(Coordinate $coordinate)
+    {
+        if (!$this->isOccupied($coordinate)) {
+            throw new \Exception('Can\'t fetch tile from unoccupied location');
+        }
+        return clone $this->tiles[$coordinate->toHash()];
+    }
+
+    /**
      * Add tile to the map tiles and update map details
      *
      * @param Tile       $tile       Tile to lay
@@ -68,6 +87,29 @@ class Map
         $this->tiles[$coordinate->toHash()] = $tile;
         $this->updateMinimumBoundingRectangle($coordinate);
         $this->updatePlayablePositions($coordinate);
+    }
+
+    /**
+     * Check if position is occupied
+     *
+     * @param Coordinate $coordinate Position to check is occupied
+     *
+     * @return bool
+     */
+    public function isOccupied(Coordinate $coordinate)
+    {
+        return array_key_exists($coordinate->toHash(), $this->tiles);
+    }
+
+    /**
+     * Get a the Playable Position
+     * @todo Restrict this so players have to workout there own playable positions
+     *
+     * @return Coordinate[]
+     */
+    public function getPlayablePositions()
+    {
+        return $this->playablePositions;
     }
 
     /**
@@ -88,16 +130,6 @@ class Map
             max(array($coordinate->getX(), $this->topRight->getX())),
             max(array($coordinate->getY(), $this->topRight->getY()))
         );
-    }
-
-    /**
-     * Get a the Playable Position
-     *
-     * @return Coordinate[]
-     */
-    public function getPlayablePositions()
-    {
-        return $this->playablePositions;
     }
 
     /**
@@ -168,18 +200,6 @@ class Map
         }
 
         return true;
-    }
-
-    /**
-     * Check if position is occupied
-     *
-     * @param Coordinate $coordinate Position to check is occupied
-     *
-     * @return bool
-     */
-    private function isOccupied(Coordinate $coordinate)
-    {
-        return array_key_exists($coordinate->toHash(), $this->tiles);
     }
 
     /*
