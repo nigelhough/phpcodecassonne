@@ -10,9 +10,7 @@ use Codecassonne\Map\Exception\InvalidTilePlacement;
 class Marvin implements PlayerInterface
 {
     /**
-     * Get the name of a player
-     *
-     * @return string
+     * @inheritdoc
      */
     public function getName()
     {
@@ -20,12 +18,7 @@ class Marvin implements PlayerInterface
     }
 
     /**
-     * Play a turn
-     *
-     * @param Map  $map
-     * @param Tile $tile
-     *
-     * @return Action
+     * @inheritdoc
      * @throws \Exception
      */
     public function playTurn(Map $map, Tile $tile)
