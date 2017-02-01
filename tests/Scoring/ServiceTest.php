@@ -9,6 +9,28 @@ use Codecassonne\Tile\Tile;
 class ServiceTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * Test scoring an invalid coordinate
+     *
+     * @expectedException \Codecassonne\Scoring\Exception\ScoringInvalidCoordinate
+     */
+    public function testScoringInvalidCoordinate()
+    {
+        // Create a Map with the standard starting tile
+        $startingTile = Tile::createFromString(
+            Tile::TILE_TYPE_GRASS . ':' .
+            Tile::TILE_TYPE_ROAD . ':' .
+            Tile::TILE_TYPE_CITY . ':' .
+            Tile::TILE_TYPE_ROAD . ':' .
+            Tile::TILE_TYPE_ROAD
+        );
+        $map = new Map($startingTile);
+
+        // Attempt to score an Invalid coordinate
+        $scoringService = new Service();
+        $scoringService->calculateScore($map, new Coordinate(1, 1));
+    }
+
+    /**
      * Test the scoring service, when passed a map and a coordinate to score the expected score is returned
      *
      * @param Map        $map              Map to score
