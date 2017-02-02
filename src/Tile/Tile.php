@@ -206,9 +206,24 @@ class Tile
      */
     public function getFeatures()
     {
-        return
-        [
-            ['North'],
-        ];
+        $features = [];
+
+        if (in_array($this->north, [static::TILE_TYPE_CITY, static::TILE_TYPE_ROAD])) {
+            $features[] = ['North'];
+        }
+
+        if (in_array($this->east, [static::TILE_TYPE_CITY, static::TILE_TYPE_ROAD])) {
+            $features[] = ['East'];
+        }
+
+        if (in_array($this->south, [static::TILE_TYPE_CITY, static::TILE_TYPE_ROAD])) {
+            $features[] = ['South'];
+        }
+
+        if (in_array($this->west, [static::TILE_TYPE_CITY, static::TILE_TYPE_ROAD])) {
+            $features[] = ['West'];
+        }
+
+        return $features;
     }
 }
