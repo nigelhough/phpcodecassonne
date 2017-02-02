@@ -54,6 +54,7 @@ class Kryten extends Marvin
                     // If this is better than the highest score, make this the highest score
                     if (is_null($highestScore) || $score > $highestScore)
                     {
+                        $highestScore = $score;
                         $highestPosition = $position;
                         $highestRotation = $tile->getRotation();
                     }
