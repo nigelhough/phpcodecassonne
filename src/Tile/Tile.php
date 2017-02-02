@@ -197,4 +197,18 @@ class Tile
     {
         return $this->rotation;
     }
+
+    /**
+     * Get features on a tile
+     * An array of containing connected bearings will be returned
+     *
+     * @return array
+     */
+    public function getFeatures()
+    {
+        return
+        [
+            ['North'],
+        ];
+    }
 }

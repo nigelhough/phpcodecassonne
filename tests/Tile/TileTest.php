@@ -331,4 +331,41 @@ class TileTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($tile->toString(), $facesString);
     }
 
+    /**
+     * Data Provider for Get Features Test
+     *
+     * @return array
+     */
+    public function getFeaturesProvider()
+    {
+        return [
+            /** City North of Tile */
+            [
+                Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
+                [
+                    ['North'],
+                ]
+            ],
+        ];
+    }
+
+    /**
+     * Test getting the features on a tile
+     *
+     * @param Tile  $tile               Tile to get features on
+     * @param array $expectedFeatures   Expected Features to be returned
+     *
+     * @todo improve assertion to be independent of array order
+     *
+     * @dataProvider getFeaturesProvider
+     */
+    public function testGetFeatures(Tile $tile, array $expectedFeatures)
+    {
+        $features = $tile->getFeatures();
+
+        $this->assertCount(count($expectedFeatures), $features);
+        $this->assertSame($expectedFeatures, $features);
+
+    }
+
 }
