@@ -1,6 +1,6 @@
 <?php
 /**
- * Multi-Threaded Linter for the Enterprise codebase.
+ * Multi-Threaded Linter
  *
  * Validates all files for syntax errors, including Composer dependencies. Exits with a summary to stdout and an error
  *  code if any errors are found.
@@ -12,11 +12,7 @@
  *  that currently exist are either a result of libraries starting work on a phpNext upgrade, or deliberately having
  *  parse errors in their code for tests.
  */
-$exclusions = array(
-    // @todo These files use PHP7 anonymous classes. Remove when we upgrade.
-    './vendor/phpunit/php-token-stream/tests/_fixture/class_with_method_that_declares_anonymous_class.php',
-    './vendor/phpunit/php-token-stream/tests/_fixture/class_with_method_that_declares_anonymous_class2.php',
-);
+$exclusions = [];
 
 // Determine the number of parallel processes requested. Defaults to 8.
 $processLimit = (int) (empty($argv[1]) ? 0 : $argv[1]);
