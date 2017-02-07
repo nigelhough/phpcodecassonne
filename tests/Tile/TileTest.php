@@ -970,6 +970,175 @@ class TileTest extends \PHPUnit_Framework_TestCase
                     ['West'],
                 ]
             ],
+
+            /** CONNECTED CITIES */
+            /** City North, East Connected */
+            [
+                Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
+                [
+                    ['North', 'East'],
+                ]
+            ],
+            /** City East, South Connected */
+            [
+                Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
+                [
+                    ['East', 'South'],
+                ]
+            ],
+            /** City South, West Connected */
+            [
+                Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
+                [
+                    ['South', 'West'],
+                ]
+            ],
+            /** City West, North Connected */
+            [
+                Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
+                [
+                    ['North', 'West'],
+                ]
+            ],
+            /** City North, South Connected */
+            [
+                Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
+                [
+                    ['North', 'South'],
+                ]
+            ],
+            /** City East, West Connected */
+            [
+                Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
+                [
+                    ['East', 'West'],
+                ]
+            ],
+            /** City North, East, South Connected */
+            [
+                Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
+                [
+                    ['North', 'East', 'South'],
+                ]
+            ],
+            /** City East, South, West Connected */
+            [
+                Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
+                [
+                    ['East', 'South', 'West'],
+                ]
+            ],
+            /** City South, West, North Connected */
+            [
+                Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
+                [
+                    ['North', 'South', 'West'],
+                ]
+            ],
+            /** City West, North, East Connected */
+            [
+                Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
+                [
+                    ['North', 'East', 'West'],
+                ]
+            ],
+            /** City North, East, South, West Connected */
+            [
+                Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
+                [
+                    ['North', 'East', 'South', 'West'],
+                ]
+            ],
+
+            /** CONNECTED ROADS */
+            /** Road North, East Connected */
+            [
+                Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                [
+                    ['North', 'East'],
+                ]
+            ],
+            /** Road East, South Connected */
+            [
+                Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                [
+                    ['East', 'South'],
+                ]
+            ],
+            /** Road South, West Connected */
+            [
+                Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                [
+                    ['South', 'West'],
+                ]
+            ],
+            /** Road West, North Connected */
+            [
+                Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                [
+                    ['North', 'West'],
+                ]
+            ],
+            /** Road North, South Connected */
+            [
+                Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                [
+                    ['North', 'South'],
+                ]
+            ],
+            /** Road East, West Connected */
+            [
+                Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                [
+                    ['East', 'West'],
+                ]
+            ],
+            /** Road North, East, South Connected */
+            [
+                Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
+                [
+                    ['North'],
+                    ['East'],
+                    ['South'],
+                ]
+            ],
+            /** Road East, South, West Connected */
+            [
+                Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                [
+                    ['East'],
+                    ['South'],
+                    ['West'],
+                ]
+            ],
+            /** Road South, West, North Connected */
+            [
+                Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                [
+                    ['North'],
+                    ['South'],
+                    ['West'],
+                ]
+            ],
+            /** Road West, North, East Connected */
+            [
+                Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                [
+                    ['North'],
+                    ['East'],
+                    ['West'],
+                ]
+            ],
+            /** Road North, East, South, West Connected */
+            [
+                Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                [
+                    ['North'],
+                    ['East'],
+                    ['South'],
+                    ['West'],
+                ]
+            ],
         ];
     }
 
