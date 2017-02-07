@@ -1533,4 +1533,106 @@ class TileTest extends \PHPUnit_Framework_TestCase
         //$this->assertCount(count($expectedFeatures), $features);
         $this->assertSame($expectedFeatures, $features);
     }
+
+    /**
+     * Data Provider for faces accessor function
+     *
+     * @return array
+     */
+    public function tileFacesProvider()
+    {
+        return [
+            /** All City Faces */
+            [
+                Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
+                Tile::TILE_TYPE_CITY,
+                Tile::TILE_TYPE_CITY,
+                Tile::TILE_TYPE_CITY,
+                Tile::TILE_TYPE_CITY,
+                Tile::TILE_TYPE_CITY,
+            ],
+            /** All City Faces, Unconnected */
+            [
+                Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS),
+                Tile::TILE_TYPE_CITY,
+                Tile::TILE_TYPE_CITY,
+                Tile::TILE_TYPE_CITY,
+                Tile::TILE_TYPE_CITY,
+                Tile::TILE_TYPE_GRASS,
+            ],
+            /** All ROAD Faces */
+            [
+                Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                Tile::TILE_TYPE_ROAD,
+                Tile::TILE_TYPE_ROAD,
+                Tile::TILE_TYPE_ROAD,
+                Tile::TILE_TYPE_ROAD,
+                Tile::TILE_TYPE_ROAD,
+            ],
+            /** All ROAD Faces and a Cloister */
+            [
+                Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_CLOISTER),
+                Tile::TILE_TYPE_ROAD,
+                Tile::TILE_TYPE_ROAD,
+                Tile::TILE_TYPE_ROAD,
+                Tile::TILE_TYPE_ROAD,
+                Tile::TILE_TYPE_CLOISTER,
+            ],
+            /** All Grass Faces and a Cloister */
+            [
+                Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CLOISTER),
+                Tile::TILE_TYPE_GRASS,
+                Tile::TILE_TYPE_GRASS,
+                Tile::TILE_TYPE_GRASS,
+                Tile::TILE_TYPE_GRASS,
+                Tile::TILE_TYPE_CLOISTER,
+            ],
+            /** Mixed Faces */
+            [
+                Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_ROAD),
+                Tile::TILE_TYPE_ROAD,
+                Tile::TILE_TYPE_ROAD,
+                Tile::TILE_TYPE_CITY,
+                Tile::TILE_TYPE_CITY,
+                Tile::TILE_TYPE_ROAD,
+            ],
+            [
+                Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_ROAD),
+                Tile::TILE_TYPE_ROAD,
+                Tile::TILE_TYPE_GRASS,
+                Tile::TILE_TYPE_CITY,
+                Tile::TILE_TYPE_CITY,
+                Tile::TILE_TYPE_ROAD,
+            ],
+            [
+                Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
+                Tile::TILE_TYPE_ROAD,
+                Tile::TILE_TYPE_GRASS,
+                Tile::TILE_TYPE_CITY,
+                Tile::TILE_TYPE_ROAD,
+                Tile::TILE_TYPE_ROAD,
+            ],
+        ];
+    }
+
+    /**
+     * Test the accessor functions for tile faces
+     *
+     * @param Tile      $tile       Tile to get faces for
+     * @param string    $northFace  Expected north tile face
+     * @param string    $eastFace   Expected east tile face
+     * @param string    $southFace  Expected south tile face
+     * @param string    $westFace   Expected west tile face
+     * @param string    $center     Expected center tile feature
+     *
+     * @dataProvider tileFacesProvider
+     */
+    public function testAccessorsForTileFaces(Tile $tile, $northFace, $eastFace, $southFace, $westFace, $center)
+    {
+        $this->assertSame($northFace, $tile->getNorth());
+        $this->assertSame($eastFace, $tile->getEast());
+        $this->assertSame($southFace, $tile->getSouth());
+        $this->assertSame($westFace, $tile->getWest());
+        $this->assertSame($center, $tile->getCenter());
+    }
 }
