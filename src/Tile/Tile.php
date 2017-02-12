@@ -178,6 +178,28 @@ class Tile
         return $this->center;
     }
 
+    public function getFace($bearing)
+    {
+        if ($bearing === 'North') {
+            return $this->north;
+        }
+        if ($bearing === 'East') {
+            return $this->east;
+        }
+        if ($bearing === 'South') {
+            return $this->south;
+        }
+        if ($bearing === 'West') {
+            return $this->west;
+        }
+        if ($bearing === 'Center') {
+            return $this->center;
+        }
+
+        throw new \Exception('Invalid Bearing');
+
+    }
+
     /**
      * Tile image name
      *

@@ -51,248 +51,44 @@ class Service
         $featuresScore = 0;
 
         $scoringTile = $map->look($scoringCoordinate);
-        $centerFeature = $scoringTile->getCenter();
+        $scoringFeatures = $scoringTile->getFeatures();
 
-        $roads =
-            (int) ($scoringTile->getNorth() === Tile::TILE_TYPE_ROAD) +
-            (int) ($scoringTile->getEast() === Tile::TILE_TYPE_ROAD) +
-            (int) ($scoringTile->getSouth() === Tile::TILE_TYPE_ROAD) +
-            (int) ($scoringTile->getWest() === Tile::TILE_TYPE_ROAD);
+        $overallScore = 0;
 
-        // If North has a scoring feature
-        $northFeature = $scoringTile->getNorth();
-        if ($northFeature === Tile::TILE_TYPE_CITY) {
-            $northScoredTiles = [$scoringCoordinate];
-            $northScore += $this->scoreFeature($map, $scoringCoordinate, 'North', $northFeature, $northScoredTiles);
-        } elseif ($northFeature === Tile::TILE_TYPE_ROAD) {
-            $northScoredTiles = [$scoringCoordinate];
-            $northScore += $this->scoreFeature($map, $scoringCoordinate, 'North', $northFeature, $northScoredTiles);
+        // Iterate over all scoring features on the scoring tile
+        foreach ($scoringFeatures as $featureFaces) {
+            // Reset counters for new feature
+            $featureScore = 0;
+            $scoredCoordinates = [$scoringCoordinate];
+            $scoredScoringTile = false;
+
+            // Iterate over faces of the feature on the scoring tile
+            foreach ($featureFaces as $bearing) {
+                // Score the feature face
+                $faceScore = $this->scoreFeature($map, $scoringCoordinate, $bearing, $scoringTile->getface($bearing), $scoredCoordinates);
+
+                // If this face is incomplete, the whole feature is incomplete
+                if ($faceScore === 0) {
+                    // Set the feature score to 0 and break out of scoring the feature
+                    $featureScore = 0;
+                    break;
+                }
+
+                // Remove double counting of scoring tile
+                if ($scoredScoringTile) {
+                    $faceScore -= ($scoringTile->getface($bearing) === Tile::TILE_TYPE_CITY ? 2 : 1);
+                }
+                $scoredScoringTile = true;
+
+                // Increment feature score
+                $featureScore += $faceScore;
+            }
+
+            // Increment overall score
+            $overallScore += $featureScore;
         }
 
-        // If East has a scoring feature
-        $eastFeature = $scoringTile->getEast();
-        if ($eastFeature === Tile::TILE_TYPE_CITY) {
-            $eastScoredTiles = [$scoringCoordinate];
-            if ($eastFeature === $northFeature && $eastFeature === $centerFeature) {
-                $eastScoredTiles = array_merge($northScoredTiles, $eastScoredTiles);
-            }
-            $eastScore += $this->scoreFeature($map, $scoringCoordinate, 'East', $eastFeature, $eastScoredTiles);
-        } elseif ($eastFeature === Tile::TILE_TYPE_ROAD) {
-            $eastScoredTiles = [$scoringCoordinate];
-
-            if (
-                ($roads == 2 && $eastFeature === $northFeature && $eastFeature === $centerFeature) // Roads are connected on scoring tile
-                || in_array($scoringCoordinate->getTouchingCoordinates()['East'], $northScoredTiles) // Road must loop back
-            ) {
-                $eastScoredTiles = array_merge($northScoredTiles, $eastScoredTiles);
-            }
-            $eastScore += $this->scoreFeature($map, $scoringCoordinate, 'East', $eastFeature, $eastScoredTiles);
-        }
-
-        // If South has a scoring feature
-        $southFeature = $scoringTile->getSouth();
-        if ($southFeature === Tile::TILE_TYPE_CITY) {
-            $southScoredTiles = [$scoringCoordinate];
-            if ($southFeature === $northFeature && $southFeature === $centerFeature) {
-                $southScoredTiles = array_merge($northScoredTiles, $southScoredTiles);
-            }
-            if ($southFeature === $eastFeature && $southFeature === $centerFeature) {
-                $southScoredTiles = array_merge($eastScoredTiles, $southScoredTiles);
-            }
-
-            $southScore += $this->scoreFeature($map, $scoringCoordinate, 'South', $southFeature, $southScoredTiles);
-        } elseif ($southFeature === Tile::TILE_TYPE_ROAD) {
-            $southScoredTiles = [$scoringCoordinate];
-            if (
-                ($roads == 2 && $southFeature === $northFeature && $southFeature === $centerFeature)
-                || in_array($scoringCoordinate->getTouchingCoordinates()['South'], $northScoredTiles) // Road must loop back
-            ) {
-                $southScoredTiles = array_merge($northScoredTiles, $southScoredTiles);
-            }
-            if (
-                ($roads == 2 && $southFeature === $eastFeature && $southFeature === $centerFeature)
-                || in_array($scoringCoordinate->getTouchingCoordinates()['South'], $eastScoredTiles) // Road must loop back
-            ) {
-                $southScoredTiles = array_merge($eastScoredTiles, $southScoredTiles);
-            }
-
-            $southScore += $this->scoreFeature($map, $scoringCoordinate, 'South', $southFeature, $southScoredTiles);
-        }
-
-        // If West has a scoring feature
-        $westFeature = $scoringTile->getWest();
-        if ($westFeature === Tile::TILE_TYPE_CITY) {
-            $westScoredTiles = [$scoringCoordinate];
-            if ($westFeature === $northFeature && $westFeature === $centerFeature) {
-                $westScoredTiles = array_merge($northScoredTiles, $westScoredTiles);
-            }
-            if ($westFeature === $eastFeature && $westFeature === $centerFeature) {
-                $westScoredTiles = array_merge($eastScoredTiles, $westScoredTiles);
-            }
-            if ($westFeature === $southFeature && $westFeature === $centerFeature) {
-                $westScoredTiles = array_merge($southScoredTiles, $westScoredTiles);
-            }
-            $westScore += $this->scoreFeature($map, $scoringCoordinate, 'West', $westFeature, $westScoredTiles);
-        } elseif ($westFeature === Tile::TILE_TYPE_ROAD) {
-            $westScoredTiles = [$scoringCoordinate];
-
-            if (
-                ($roads == 2 && $westFeature === $northFeature && $westFeature === $centerFeature)
-                || in_array($scoringCoordinate->getTouchingCoordinates()['West'], $northScoredTiles) // Road must loop back
-            ) {
-                $westScoredTiles = array_merge($northScoredTiles, $westScoredTiles);
-            }
-            if (
-                ($roads == 2 && $westFeature === $eastFeature && $westFeature === $centerFeature)
-                || in_array($scoringCoordinate->getTouchingCoordinates()['West'], $eastScoredTiles) // Road must loop back
-            ) {
-                $westScoredTiles = array_merge($eastScoredTiles, $westScoredTiles);
-            }
-            if (
-                ($roads == 2 && $westFeature === $southFeature && $westFeature === $centerFeature)
-                || in_array($scoringCoordinate->getTouchingCoordinates()['West'], $southScoredTiles) // Road must loop back
-            ) {
-                $westScoredTiles = array_merge($southScoredTiles, $westScoredTiles);
-            }
-            $westScore += $this->scoreFeature($map, $scoringCoordinate, 'West', $westFeature, $westScoredTiles);
-        }
-        // Do some magic for joined features on the placed tile, combine the features on that bearing
-        // Careful not to double count placed tile (it will be counted in each score)
-        // Roads and City different logic
-
-        // Total score is all seperate features combined
-        $featuresScore = $northScore + $eastScore + $southScore + $westScore;
-
-        if ($scoringTile->getCenter() === Tile::TILE_TYPE_ROAD) {
-            // Center tile is a road
-            // Can't be a single road face (wouldn't have a road center)
-            // If there are two road faces on the tile it must connect two road features
-            // If there are more than two road faces on the tile it must be a crossroads score features seperatley
-            $roads =
-                (int) ($scoringTile->getNorth() === Tile::TILE_TYPE_ROAD) +
-                (int) ($scoringTile->getEast() === Tile::TILE_TYPE_ROAD) +
-                (int) ($scoringTile->getSouth() === Tile::TILE_TYPE_ROAD) +
-                (int) ($scoringTile->getWest() === Tile::TILE_TYPE_ROAD);
-
-            if ($roads == 2 && $scoringTile->getNorth() === Tile::TILE_TYPE_ROAD && $scoringTile->getSouth() === Tile::TILE_TYPE_ROAD) {
-                // Straight North to South Road
-
-                // If either combined feature is incomplete, overall feature is incomplete, else don't double count scoring tile
-                $combinedFeatureScore = ($northScore === 0 || $southScore === 0)
-                    ? 0
-                    : ($northScore + $southScore - 1);
-                $featuresScore = $combinedFeatureScore + $eastScore + $westScore;
-
-            } elseif ($roads == 2 && $scoringTile->getWest() === Tile::TILE_TYPE_ROAD && $scoringTile->getEast() === Tile::TILE_TYPE_ROAD) {
-                // Straight West to East Road
-
-                // If either combined feature is incomplete overall feature is incomplete, else don't double count scoring tile
-                $combinedFeatureScore = ($westScore === 0 || $eastScore === 0)
-                    ? 0
-                    : ($westScore + $eastScore - 1);
-                $featuresScore = $combinedFeatureScore + $northScore + $southScore;
-
-            } elseif ($roads == 2 && $scoringTile->getNorth() === Tile::TILE_TYPE_ROAD && $scoringTile->getEast() === Tile::TILE_TYPE_ROAD) {
-                // North to East turn
-
-                // If either combined feature is incomplete, overall feature is incomplete, else don't double count scoring tile
-                $combinedFeatureScore = ($northScore === 0 || $eastScore === 0)
-                    ? 0
-                    : ($northScore + $eastScore - 1);
-                $featuresScore = $combinedFeatureScore + $southScore + $westScore;
-
-            } elseif ($roads == 2 && $scoringTile->getNorth() === Tile::TILE_TYPE_ROAD && $scoringTile->getWest() === Tile::TILE_TYPE_ROAD) {
-                // Noth to West turn
-
-                // If either combined feature is incomplete, overall feature is incomplete, else don't double count scoring tile
-                $combinedFeatureScore = ($northScore === 0 || $westScore === 0)
-                    ? 0
-                    : ($northScore + $westScore - 1);
-                $featuresScore = $combinedFeatureScore + $southScore + $eastScore;
-
-            } elseif ($roads == 2 && $scoringTile->getSouth() === Tile::TILE_TYPE_ROAD && $scoringTile->getEast() === Tile::TILE_TYPE_ROAD) {
-                // South to East turn
-
-                // If either combined feature is incomplete, overall feature is incomplete, else don't double count scoring tile
-                $combinedFeatureScore = ($southScore === 0 || $eastScore === 0)
-                    ? 0
-                    : ($southScore + $eastScore - 1);
-                $featuresScore = $combinedFeatureScore + $northScore + $westScore;
-
-            } elseif ($roads == 2 && $scoringTile->getSouth() === Tile::TILE_TYPE_ROAD && $scoringTile->getWest() === Tile::TILE_TYPE_ROAD) {
-                // South to West turn
-
-                // If either combined feature is incomplete, overall feature is incomplete, else don't double count scoring tile
-                $combinedFeatureScore = ($southScore === 0 || $westScore === 0)
-                    ? 0
-                    : ($southScore + $westScore - 1);
-                $featuresScore = $combinedFeatureScore + $northScore + $eastScore;
-            } elseif ($roads >= 3) {
-                // If there are more than two road faces on the tile it must be a crossroads score features seperatley
-
-                // A feature can't score 1, it would be incomplete, this must be a road that loops back. (Should this have been caught earlier)
-                // Don't count these as is doublr counting scoring tile
-                $featuresScore =
-                    ($northScore > 1 ? $northScore : 0)
-                    + ($eastScore > 1 ? $eastScore : 0)
-                    + ($southScore > 1 ? $southScore : 0)
-                    + ($westScore > 1 ? $westScore : 0);
-            }
-
-        } elseif ($scoringTile->getCenter() === Tile::TILE_TYPE_CITY) {
-            // If center is a city it must be joining multiple features
-
-            $seperateFeatureScore = 0;
-            $combinedFeatureScore = null;
-
-            if ($scoringTile->getNorth() === Tile::TILE_TYPE_CITY) {
-                $combinedFeatureScore = ($northScore === 0 || $combinedFeatureScore === 0)
-                    ? 0
-                    : ($combinedFeatureScore + $northScore);
-            } else {
-                $seperateFeatureScore += $northScore;
-            }
-
-            if ($scoringTile->getEast() === Tile::TILE_TYPE_CITY) {
-                $combinedFeatureScore = ($eastScore === 0 || $combinedFeatureScore === 0)
-                    ? 0
-                    : ($combinedFeatureScore + $eastScore);
-            } else {
-                $seperateFeatureScore += $eastScore;
-            }
-
-            if ($scoringTile->getSouth() === Tile::TILE_TYPE_CITY) {
-                $combinedFeatureScore = ($southScore === 0 || $combinedFeatureScore === 0)
-                    ? 0
-                    : ($combinedFeatureScore + $southScore);
-            } else {
-                $seperateFeatureScore += $southScore;
-            }
-
-            if ($scoringTile->getWest() === Tile::TILE_TYPE_CITY) {
-                $combinedFeatureScore = ($westScore === 0 || $combinedFeatureScore === 0)
-                    ? 0
-                    : ($combinedFeatureScore + $westScore);
-            } else {
-                $seperateFeatureScore += $westScore;
-            }
-
-            // If we have scored a combined feature
-            if ($combinedFeatureScore !== 0) {
-                $cities =
-                    (int) ($scoringTile->getNorth() === Tile::TILE_TYPE_CITY) +
-                    (int) ($scoringTile->getEast() === Tile::TILE_TYPE_CITY) +
-                    (int) ($scoringTile->getSouth() === Tile::TILE_TYPE_CITY) +
-                    (int) ($scoringTile->getWest() === Tile::TILE_TYPE_CITY);
-
-                // Remove double counts of scored tile
-                $combinedFeatureScore -= (($cities - 1) * 2);
-            }
-
-            $featuresScore = $seperateFeatureScore + $combinedFeatureScore;
-        }
-
-        return $featuresScore;
+        return $overallScore;
     }
 
     /**
