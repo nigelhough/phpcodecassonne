@@ -6,7 +6,7 @@ before_script:
   - composer install
 
 script: 
-  - phpunit --configuration tests/phpunit.xml
+  - phpunit --configuration tests/phpunit.xml --coverage-clover=coverage.xml
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
