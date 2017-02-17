@@ -1,4 +1,6 @@
 # PHPCodecassonne
+[![Build Status](https://travis-ci.org/nigelhough/Codeception.svg?branch=master)](https://travis-ci.org/nigelhough/Codeception)
+
 ## Introduction
 A PHP project inspired by the board game Carcassonne
 
