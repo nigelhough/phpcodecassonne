@@ -1,5 +1,7 @@
 # PHPCodecassonne
 [![Build Status](https://travis-ci.org/nigelhough/Codeception.svg?branch=master)](https://travis-ci.org/nigelhough/Codeception)
+[![codecov](https://codecov.io/gh/nigelhough/phpcodecassonne/branch/master/graph/badge.svg)](https://codecov.io/gh/nigelhough/phpcodecassonne)
+[![Code Climate](https://codeclimate.com/github/nigelhough/phpcodecassonne/badges/gpa.svg)](https://codeclimate.com/github/nigelhough/phpcodecassonne)
 
 ## Introduction
 A PHP project inspired by the board game Carcassonne
