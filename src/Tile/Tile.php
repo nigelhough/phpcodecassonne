@@ -258,6 +258,22 @@ class Tile
     }
 
     /**
+     * @param $bearing
+     *
+     * @return array|mixed
+     */
+    public function getFeature($bearing)
+    {
+        foreach ($this->getFeatures() as $feature) {
+            if (in_array($bearing, $feature)) {
+                return $feature;
+            }
+        }
+
+        return [];
+    }
+
+    /**
      * Is this feature a scoring
      *
      * @param string $feature A feature type to determine if is scoring

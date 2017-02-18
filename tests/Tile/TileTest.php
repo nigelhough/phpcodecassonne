@@ -1530,8 +1530,29 @@ class TileTest extends \PHPUnit_Framework_TestCase
     {
         $features = $tile->getFeatures();
 
-        //$this->assertCount(count($expectedFeatures), $features);
+        // Assert the tiles features are expected
         $this->assertSame($expectedFeatures, $features);
+    }
+
+    /**
+     * Test getting a single features on a tile bearing
+     *
+     * @param Tile  $tile               Tile to get features on
+     * @param array $expectedFeatures   Expected Features to be returned
+     *
+     * @todo improve assertion to be independent of array order
+     *
+     * @dataProvider getFeaturesProvider
+     */
+    public function testGetSingleFeature(Tile $tile, array $expectedFeatures)
+    {
+        foreach ($expectedFeatures as $expectedFeature) {
+            // Get feature based on the first expected bearing
+            $feature = $tile->getFeature($expectedFeature[0]);
+
+            // Assert Expected feature is as expected
+            $this->assertSame($expectedFeature, $feature);
+        }
     }
 
     /**
