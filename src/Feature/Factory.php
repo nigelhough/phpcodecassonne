@@ -26,8 +26,7 @@ class Factory
         $featureFaces = $startingTile->getFeature($bearing);
 
         if (empty($featureFaces)) {
-            // @todo custom Exception
-            throw new Exception('Can\'t score a bearing with no scoring faces');
+            throw new Exception\NoFeatureFaces('Can\'t create a feature with no feature faces');
         }
 
         $isComplete = true;
