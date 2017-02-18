@@ -8,6 +8,8 @@ use Codecassonne\Tile\Tile;
 
 class ServiceTest extends \PHPUnit_Framework_TestCase
 {
+    use \Codecassonne\createTestMap;
+
     /**
      * Test scoring an invalid coordinate
      *
@@ -3660,53 +3662,5 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
                 14,
             ],
         ];
-    }
-
-    /**
-     * Creates a map from an array of tiles
-     *
-     * @param array $tiles Array of tiles to set the state of the map
-     *
-     * @return Map
-     */
-    private function createMap(array $tiles)
-    {
-        //Dummy Tile
-        $tile = Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS);
-
-        // Create Map
-        $map = new Map($tile);
-
-        // Make Map properties accessible
-        $mapReflection = new \ReflectionClass('Codecassonne\Map\Map');
-        $tilesReflection = $mapReflection->getProperty('tiles');
-        $tilesReflection->setAccessible(true);
-
-        // Set the Maps Tiles
-        $tilesReflection->setValue($map, $tiles);
-
-        // Sets the map size, used to render the map, not required for tests unless visualising map, good for debugging
-        // Update the Bottom Left Coordinate of the map
-        $bottomLeftReflection = $mapReflection->getProperty('bottomLeft');
-        $bottomLeftReflection->setAccessible(true);
-        $bottomLeftReflection->setValue(
-            $map,
-            new Coordinate(
-                -3,
-                -3
-            )
-        );
-        // Update the Top Right Coordinate of the map
-        $topRightReflection = $mapReflection->getProperty('topRight');
-        $topRightReflection->setAccessible(true);
-        $topRightReflection->setValue(
-            $map,
-            new Coordinate(
-                3,
-                3
-            )
-        );
-
-        return $map;
     }
 }
