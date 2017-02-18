@@ -396,7 +396,7 @@ class CoordinateTest extends \PHPUnit_Framework_TestCase
     /**
      * Test trying to get an invalid bearing
      *
-     * @expectedException \Exception
+     * @expectedException \Codecassonne\Map\Exception\InvalidBearing
      */
     public function testInvalidBearing()
     {

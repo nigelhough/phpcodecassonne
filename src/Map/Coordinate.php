@@ -149,7 +149,6 @@ class Coordinate
                 break;
         }
 
-        // @todo Custom Exception
-        throw new \Exception('Invalid Bearing');
+        throw new Exception\InvalidBearing('Invalid Bearing');
     }
 }
