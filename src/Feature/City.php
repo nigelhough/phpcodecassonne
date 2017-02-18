@@ -5,11 +5,11 @@ namespace Codecassonne\Feature;
 /**
  * A City feature on the board
  */
-class City
+class City extends Feature
 {
-    /** @var int */
+    /** @inheritDoc */
     protected $tileValue = 2;
 
-    /** @var string */
-    protected $tileType = \Codecassonne\Tile\Tile::TILE_TYPE_CITY;
+    /** @inheritDoc */
+    protected $featureType = \Codecassonne\Tile\Tile::TILE_TYPE_CITY;
 }

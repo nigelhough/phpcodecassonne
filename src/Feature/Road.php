@@ -5,11 +5,11 @@ namespace Codecassonne\Feature;
 /**
  * A Road feature on the board
  */
-class Road
+class Road extends Feature
 {
-    /** @var int */
+    /** @inheritDoc */
     protected $tileValue = 1;
 
-    /** @var string */
-    protected $tileType = \Codecassonne\Tile\Tile::TILE_TYPE_ROAD;
+    /** @inheritDoc */
+    protected $featureType = \Codecassonne\Tile\Tile::TILE_TYPE_ROAD;
 }

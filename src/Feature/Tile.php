@@ -61,4 +61,16 @@ class Tile
     {
         return $this->bearings;
     }
+
+    /**
+     * Is the passed bearing part of this feature tile
+     *
+     * @param string $bearing Bearing to check is part of feature tile
+     *
+     * @return bool
+     */
+    public function bearingPartOf(string $bearing)
+    {
+        return in_array($bearing, $this->bearings);
+    }
 }
