@@ -61,7 +61,7 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
     /**
      * Test creating a feature with invalid tiles
      *
-     * @expectedException \Exception
+     * @expectedException \Codecassonne\Feature\Exception\DuplicateTiles
      */
     public function testInvalidTiles()
     {

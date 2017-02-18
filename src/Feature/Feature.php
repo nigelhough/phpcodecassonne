@@ -34,8 +34,7 @@ abstract class Feature
         // Add Tiles keyed by coordinate for ease of looking up
         foreach ($tiles as $tile) {
             if (array_key_exists($tile->getCoordinate()->toHash(), $this->tiles)) {
-                // @todo Custom Exception
-                throw new \Exception('Can\'t pass two tiles on the same coordinate');
+                throw new Exception\DuplicateTiles('Can\'t create feature with two tiles on the same coordinate');
             }
             $this->tiles[$tile->getCoordinate()->toHash()] = $tile;
         }
