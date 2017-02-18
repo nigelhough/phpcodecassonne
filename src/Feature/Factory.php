@@ -44,11 +44,6 @@ class Factory
         } elseif ($featureType === \Codecassonne\Tile\Tile::TILE_TYPE_ROAD) {
             return new Road($isComplete, ...array_values($featureTiles));
         }
-
-        // Handle Cloisters
-
-        // @todo Custom Exception
-        throw new \Exception('What the heck type of feature is this');
     }
 
     private function findFeatureTiles(
@@ -134,5 +129,6 @@ class Factory
     {
         // Check the coordinate has a tile
         // Check the tile has feature(s)
+        // Handle Cloisters
     }
 }
