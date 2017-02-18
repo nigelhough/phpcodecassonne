@@ -893,7 +893,7 @@ class MapTest extends \PHPUnit_Framework_TestCase
      * @param Coordinate $coordinate
      *
      * @dataProvider invalidLookProvider
-     * @expectedException \Exception
+     * @expectedException \Codecassonne\Map\Exception\UnoccupiedCoordinate
      */
     public function testLookAtInvalidLocation(Coordinate $coordinate)
     {

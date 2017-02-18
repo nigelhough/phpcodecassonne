@@ -69,7 +69,7 @@ class Map
     public function look(Coordinate $coordinate)
     {
         if (!$this->isOccupied($coordinate)) {
-            throw new \Exception('Can\'t fetch tile from unoccupied location');
+            throw new Exception\UnoccupiedCoordinate('Can\'t fetch tile from unoccupied location');
         }
         return clone $this->tiles[$coordinate->toHash()];
     }
