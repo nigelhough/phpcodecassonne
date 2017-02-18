@@ -61,10 +61,8 @@ class Map
      *
      * @param Coordinate $coordinate Position to look at
      *
-     * @todo Throw custom exception
-     *
      * @return Tile
-     * @throws \Exception
+     * @throws Exception\UnoccupiedCoordinate
      */
     public function look(Coordinate $coordinate)
     {
