@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace Codecassonne\Feature\FactoryTest;
 
@@ -8,7 +9,7 @@ use Codecassonne\Map\Coordinate;
 use Codecassonne\Tile\Tile;
 
 /**
- * A Cross Shaped Road, Seperate Connected Roads
+ * A Cross Shaped Road, Separate Connected Roads
  *
  *          -3           -2           -1            0            1            2            3
  *

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace Codecassonne\Feature;
 
@@ -18,6 +19,7 @@ class Factory
      * @param string     $bearing            Bearing of the tile the feature starts
      *
      * @return Feature
+     * @throws Exception\NoFeatureFaces
      */
     public function createFeature(Coordinate $startingCoordinate, Map $map, string $bearing): Feature
     {
@@ -28,7 +30,7 @@ class Factory
             throw new Exception\NoFeatureFaces('Can\'t create a feature with no feature faces');
         }
 
-        // Recursivley find features connected to starting tile
+        // Recursively find features connected to starting tile
         $isComplete = true;
         $featureTiles = [];
         $featureTiles[$startingCoordinate->toHash()] = new Tile($startingTile, $startingCoordinate, $featureFaces);
@@ -49,7 +51,7 @@ class Factory
     }
 
     /**
-     * Recursivley find features connected to a tile bearing
+     * Recursively find features connected to a tile bearing
      *
      * @param Map        $map          Map to find features on
      * @param Coordinate $coordinate   Coordinate to find from
@@ -67,18 +69,6 @@ class Factory
         // Get Connected Coordinate
         $connectedCoordinate = $coordinate->getBearing($bearing);
 
-        // Need to check if tile is already in the list and return, looped features
-        if (array_key_exists($connectedCoordinate->toHash(), $featureTiles)) {
-            // Currentley no tile can loop back and start another feature path, they must join back to original or stop
-            // In future expansions this is possible but how to define that tile hasn't been defined
-            // Add code here in the future to continue looping back features on the same tile
-
-            // @todo Merge Feature bearings to include loopback (if it ends and not re-joins)
-
-            // Currentley feature must be complete (loopback or stop)
-            return true;
-        }
-
         // If the connected coordinate doesn't have a placed tile the feature is incomplete
         if (!$map->isOccupied($connectedCoordinate)) {
             return false;
@@ -89,6 +79,29 @@ class Factory
         $connectedBearing = $this->flipBearing($bearing);
         $connectedFeatures = $connectedTile->getFeature($connectedBearing);
 
+        // Need to check if tile is already in the list and return, looped features
+        if (array_key_exists($connectedCoordinate->toHash(), $featureTiles)) {
+            // Currently no tile can loop back and start another feature path, they must join back to original or stop
+            // In future expansions this is possible but how to define that tile hasn't been defined
+            // Add code here in the future to continue looping back features on the same tile
+
+            // Is Connected bearing already part of the feature?
+            $currentFeatureTile = $featureTiles[$connectedCoordinate->toHash()];
+            if (!$currentFeatureTile->bearingPartOf($connectedBearing)) {
+                // If not merge the connected bearing with the bearings already found for coordinate
+                $currentBearings = $currentFeatureTile->getBearings();
+                $featureTiles[$connectedCoordinate->toHash()] =
+                    new Tile(
+                        $connectedTile,
+                        $connectedCoordinate,
+                        array_merge($currentBearings, $connectedFeatures)
+                    );
+            }
+
+            // Currently feature must be complete (loop back or stop)
+            return true;
+        }
+
         // Create feature tile, add to tracked tiles
         $featureTiles[$connectedCoordinate->toHash()] = new Tile($connectedTile, $connectedCoordinate, $connectedFeatures);
 
@@ -98,9 +111,9 @@ class Factory
         }
 
         // More than one face
-        // Recursivley search Linked Tile Features
+        // Recursively search Linked Tile Features
         $isComplete = true;
-        foreach($connectedFeatures as $connectedFeature) {
+        foreach ($connectedFeatures as $connectedFeature) {
             if ($connectedFeature === $connectedBearing) {
                 continue;
             }
@@ -116,20 +129,21 @@ class Factory
      * @todo Move this into a more appropriate place, probably time for bearing objects
      *
      * @return string
+     * @throws \Exception
      */
     private function flipBearing($bearing)
     {
         switch ($bearing) {
-            case 'North' :
+            case 'North':
                 return 'South';
                 break;
-            case 'East' :
+            case 'East':
                 return 'West';
                 break;
-            case 'South' :
+            case 'South':
                 return 'North';
                 break;
-            case 'West' :
+            case 'West':
                 return 'East';
                 break;
         }

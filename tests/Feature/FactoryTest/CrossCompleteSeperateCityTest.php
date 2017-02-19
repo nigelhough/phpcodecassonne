@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace Codecassonne\Feature\FactoryTest;
 
@@ -8,7 +9,7 @@ use Codecassonne\Map\Coordinate;
 use Codecassonne\Tile\Tile;
 
 /**
- * A Cross Shaped City, Seperate Disconnected Cities
+ * A Cross Shaped City, Separate Disconnected Cities
  *
  *          -3           -2           -1            0            1            2            3
  *
@@ -136,7 +137,7 @@ class CrossCompleteSeperateCityTest extends CreateFeatureTest
                 'North',
                 2,
                 true,
-                City::class
+                City::class,
             ],
             /** Test Center tile, East Face */
             [

@@ -8,7 +8,7 @@ use Codecassonne\Map\Coordinate;
 use Codecassonne\Tile\Tile;
 
 /**
- * A Cross Shaped Road, Seperate Connected Roads, Incomplete
+ * A Cross Shaped Road, Separate Connected Roads, Incomplete
  *
  *          -3           -2           -1            0            1            2            3
  *

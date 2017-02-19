@@ -1,11 +1,12 @@
 <?php
+declare(strict_types = 1);
 
 namespace Codecassonne\Feature\FactoryTest;
 
 use Codecassonne\Map\Map;
 use Codecassonne\Map\Coordinate;
-use Codecassonne\Tile\Tile;
 use Codecassonne\Feature\Factory;
+use \Codecassonne\createTestMap;
 
 /**
  * Test for creating features
@@ -13,17 +14,19 @@ use Codecassonne\Feature\Factory;
  */
 abstract class CreateFeatureTest extends \PHPUnit_Framework_TestCase
 {
-    use \Codecassonne\createTestMap;
+    use createTestMap;
 
     /**
      * Test Creating a Feature
      *
-     * @param $map                  Map to create feature for
-     * @param $coordinate           Starting Coordinate to create feature from
-     * @param $bearing              Strating Bearing to create feature from
-     * @param $expectedTiles        Expected number of tiles in feature
-     * @param $expectedCompleted    Expected if the feature is complete
-     * @param $expectedClass        Expected the class tye of the featur
+     * @param Map        $map               Map to create feature for
+     * @param Coordinate $coordinate        Starting Coordinate to create feature from
+     * @param string     $bearing           Starting Bearing to create feature from
+     * @param int        $expectedTiles     Expected number of tiles in feature
+     * @param bool       $expectedCompleted Expected if the feature is complete
+     * @param string     $expectedClass     Expected the class tye of the featured
+     * @param string[]   $sharedBearings    Any bearings on the starting coordinate not linked but shared by a looping
+     *                                      feature
      *
      * @dataProvider featureMapProvider
      */
@@ -33,7 +36,8 @@ abstract class CreateFeatureTest extends \PHPUnit_Framework_TestCase
         string $bearing,
         int $expectedTiles,
         bool $expectedCompleted,
-        string $expectedClass
+        string $expectedClass,
+        array $sharedBearings = []
     ) {
         $featureFactory = new Factory();
 
@@ -43,8 +47,10 @@ abstract class CreateFeatureTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedTiles, $feature->numberOfTiles());
         $this->assertSame($expectedCompleted, $feature->isComplete());
 
-        // @todo Test the feature faces are correct
-        // When a tile has two disconnected faces connected to the same feature are they both in the feature object
-        // Seperate Test?
+
+        foreach ($sharedBearings as $sharedBearing) {
+            // Check the shared bearings are part of the feature
+            $this->assertTrue($feature->coordinateBearingPartOf($coordinate, $sharedBearing));
+        }
     }
 }

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace Codecassonne\Feature\FactoryTest;
 
@@ -255,6 +256,7 @@ class SquareCompleteCitySplitCenterTest extends CreateFeatureTest
                 9,
                 true,
                 City::class,
+                ['East', 'South', 'West'],
             ],
             /** Test Center tile, East Face */
             [
@@ -264,6 +266,7 @@ class SquareCompleteCitySplitCenterTest extends CreateFeatureTest
                 9,
                 true,
                 City::class,
+                ['North', 'South', 'West'],
             ],
             /** Test Center tile, South Face */
             [
@@ -273,6 +276,7 @@ class SquareCompleteCitySplitCenterTest extends CreateFeatureTest
                 9,
                 true,
                 City::class,
+                ['North', 'East', 'West'],
             ],
             /** Test Center tile, West Face */
             [
@@ -282,6 +286,7 @@ class SquareCompleteCitySplitCenterTest extends CreateFeatureTest
                 9,
                 true,
                 City::class,
+                ['North', 'East', 'South'],
             ],
             /** Test East tile, North Face */
             [
