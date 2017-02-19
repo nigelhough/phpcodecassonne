@@ -65,7 +65,7 @@ use Codecassonne\Tile\Tile;
  *
  *
  */
-class SquareCompleteCityTest extends CreateFeatureTest
+class SquareCompleteCityCreation extends FeatureCreation
 {
     /**
      * Create a square complete city
@@ -427,6 +427,71 @@ class SquareCompleteCityTest extends CreateFeatureTest
                 9,
                 true,
                 City::class,
+            ],
+        ];
+    }
+
+    /**
+     * Data Provider for features creation test
+     *
+     * @return array
+     */
+    public function featuresMapProvider()
+    {
+        return [
+            /** Test North West tile */
+            [
+                $this->squareCompleteCityMap(),
+                new Coordinate(-1, 1),
+                3,
+            ],
+            /** Test North tile */
+            [
+                $this->squareCompleteCityMap(),
+                new Coordinate(0, 1),
+                2,
+            ],
+            /** Test North East tile */
+            [
+                $this->squareCompleteCityMap(),
+                new Coordinate(1, 1),
+                3,
+            ],
+            /** Test West tile */
+            [
+                $this->squareCompleteCityMap(),
+                new Coordinate(-1, 0),
+                2,
+            ],
+            /** Test Center tile */
+            [
+                $this->squareCompleteCityMap(),
+                new Coordinate(0, 0),
+                1,
+            ],
+            /** Test East tile */
+            [
+                $this->squareCompleteCityMap(),
+                new Coordinate(1, 0),
+                2,
+            ],
+            /** Test South West tile */
+            [
+                $this->squareCompleteCityMap(),
+                new Coordinate(-1, -1),
+                3,
+            ],
+            /** Test South West tile */
+            [
+                $this->squareCompleteCityMap(),
+                new Coordinate(0, -1),
+                2,
+            ],
+            /** Test South East tile */
+            [
+                $this->squareCompleteCityMap(),
+                new Coordinate(1, -1),
+                3,
             ],
         ];
     }

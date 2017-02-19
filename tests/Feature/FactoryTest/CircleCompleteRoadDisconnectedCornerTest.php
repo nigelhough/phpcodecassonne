@@ -65,7 +65,7 @@ use Codecassonne\Tile\Tile;
  *
  *
  */
-class CircleCompleteRoadDisconnectedCornerTest extends CreateFeatureTest
+class CircleCompleteRoadDisconnectedCornerCreation extends FeatureCreation
 {
     /**
      * Create a square complete road
@@ -391,6 +391,65 @@ class CircleCompleteRoadDisconnectedCornerTest extends CreateFeatureTest
                 8,
                 true,
                 Road::class,
+            ],
+        ];
+    }
+
+    /**
+     * Data Provider for features creation test
+     *
+     * @return array
+     */
+    public function featuresMapProvider()
+    {
+        return [
+            /** Test North West tile */
+            [
+                $this->circleCompleteRoadDisconnectedCornerMap(),
+                new Coordinate(-1, 1),
+                4,
+            ],
+            /** Test North tile */
+            [
+                $this->circleCompleteRoadDisconnectedCornerMap(),
+                new Coordinate(0, 1),
+                3,
+            ],
+            /** Test North East tile */
+            [
+                $this->circleCompleteRoadDisconnectedCornerMap(),
+                new Coordinate(1, 1),
+                3,
+            ],
+            /** Test West tile */
+            [
+                $this->circleCompleteRoadDisconnectedCornerMap(),
+                new Coordinate(-1, 0),
+                3,
+            ],
+            /** Test East tile */
+            [
+                $this->circleCompleteRoadDisconnectedCornerMap(),
+                new Coordinate(1, 0),
+                3,
+            ],
+            /** Test South West tile */
+            [
+                $this->circleCompleteRoadDisconnectedCornerMap(),
+                new Coordinate(-1, -1),
+                3,
+            ],
+            /** Test South West tile */
+            [
+                $this->circleCompleteRoadDisconnectedCornerMap(),
+                new Coordinate(0, -1),
+                3,
+            ],
+            /** Test South East tile */
+            [
+                $this->circleCompleteRoadDisconnectedCornerMap(),
+                new Coordinate(1, -1),
+                3,
             ],
         ];
     }

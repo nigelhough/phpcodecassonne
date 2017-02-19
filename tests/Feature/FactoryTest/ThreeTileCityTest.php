@@ -63,7 +63,7 @@ use Codecassonne\Tile\Tile;
  *
  *
  */
-class ThreeTileCityTest extends CreateFeatureTest
+class ThreeTileCityCreation extends FeatureCreation
 {
     /**
      * Create a Three Tile City Map
@@ -125,6 +125,35 @@ class ThreeTileCityTest extends CreateFeatureTest
                 3,
                 true,
                 City::class
+            ],
+        ];
+    }
+
+    /**
+     * Data Provider for features creation test
+     *
+     * @return array
+     */
+    public function featuresMapProvider()
+    {
+        return [
+            /** Test North tile */
+            [
+                $this->threeTileCityMap(),
+                new Coordinate(0, 2),
+                1,
+            ],
+            /** Test Center tile */
+            [
+                $this->threeTileCityMap(),
+                new Coordinate(0, 1),
+                1,
+            ],
+            /** Test South tile */
+            [
+                $this->threeTileCityMap(),
+                new Coordinate(0, 0),
+                1,
             ],
         ];
     }

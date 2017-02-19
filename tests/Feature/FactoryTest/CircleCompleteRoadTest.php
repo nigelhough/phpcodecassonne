@@ -65,7 +65,7 @@ use Codecassonne\Tile\Tile;
  *
  *
  */
-class CircleCompleteRoadTest extends CreateFeatureTest
+class CircleCompleteRoadCreation extends FeatureCreation
 {
     /**
      * Create a square complete road
@@ -389,6 +389,65 @@ class CircleCompleteRoadTest extends CreateFeatureTest
                 8,
                 true,
                 Road::class,
+            ],
+        ];
+    }
+
+    /**
+     * Data Provider for features creation test
+     *
+     * @return array
+     */
+    public function featuresMapProvider()
+    {
+        return [
+            /** Test North West tile */
+            [
+                $this->circleCompleteRoadMap(),
+                new Coordinate(-1, 1),
+                3,
+            ],
+            /** Test North tile */
+            [
+                $this->circleCompleteRoadMap(),
+                new Coordinate(0, 1),
+                3,
+            ],
+            /** Test North East tile */
+            [
+                $this->circleCompleteRoadMap(),
+                new Coordinate(1, 1),
+                3,
+            ],
+            /** Test West tile */
+            [
+                $this->circleCompleteRoadMap(),
+                new Coordinate(-1, 0),
+                3,
+            ],
+            /** Test East tile */
+            [
+                $this->circleCompleteRoadMap(),
+                new Coordinate(1, 0),
+                3,
+            ],
+            /** Test South West tile */
+            [
+                $this->circleCompleteRoadMap(),
+                new Coordinate(-1, -1),
+                3,
+            ],
+            /** Test South West tile */
+            [
+                $this->circleCompleteRoadMap(),
+                new Coordinate(0, -1),
+                3,
+            ],
+            /** Test South East tile */
+            [
+                $this->circleCompleteRoadMap(),
+                new Coordinate(1, -1),
+                3,
             ],
         ];
     }

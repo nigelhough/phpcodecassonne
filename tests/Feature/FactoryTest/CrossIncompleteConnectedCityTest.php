@@ -9,7 +9,7 @@ use Codecassonne\Map\Coordinate;
 use Codecassonne\Tile\Tile;
 
 /**
- * A Cross Shaped City, Seperate Connected Cities, Incomplete
+ * A Cross Shaped City, Separate Connected Cities, Incomplete
  *
  *          -3           -2           -1            0            1            2            3
  *
@@ -63,7 +63,7 @@ use Codecassonne\Tile\Tile;
  *
  *
  */
-class CrossIncompleteConnectedCityTest extends CreateFeatureTest
+class CrossIncompleteConnectedCityCreation extends FeatureCreation
 {
     /**
      * Create a Cross City Map with features connected and incomplete
@@ -165,6 +165,47 @@ class CrossIncompleteConnectedCityTest extends CreateFeatureTest
                 5,
                 false,
                 City::class
+            ],
+        ];
+    }
+
+    /**
+     * Data Provider for features creation test
+     *
+     * @return array
+     */
+    public function featuresMapProvider()
+    {
+        return [
+            /** Test North tile */
+            [
+                $this->crossCompleteCityMap(),
+                new Coordinate(0, 1),
+                1,
+            ],
+            /** Test West tile */
+            [
+                $this->crossCompleteCityMap(),
+                new Coordinate(-1, 0),
+                1,
+            ],
+            /** Test Center tile */
+            [
+                $this->crossCompleteCityMap(),
+                new Coordinate(0, 0),
+                1,
+            ],
+            /** Test East tile */
+            [
+                $this->crossCompleteCityMap(),
+                new Coordinate(1, 0),
+                1,
+            ],
+            /** Test South tile */
+            [
+                $this->crossCompleteCityMap(),
+                new Coordinate(0, -1),
+                1,
             ],
         ];
     }

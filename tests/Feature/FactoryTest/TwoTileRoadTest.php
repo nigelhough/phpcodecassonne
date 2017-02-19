@@ -63,7 +63,7 @@ use Codecassonne\Tile\Tile;
  *
  *
  */
-class TwoTileRoadTest extends CreateFeatureTest
+class TwoTileRoadCreation extends FeatureCreation
 {
     /**
      * Create a Two Tile Road Map
@@ -105,6 +105,29 @@ class TwoTileRoadTest extends CreateFeatureTest
                 2,
                 true,
                 Road::class,
+            ],
+        ];
+    }
+
+    /**
+     * Data Provider for features creation test
+     *
+     * @return array
+     */
+    public function featuresMapProvider()
+    {
+        return [
+            /** Test North tile */
+            [
+                $this->twoTileRoadMap(),
+                new Coordinate(0, 1),
+                1,
+            ],
+            /** Test South tile */
+            [
+                $this->twoTileRoadMap(),
+                new Coordinate(0, 0),
+                1,
             ],
         ];
     }

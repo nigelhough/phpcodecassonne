@@ -9,7 +9,7 @@ use Codecassonne\Map\Coordinate;
 use Codecassonne\Tile\Tile;
 
 /**
- * A Cross Shaped Road, Seperate Disconnected Roads
+ * A Cross Shaped Road, Separate Disconnected Roads
  *
  *          -3           -2           -1            0            1            2            3
  *
@@ -63,7 +63,7 @@ use Codecassonne\Tile\Tile;
  *
  *
  */
-class CrossCompleteSeperateRoadTest extends CreateFeatureTest
+class CrossCompleteSeperateRoadCreation extends FeatureCreation
 {
     /**
      * Create a Cross Road Map with features disconnected
@@ -165,6 +165,47 @@ class CrossCompleteSeperateRoadTest extends CreateFeatureTest
                 2,
                 true,
                 Road::class
+            ],
+        ];
+    }
+
+    /**
+     * Data Provider for features creation test
+     *
+     * @return array
+     */
+    public function featuresMapProvider()
+    {
+        return [
+            /** Test North tile */
+            [
+                $this->crossCompleteRoadMap(),
+                new Coordinate(0, 1),
+                1,
+            ],
+            /** Test West tile */
+            [
+                $this->crossCompleteRoadMap(),
+                new Coordinate(-1, 0),
+                1,
+            ],
+            /** Test Center tile */
+            [
+                $this->crossCompleteRoadMap(),
+                new Coordinate(0, 0),
+                4,
+            ],
+            /** Test East tile */
+            [
+                $this->crossCompleteRoadMap(),
+                new Coordinate(1, 0),
+                1,
+            ],
+            /** Test South tile */
+            [
+                $this->crossCompleteRoadMap(),
+                new Coordinate(0, -1),
+                1,
             ],
         ];
     }

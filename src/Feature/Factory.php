@@ -56,7 +56,7 @@ class Factory
      * @param Map        $map          Map to find features on
      * @param Coordinate $coordinate   Coordinate to find from
      * @param string     $bearing      Bearing to find from
-     * @param Tile[]      $featureTiles feature tiles already in the feature
+     * @param Tile[]     $featureTiles feature tiles already in the feature
      *
      * @return bool Is the feature complete
      */
@@ -155,15 +155,48 @@ class Factory
     /**
      * Create features for all starting at a coordinate
      *
-     * @param Coordinate $startingCoordinate
-     * @param Map        $map
+     * @param Coordinate $startingCoordinate Starting coordinate to look for a feature
+     * @param Map        $map                Map the feature is on
+     *
      *
      * @return Feature[]
      */
     public function createFeatures(Coordinate $startingCoordinate, Map $map): array
     {
-        // Check the coordinate has a tile
-        // Check the tile has feature(s)
+        // If the starting coordinate doesn't have a tile there are no features
+        if (!$map->isOccupied($startingCoordinate)) {
+            return [];
+        }
+
+        // Get Feature for Starting Tile
+        $startingTile = $map->look($startingCoordinate);
+        $startingFeatures = $startingTile->getFeatures();
+        // If the starting coordinate doesn't have any features return early
+        if (empty($startingFeatures)) {
+            return [];
+        }
+
+        /** @var Feature[] $features */
+        $features = [];
+
+        foreach ($startingFeatures as $startingFeature) {
+            // Get a bearing from the starting feature
+            $bearing = $startingFeature[0];
+
+            // Check if bearing is already part of another feature
+            foreach ($features as $feature) {
+                if ($feature->coordinateBearingPartOf($startingCoordinate, $bearing)) {
+                    // Skip as already counted by a connected feature on tile
+                    continue;
+                }
+            }
+
+            // Get feature for bearing
+            $features[] = $this->createFeature($startingCoordinate, $map, $bearing);
+        }
+
         // Handle Cloisters
+
+        return $features;
     }
 }

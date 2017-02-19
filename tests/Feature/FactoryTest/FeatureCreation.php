@@ -12,7 +12,7 @@ use \Codecassonne\createTestMap;
  * Test for creating features
  * Extend and add data provider
  */
-abstract class CreateFeatureTest extends \PHPUnit_Framework_TestCase
+abstract class FeatureCreation extends \PHPUnit_Framework_TestCase
 {
     use createTestMap;
 
@@ -52,5 +52,26 @@ abstract class CreateFeatureTest extends \PHPUnit_Framework_TestCase
             // Check the shared bearings are part of the feature
             $this->assertTrue($feature->coordinateBearingPartOf($coordinate, $sharedBearing));
         }
+    }
+
+    /**
+     * Test Creating Features
+     *
+     * @param Map        $map                Map to create features for
+     * @param Coordinate $coordinate         Starting Coordinate to create features from
+     * @param int        $expectedNoFeatures Expected number of features to find
+     *
+     * @dataProvider featuresMapProvider
+     */
+    public function testCreateFeatures(
+        Map $map,
+        Coordinate $coordinate,
+        int $expectedNoFeatures
+    ) {
+        $featureFactory = new Factory();
+
+        $features = $featureFactory->createFeatures($coordinate, $map);
+
+        $this->assertCount($expectedNoFeatures, $features);
     }
 }

@@ -65,7 +65,7 @@ use Codecassonne\Tile\Tile;
  *
  *
  */
-class CircleCompleteCityTest extends CreateFeatureTest
+class CircleCompleteCityCreation extends FeatureCreation
 {
     /**
      * Create a square complete city
@@ -389,6 +389,65 @@ class CircleCompleteCityTest extends CreateFeatureTest
                 8,
                 true,
                 City::class,
+            ],
+        ];
+    }
+
+    /**
+     * Data Provider for features creation test
+     *
+     * @return array
+     */
+    public function featuresMapProvider()
+    {
+        return [
+            /** Test North West tile */
+            [
+                $this->circleCompleteCityMap(),
+                new Coordinate(-1, 1),
+                3,
+            ],
+            /** Test North tile */
+            [
+                $this->circleCompleteCityMap(),
+                new Coordinate(0, 1),
+                3,
+            ],
+            /** Test North East tile */
+            [
+                $this->circleCompleteCityMap(),
+                new Coordinate(1, 1),
+                3,
+            ],
+            /** Test West tile */
+            [
+                $this->circleCompleteCityMap(),
+                new Coordinate(-1, 0),
+                3,
+            ],
+            /** Test East tile */
+            [
+                $this->circleCompleteCityMap(),
+                new Coordinate(1, 0),
+                3,
+            ],
+            /** Test South West tile */
+            [
+                $this->circleCompleteCityMap(),
+                new Coordinate(-1, -1),
+                3,
+            ],
+            /** Test South West tile */
+            [
+                $this->circleCompleteCityMap(),
+                new Coordinate(0, -1),
+                3,
+            ],
+            /** Test South East tile */
+            [
+                $this->circleCompleteCityMap(),
+                new Coordinate(1, -1),
+                3,
             ],
         ];
     }

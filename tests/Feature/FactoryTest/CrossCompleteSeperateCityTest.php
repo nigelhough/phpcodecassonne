@@ -63,7 +63,7 @@ use Codecassonne\Tile\Tile;
  *
  *
  */
-class CrossCompleteSeperateCityTest extends CreateFeatureTest
+class CrossCompleteSeperateCityCreation extends FeatureCreation
 {
     /**
      * Create a Cross City Map with features disconnected
@@ -165,6 +165,47 @@ class CrossCompleteSeperateCityTest extends CreateFeatureTest
                 2,
                 true,
                 City::class
+            ],
+        ];
+    }
+
+    /**
+     * Data Provider for features creation test
+     *
+     * @return array
+     */
+    public function featuresMapProvider()
+    {
+        return [
+            /** Test North tile */
+            [
+                $this->crossCompleteCityMap(),
+                new Coordinate(0, 1),
+                1,
+            ],
+            /** Test West tile */
+            [
+                $this->crossCompleteCityMap(),
+                new Coordinate(-1, 0),
+                1,
+            ],
+            /** Test Center tile */
+            [
+                $this->crossCompleteCityMap(),
+                new Coordinate(0, 0),
+                4,
+            ],
+            /** Test East tile */
+            [
+                $this->crossCompleteCityMap(),
+                new Coordinate(1, 0),
+                1,
+            ],
+            /** Test South tile */
+            [
+                $this->crossCompleteCityMap(),
+                new Coordinate(0, -1),
+                1,
             ],
         ];
     }

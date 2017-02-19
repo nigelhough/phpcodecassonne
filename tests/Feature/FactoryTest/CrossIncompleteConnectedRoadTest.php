@@ -62,7 +62,7 @@ use Codecassonne\Tile\Tile;
  *
  *
  */
-class CrossIncompleteConnectedRoadTest extends CreateFeatureTest
+class CrossIncompleteConnectedRoadCreation extends FeatureCreation
 {
     /**
      * Create a Cross Road Map with features connected and incomplete
@@ -164,6 +164,47 @@ class CrossIncompleteConnectedRoadTest extends CreateFeatureTest
                 2,
                 false,
                 Road::class
+            ],
+        ];
+    }
+
+    /**
+     * Data Provider for features creation test
+     *
+     * @return array
+     */
+    public function featuresMapProvider()
+    {
+        return [
+            /** Test North tile */
+            [
+                $this->crossCompleteRoadMap(),
+                new Coordinate(0, 1),
+                1,
+            ],
+            /** Test West tile */
+            [
+                $this->crossCompleteRoadMap(),
+                new Coordinate(-1, 0),
+                1,
+            ],
+            /** Test Center tile */
+            [
+                $this->crossCompleteRoadMap(),
+                new Coordinate(0, 0),
+                4,
+            ],
+            /** Test East tile */
+            [
+                $this->crossCompleteRoadMap(),
+                new Coordinate(1, 0),
+                1,
+            ],
+            /** Test South tile */
+            [
+                $this->crossCompleteRoadMap(),
+                new Coordinate(0, -1),
+                1,
             ],
         ];
     }
