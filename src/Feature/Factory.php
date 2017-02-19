@@ -21,24 +21,26 @@ class Factory
      */
     public function createFeature(Coordinate $startingCoordinate, Map $map, string $bearing): Feature
     {
+        // Get Feature for Starting Tile
         $startingTile = $map->look($startingCoordinate);
-
         $featureFaces = $startingTile->getFeature($bearing);
-
         if (empty($featureFaces)) {
             throw new Exception\NoFeatureFaces('Can\'t create a feature with no feature faces');
         }
 
+        // Recursivley find features connected to starting tile
         $isComplete = true;
         $featureTiles = [];
-
         $featureTiles[$startingCoordinate->toHash()] = new Tile($startingTile, $startingCoordinate, $featureFaces);
         foreach ($featureFaces as $featureBearing) {
-            $this->findFeatureTiles($map, $startingCoordinate, $featureBearing, $featureTiles, $isComplete);
+            $partComplete = $this->findFeatureTiles($map, $startingCoordinate, $featureBearing, $featureTiles);
+
+            // Feature complete if all parts are complete
+            $isComplete = ($isComplete && $partComplete);
         }
 
-        $featureType = $map->look($startingCoordinate)->getFace($featureFaces[0]);
-
+        // Construct Feature Object
+        $featureType = $startingTile->getFace($bearing);
         if ($featureType === \Codecassonne\Tile\Tile::TILE_TYPE_CITY) {
             return new City($isComplete, ...array_values($featureTiles));
         } elseif ($featureType === \Codecassonne\Tile\Tile::TILE_TYPE_ROAD) {
@@ -46,47 +48,66 @@ class Factory
         }
     }
 
+    /**
+     * Recursivley find features connected to a tile bearing
+     *
+     * @param Map        $map          Map to find features on
+     * @param Coordinate $coordinate   Coordinate to find from
+     * @param string     $bearing      Bearing to find from
+     * @param Tile[]      $featureTiles feature tiles already in the feature
+     *
+     * @return bool Is the feature complete
+     */
     private function findFeatureTiles(
         Map $map,
         Coordinate $coordinate,
         string $bearing,
-        array &$featureTiles,
-        bool &$isComplete
-    ) {
+        array &$featureTiles
+    ): bool {
         // Get Connected Coordinate
         $connectedCoordinate = $coordinate->getBearing($bearing);
 
         // Need to check if tile is already in the list and return, looped features
         if (array_key_exists($connectedCoordinate->toHash(), $featureTiles)) {
-            // Currentley no tile can loop back and start another feature, they must join back to original or stop
+            // Currentley no tile can loop back and start another feature path, they must join back to original or stop
             // In future expansions this is possible but how to define that tile hasn't been defined
             // Add code here in the future to continue looping back features on the same tile
-            return;
+
+            // @todo Merge Feature bearings to include loopback (if it ends and not re-joins)
+
+            // Currentley feature must be complete (loopback or stop)
+            return true;
         }
 
+        // If the connected coordinate doesn't have a placed tile the feature is incomplete
         if (!$map->isOccupied($connectedCoordinate)) {
-            // If the connected coordinate doesn't have a placed tile the feature is incomplete
-            $isComplete = false;
-            return;
+            return false;
         }
 
         // Find Tile, assuming a tile face match or its an invalid map
         $connectedTile = $map->look($connectedCoordinate);
         $connectedBearing = $this->flipBearing($bearing);
-        $connectedFeature = $connectedTile->getFeature($connectedBearing);
+        $connectedFeatures = $connectedTile->getFeature($connectedBearing);
 
         // Create feature tile, add to tracked tiles
-        $featureTiles[$connectedCoordinate->toHash()] = new Tile($connectedTile, $connectedCoordinate, $connectedFeature);
+        $featureTiles[$connectedCoordinate->toHash()] = new Tile($connectedTile, $connectedCoordinate, $connectedFeatures);
 
-        if (count($connectedFeature) === 1) {
+        if (count($connectedFeatures) === 1) {
             // If only one face in the feature it is closed
-            return;
+            return true;
         }
 
         // More than one face
         // Recursivley search Linked Tile Features
-        var_dump('Add Code for Multiple Connected Features');
-        exit;
+        $isComplete = true;
+        foreach($connectedFeatures as $connectedFeature) {
+            if ($connectedFeature === $connectedBearing) {
+                continue;
+            }
+            $partComplete = $this->findFeatureTiles($map, $connectedCoordinate, $connectedFeature, $featureTiles);
+            $isComplete = ($isComplete && $partComplete);
+        }
+        return $isComplete;
     }
 
     /**

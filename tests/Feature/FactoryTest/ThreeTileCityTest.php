@@ -88,14 +88,14 @@ class ThreeTileCityTest extends CreateFeatureTest
     public function featureMapProvider()
     {
         return [
-//            /** Test North tile, South Face */
-//            [
-//                $this->threeTileCityMap(),
-//                new Coordinate(0, 2),
-//                'South',
-//                3,
-//                true,
-//            ],
+            /** Test North tile, South Face */
+            [
+                $this->threeTileCityMap(),
+                new Coordinate(0, 2),
+                'South',
+                3,
+                true,
+            ],
             /** Test Center tile, North Face */
             [
                 $this->threeTileCityMap(),
@@ -112,14 +112,14 @@ class ThreeTileCityTest extends CreateFeatureTest
                 3,
                 true,
             ],
-//            /** Test South tile, North Face */
-//            [
-//                $this->threeTileCityMap(),
-//                new Coordinate(0, 0),
-//                'North',
-//                3,
-//                true,
-//            ],
+            /** Test South tile, North Face */
+            [
+                $this->threeTileCityMap(),
+                new Coordinate(0, 0),
+                'North',
+                3,
+                true,
+            ],
         ];
     }
 }
