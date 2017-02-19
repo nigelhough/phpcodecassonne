@@ -49,7 +49,7 @@ class Kryten extends Marvin
 
                     // Score tile placement
                     $scoringService = new Service();
-                    $score = $scoringService->scoreFeatures($placingMap, $position);
+                    $score = $scoringService->calculateScore($placingMap, $position);
 
                     // If this is better than the highest score, make this the highest score
                     if (is_null($highestScore) || $score > $highestScore)
