@@ -18,7 +18,8 @@ class Bag
      */
     public function put(Tile $tile)
     {
-        $this->tiles[] = $tile;
+        // Add a clone of tile to bag so it can't be modified externally
+        $this->tiles[] = clone $tile;
     }
 
     /**
