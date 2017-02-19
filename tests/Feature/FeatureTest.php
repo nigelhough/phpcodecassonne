@@ -20,8 +20,7 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
      */
     public function testFeature(bool $isComplete, array $tiles, int $expectedTileCount)
     {
-        $feature = $this->createMockFeature();
-        $feature->__construct($isComplete, ...$tiles);
+        $feature = $this->createMockFeature($isComplete, $tiles);
 
         $this->assertSame($isComplete, $feature->isComplete());
         $this->assertEquals($expectedTileCount, $feature->numberOfTiles());
@@ -65,8 +64,7 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidTiles()
     {
-        $feature = $this->createMockFeature();
-        $feature->__construct(true, $this->createMockTile(0, 0), $this->createMockTile(0, 0));
+        $this->createMockFeature(true, [$this->createMockTile(0, 0), $this->createMockTile(0, 0)]);
     }
 
     /**
@@ -80,8 +78,7 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
      */
     public function testCoordinatePartOf(array $tiles, Coordinate $checkCoordinate, bool $expectedResult)
     {
-        $feature = $this->createMockFeature();
-        $feature->__construct(true, ...$tiles);
+        $feature = $this->createMockFeature(true, $tiles);
 
         $this->assertSame($expectedResult, $feature->coordinatePartOf($checkCoordinate));
     }
@@ -220,8 +217,7 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
      */
     public function testCoordinateBearingPartOf(bool $coordinatePartOf, bool $bearingPartOf, $expectedResult)
     {
-        $feature = $this->createMockFeature();
-        $feature->__construct(true, $this->createMockTile(0, 0, $bearingPartOf));
+        $feature = $this->createMockFeature(true, [$this->createMockTile(0, 0, $bearingPartOf)]);
 
         // Set the check coordinate to be part of the feature or not
         $checkCoordinate = $coordinatePartOf
@@ -269,11 +265,17 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
     /**
      * Create a mock feature
      *
+     * @param bool  $isComplete        If the tested feature is complete
+     * @param array $tiles             The tiles in the tested feature
+     *
      * @return Feature
      */
-    private function createMockFeature()
+    private function createMockFeature(bool $isComplete, array $tiles)
     {
-        return $this->getMockForAbstractClass(Feature::class);
+        $arguments = [];
+        $arguments[] = $isComplete;
+        $arguments = array_merge($arguments, $tiles);
+        return $this->getMockForAbstractClass(Feature::class, $arguments);
     }
 
     /**

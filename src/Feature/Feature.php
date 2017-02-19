@@ -10,7 +10,7 @@ use Codecassonne\Map\Coordinate;
 abstract class Feature
 {
     /** @var Tile[] The placed feature tiles that make-up this feature */
-    private $tiles;
+    private $tiles = [];
 
     /** @var int The value each tile will score on a completed feature */
     protected $tileValue = 0;

@@ -51,7 +51,7 @@ class Coordinate
      *
      * @return bool
      */
-    public function isEqual(self $coordinate)
+    public function isEqual(Coordinate $coordinate)
     {
         return ($this->toHash() === $coordinate->toHash());
     }
