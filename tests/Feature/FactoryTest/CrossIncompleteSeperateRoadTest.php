@@ -69,7 +69,7 @@ class CrossIncompleteSeperateRoadTest extends CreateFeatureTest
      *
      * @return Map
      */
-    private function crossCompleteRoadMap()
+    private function crossIncompleteRoadMap()
     {
         return $this->createMap(
             [
@@ -95,7 +95,7 @@ class CrossIncompleteSeperateRoadTest extends CreateFeatureTest
         return [
             /** Test North tile, South Face */
             [
-                $this->crossCompleteRoadMap(),
+                $this->crossIncompleteRoadMap(),
                 new Coordinate(0, 1),
                 'South',
                 2,
@@ -104,7 +104,7 @@ class CrossIncompleteSeperateRoadTest extends CreateFeatureTest
             ],
             /** Test East tile, West Face */
             [
-                $this->crossCompleteRoadMap(),
+                $this->crossIncompleteRoadMap(),
                 new Coordinate(1, 0),
                 'West',
                 2,
@@ -113,7 +113,7 @@ class CrossIncompleteSeperateRoadTest extends CreateFeatureTest
             ],
             /** Test South tile, North Face */
             [
-                $this->crossCompleteRoadMap(),
+                $this->crossIncompleteRoadMap(),
                 new Coordinate(0, -1),
                 'North',
                 2,
@@ -122,7 +122,7 @@ class CrossIncompleteSeperateRoadTest extends CreateFeatureTest
             ],
             /** Test West tile, East Face */
             [
-                $this->crossCompleteRoadMap(),
+                $this->crossIncompleteRoadMap(),
                 new Coordinate(-1, 0),
                 'East',
                 2,
@@ -131,7 +131,7 @@ class CrossIncompleteSeperateRoadTest extends CreateFeatureTest
             ],
             /** Test Center tile, North Face */
             [
-                $this->crossCompleteRoadMap(),
+                $this->crossIncompleteRoadMap(),
                 new Coordinate(0, 0),
                 'North',
                 2,
@@ -140,7 +140,7 @@ class CrossIncompleteSeperateRoadTest extends CreateFeatureTest
             ],
             /** Test Center tile, East Face */
             [
-                $this->crossCompleteRoadMap(),
+                $this->crossIncompleteRoadMap(),
                 new Coordinate(0, 0),
                 'East',
                 2,
@@ -149,7 +149,7 @@ class CrossIncompleteSeperateRoadTest extends CreateFeatureTest
             ],
             /** Test Center tile, South Face */
             [
-                $this->crossCompleteRoadMap(),
+                $this->crossIncompleteRoadMap(),
                 new Coordinate(0, 0),
                 'South',
                 2,
@@ -158,7 +158,7 @@ class CrossIncompleteSeperateRoadTest extends CreateFeatureTest
             ],
             /** Test Center tile, West Face */
             [
-                $this->crossCompleteRoadMap(),
+                $this->crossIncompleteRoadMap(),
                 new Coordinate(0, 0),
                 'West',
                 2,

@@ -42,5 +42,9 @@ abstract class CreateFeatureTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf($expectedClass, $feature);
         $this->assertEquals($expectedTiles, $feature->numberOfTiles());
         $this->assertSame($expectedCompleted, $feature->isComplete());
+
+        // @todo Test the feature faces are correct
+        // When a tile has two disconnected faces connected to the same feature are they both in the feature object
+        // Seperate Test?
     }
 }
