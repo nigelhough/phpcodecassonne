@@ -1,7 +1,11 @@
 <?php
+declare(strict_types = 1);
 
 namespace Codecassonne\Player;
 
+/**
+ * Test a Collection of Players
+ */
 class CollectionTest extends \PHPUnit_Framework_TestCase
 {
     const PLAYER_INTERFACE = '\Codecassonne\Player\PlayerInterface';
@@ -12,16 +16,16 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
     public function testGetPlayerCount()
     {
         $players = new Collection(
-            $this->getMock(static::PLAYER_INTERFACE)
+            $this->getMockBuilder(static::PLAYER_INTERFACE)->getMock()
         );
         $this->assertSame(1, $players->getPlayerCount());
 
         $players = new Collection(
-            $this->getMock(static::PLAYER_INTERFACE),
-            $this->getMock(static::PLAYER_INTERFACE),
-            $this->getMock(static::PLAYER_INTERFACE),
-            $this->getMock(static::PLAYER_INTERFACE),
-            $this->getMock(static::PLAYER_INTERFACE)
+            $this->getMockBuilder(static::PLAYER_INTERFACE)->getMock(),
+            $this->getMockBuilder(static::PLAYER_INTERFACE)->getMock(),
+            $this->getMockBuilder(static::PLAYER_INTERFACE)->getMock(),
+            $this->getMockBuilder(static::PLAYER_INTERFACE)->getMock(),
+            $this->getMockBuilder(static::PLAYER_INTERFACE)->getMock()
         );
         $this->assertSame(5, $players->getPlayerCount());
     }
@@ -31,9 +35,9 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testNext()
     {
-        $first = $this->getMock(static::PLAYER_INTERFACE);
-        $second = $this->getMock(static::PLAYER_INTERFACE);
-        $third = $this->getMock(static::PLAYER_INTERFACE);
+        $first = $this->getMockBuilder(static::PLAYER_INTERFACE)->getMock();
+        $second = $this->getMockBuilder(static::PLAYER_INTERFACE)->getMock();
+        $third = $this->getMockBuilder(static::PLAYER_INTERFACE)->getMock();
 
         $players = new Collection($first, $second, $third);
 
