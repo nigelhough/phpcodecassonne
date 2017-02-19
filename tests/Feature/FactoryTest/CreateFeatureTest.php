@@ -18,10 +18,12 @@ abstract class CreateFeatureTest extends \PHPUnit_Framework_TestCase
     /**
      * Test Creating a Feature
      *
-     * @param $map
-     * @param $coordinate
-     * @param $bearing
-     * @param $expectedTiles
+     * @param $map                  Map to create feature for
+     * @param $coordinate           Starting Coordinate to create feature from
+     * @param $bearing              Strating Bearing to create feature from
+     * @param $expectedTiles        Expected number of tiles in feature
+     * @param $expectedCompleted    Expected if the feature is complete
+     * @param $expectedClass        Expected the class tye of the featur
      *
      * @dataProvider featureMapProvider
      */
@@ -30,12 +32,14 @@ abstract class CreateFeatureTest extends \PHPUnit_Framework_TestCase
         Coordinate $coordinate,
         string $bearing,
         int $expectedTiles,
-        bool $expectedCompleted
+        bool $expectedCompleted,
+        string $expectedClass
     ) {
         $featureFactory = new Factory();
 
         $feature = $featureFactory->createFeature($coordinate, $map, $bearing);
 
+        $this->assertInstanceOf($expectedClass, $feature);
         $this->assertEquals($expectedTiles, $feature->numberOfTiles());
         $this->assertSame($expectedCompleted, $feature->isComplete());
     }

@@ -2,13 +2,13 @@
 
 namespace Codecassonne\Feature\FactoryTest;
 
-use Codecassonne\Feature\City;
+use Codecassonne\Feature\Road;
 use Codecassonne\Map\Map;
 use Codecassonne\Map\Coordinate;
 use Codecassonne\Tile\Tile;
 
 /**
- * A Three Tile City
+ * A Three Tile Road
  *
  *          -3           -2           -1            0            1            2            3
  *
@@ -21,21 +21,21 @@ use Codecassonne\Tile\Tile;
  *                                             -----------
  *                                             |    G    |
  *                                             |         |
- * 2                                           |G   G   G|
+ * 2                                           |G   M   G|
  *                                             |         |
- *                                             |    C    |
+ *                                             |    R    |
  *                                             -----------
  *                                             -----------
- *                                             |    C    |
+ *                                             |    R    |
  *                                             |         |
- * 1                                           |G   C   G|
+ * 1                                           |G   R   G|
  *                                             |         |
- *                                             |    C    |
+ *                                             |    R    |
  *                                             -----------
  *                                             -----------
- *                                             |    C    |
+ *                                             |    R    |
  *                                             |         |
- * 0                                           |G   G   G|
+ * 0                                           |G   M   G|
  *                                             |         |
  *                                             |    G    |
  *                                             -----------
@@ -62,23 +62,23 @@ use Codecassonne\Tile\Tile;
  *
  *
  */
-class ThreeTileCityTest extends CreateFeatureTest
+class ThreeTileRoadTest extends CreateFeatureTest
 {
     /**
-     * Create a Three Tile City Map
+     * Create a Three Tile Road Map
      *
      * @return Map
      */
-    private function threeTileCityMap()
+    private function threeTileRoadMap()
     {
         return $this->createMap(
             [
                 (new Coordinate(0, 0))->toHash() =>
-                    Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
+                    Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CLOISTER),
                 (new Coordinate(0, 1))->toHash() =>
-                    Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
+                    Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
                 (new Coordinate(0, 2))->toHash() =>
-                    Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
+                    Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CLOISTER),
             ]
         );
     }
@@ -91,39 +91,39 @@ class ThreeTileCityTest extends CreateFeatureTest
         return [
             /** Test North tile, South Face */
             [
-                $this->threeTileCityMap(),
+                $this->threeTileRoadMap(),
                 new Coordinate(0, 2),
                 'South',
                 3,
                 true,
-                City::class
+                Road::class
             ],
             /** Test Center tile, North Face */
             [
-                $this->threeTileCityMap(),
+                $this->threeTileRoadMap(),
                 new Coordinate(0, 1),
                 'North',
                 3,
                 true,
-                City::class
+                Road::class
             ],
             /** Test Center tile, South Face */
             [
-                $this->threeTileCityMap(),
+                $this->threeTileRoadMap(),
                 new Coordinate(0, 1),
                 'South',
                 3,
                 true,
-                City::class
+                Road::class
             ],
             /** Test South tile, North Face */
             [
-                $this->threeTileCityMap(),
+                $this->threeTileRoadMap(),
                 new Coordinate(0, 0),
                 'North',
                 3,
                 true,
-                City::class
+                Road::class
             ],
         ];
     }
