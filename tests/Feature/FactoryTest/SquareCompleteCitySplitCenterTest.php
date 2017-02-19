@@ -471,7 +471,7 @@ class SquareCompleteCitySplitCenterCreation extends FeatureCreation
             [
                 $this->squareCompleteCityMap(),
                 new Coordinate(0, 0),
-                4,
+                1,
             ],
             /** Test East tile */
             [

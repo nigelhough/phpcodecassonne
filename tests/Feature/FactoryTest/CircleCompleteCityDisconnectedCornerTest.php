@@ -409,7 +409,7 @@ class CircleCompleteCityDisconnectedCornerCreation extends FeatureCreation
             [
                 $this->circleCompleteCityDisconnectedCornerMap(),
                 new Coordinate(-1, 1),
-                3,
+                2,
             ],
             /** Test North tile */
             [

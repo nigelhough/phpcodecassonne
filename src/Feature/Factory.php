@@ -187,7 +187,7 @@ class Factory
             foreach ($features as $feature) {
                 if ($feature->coordinateBearingPartOf($startingCoordinate, $bearing)) {
                     // Skip as already counted by a connected feature on tile
-                    continue;
+                    continue(2);
                 }
             }
 
