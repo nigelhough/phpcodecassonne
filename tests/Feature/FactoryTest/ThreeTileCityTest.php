@@ -84,7 +84,7 @@ class ThreeTileCityTest extends CreateFeatureTest
     }
 
     /**
-     * Data provider for scoring test
+     * Data provider for feature creation test
      */
     public function featureMapProvider()
     {

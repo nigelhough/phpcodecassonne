@@ -82,7 +82,7 @@ class TwoTileCityTest extends CreateFeatureTest
     }
 
     /**
-     * Data provider for test
+     * Data provider for feature creation test
      */
     public function featureMapProvider()
     {
