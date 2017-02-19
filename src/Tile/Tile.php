@@ -244,9 +244,10 @@ class Tile
 
             if ($this->isCombinedFeature($featureType)) {
                 $combinedFeature[] = $bearing;
-            } else {
-                $features[] = [$bearing];
+                continue;
             }
+
+            $features[] = [$bearing];
         }
 
         // Add combined feature to features list
