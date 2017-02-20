@@ -257,7 +257,7 @@ class MapTest extends \PHPUnit\Framework\TestCase
      *
      * @param string    $face1          First Face to match
      * @param string    $face2          Second Face to match
-     * @param string    $isMatching     Do the Faces match
+     * @param bool    $isMatching     Do the Faces match
      *
      * @dataProvider twoTilesProvider
      */
