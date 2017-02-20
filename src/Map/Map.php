@@ -8,17 +8,17 @@ use Codecassonne\Tile\Tile;
 class Map
 {
 
-    /** @var  Tile[] Tiles to represent positioning on the map */
+    /** @var Tile[] Tiles to represent positioning on the map */
     private $tiles = array();
 
-    /** @var  Coordinate[] Playable positions on the map */
+    /** @var Coordinate[] Playable positions on the map */
     private $playablePositions = array();
 
-    /** @var  Coordinate Bottom left coordinate of maps Minimum Bounding Rectangle */
-    private $bottomLeft = 0;
+    /** @var Coordinate Bottom left coordinate of maps Minimum Bounding Rectangle */
+    private $bottomLeft;
 
-    /** @var  Coordinate Top right coordinate of maps Minimum Bounding Rectangle */
-    private $topRight = 0;
+    /** @var Coordinate Top right coordinate of maps Minimum Bounding Rectangle */
+    private $topRight;
 
     /**
      * Construct the Map

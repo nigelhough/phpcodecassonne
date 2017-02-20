@@ -5,8 +5,10 @@ php:
 before_script:
   - composer install
 
-script: 
-  - phpunit --configuration tests/phpunit.xml --coverage-clover=coverage.xml
+script:
+  - php build/scripts/linter.php
+  - vendor/bin/phpunit --configuration tests/phpunit.xml --coverage-clover=coverage.xml
+  - vendor/bin/phpstan analyse src tests --level=4
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

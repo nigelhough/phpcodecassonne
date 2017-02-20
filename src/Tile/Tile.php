@@ -13,19 +13,19 @@ class Tile
     const TILE_TYPE_CITY      = 'C';
     const TILE_TYPE_CLOISTER  = 'M';
 
-    /** @var  int   Type on Northern face of Tile*/
+    /** @var  string   Type on Northern face of Tile*/
     private $north;
 
-    /** @var  int   Type on Southern face of Tile*/
+    /** @var  string   Type on Southern face of Tile*/
     private $south;
 
-    /** @var  int   Type on Eastern face of Tile*/
+    /** @var  string   Type on Eastern face of Tile*/
     private $east;
 
-    /** @var  int   Type on Western face of Tile*/
+    /** @var  string   Type on Western face of Tile*/
     private $west;
 
-    /** @var  int   Type in center of Tile*/
+    /** @var  string   Type in center of Tile*/
     private $center;
 
     /** @var int    Current tile rotation */

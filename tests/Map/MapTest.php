@@ -4,7 +4,7 @@ namespace Codecassonne\Map;
 
 use Codecassonne\Tile\Tile;
 
-class MapTest extends \PHPUnit_Framework_TestCase
+class MapTest extends \PHPUnit\Framework\TestCase
 {
     /**
      *
@@ -58,7 +58,7 @@ class MapTest extends \PHPUnit_Framework_TestCase
     public function testPlaceTile(Coordinate $placeCoordinate1, Coordinate $placeCoordinate2, $expectedException)
     {
         if ($expectedException) {
-            $this->setExpectedException('Exception');
+            $this->expectException('Exception');
         }
 
         //Dummy Tile
@@ -257,7 +257,7 @@ class MapTest extends \PHPUnit_Framework_TestCase
      *
      * @param string    $face1          First Face to match
      * @param string    $face2          Second Face to match
-     * @param string    $isMatching     Do the Faces match
+     * @param bool    $isMatching     Do the Faces match
      *
      * @dataProvider twoTilesProvider
      */
