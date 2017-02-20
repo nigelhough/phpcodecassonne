@@ -4,6 +4,7 @@
 [![codecov](https://codecov.io/gh/nigelhough/phpcodecassonne/branch/master/graph/badge.svg)](https://codecov.io/gh/nigelhough/phpcodecassonne)
 [![Code Climate](https://codeclimate.com/github/nigelhough/phpcodecassonne/badges/gpa.svg)](https://codeclimate.com/github/nigelhough/phpcodecassonne)
 [![Dependency Status](https://www.versioneye.com/user/projects/58a6fb71b4d2a20036950dd0/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/58a6fb71b4d2a20036950dd0)
+[![PHPStan](https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat)](https://github.com/phpstan/phpstan)
 
 ## Introduction
 A PHP project inspired by the board game Carcassonne
