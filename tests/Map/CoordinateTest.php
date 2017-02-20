@@ -64,7 +64,10 @@ class CoordinateTest extends \PHPUnit\Framework\TestCase
             $this->expectException($expectedException);
         }
 
-        new Coordinate($xCoordinate, $yCoordinate);
+        $coordinate = new Coordinate($xCoordinate, $yCoordinate);
+
+        $this->assertSame($xCoordinate, $coordinate->getX());
+        $this->assertSame($yCoordinate, $coordinate->getY());
     }
 
     /**

@@ -67,7 +67,11 @@ class MapTest extends \PHPUnit\Framework\TestCase
         $map = new Map($tile);
 
         $map->place($tile, $placeCoordinate1);
+        $this->assertTrue($map->isOccupied($placeCoordinate1));
+        $this->assertSame($tile->toString(), $map->look($placeCoordinate1)->toString());
         $map->place($tile, $placeCoordinate2);
+        $this->assertTrue($map->isOccupied($placeCoordinate2));
+        $this->assertSame($tile->toString(), $map->look($placeCoordinate2)->toString());
     }
 
     public function renderTestProvider()
