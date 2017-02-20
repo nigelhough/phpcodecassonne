@@ -37,6 +37,8 @@ class Marvin implements PlayerInterface
             throw new \Exception('Unable to find any playable positions');
         }
 
+        $actionPosition = null;
+
         // Loop over playable positions
         foreach ($playPositions as $position) {
             //Loop over orientations
@@ -45,6 +47,7 @@ class Marvin implements PlayerInterface
                 try {
                     $map->place($tile, $position);
                     //If successfully placed, break out of rotation loop and positions loop
+                    $actionPosition = $position;
                     break 2;
                 } catch (InvalidTilePlacement $e) {
                     $tile->rotate();
@@ -52,6 +55,6 @@ class Marvin implements PlayerInterface
             }
         }
 
-        return new Action($position, $tile->getRotation());
+        return new Action($actionPosition, $tile->getRotation());
     }
 }
