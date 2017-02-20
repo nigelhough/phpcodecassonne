@@ -5,7 +5,7 @@ namespace Codecassonne\Tile;
 /**
  * Class Bag
  */
-class BagTest extends \PHPUnit_Framework_TestCase
+class BagTest extends \PHPUnit\Framework\TestCase
 {
 
     /**
@@ -104,7 +104,7 @@ class BagTest extends \PHPUnit_Framework_TestCase
     public function testDrawFromEmpty()
     {
         $emptyBag = $this->generateBag(0);
-        $this->setExpectedException('Codecassonne\Tile\Exception\EmptyBag');
+        $this->expectException('Codecassonne\Tile\Exception\EmptyBag');
         $emptyBag->drawFrom();
     }
 

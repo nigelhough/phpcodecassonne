@@ -6,7 +6,7 @@ namespace Codecassonne\Tile;
 /**
  * Test the Tile Class
  */
-class TileTest extends \PHPUnit_Framework_TestCase
+class TileTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Data Provide for Rotate Function

@@ -4,7 +4,7 @@ namespace Codecassonne\Turn;
 
 use Codecassonne\Map\Coordinate;
 
-class ActionTest extends \PHPUnit_Framework_TestCase
+class ActionTest extends \PHPUnit\Framework\TestCase
 {
     public function testRun()
     {
