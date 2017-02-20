@@ -49,7 +49,8 @@ class FileTest extends \PHPUnit\Framework\TestCase
     )
     {
         if ($expectedException) {
-            $this->expectException($expectedException, $expectedExceptionMessage);
+            $this->expectException($expectedException);
+            $this->expectExceptionMessage($expectedExceptionMessage);
         }
         new File($testFile);
     }
@@ -118,7 +119,8 @@ class FileTest extends \PHPUnit\Framework\TestCase
     {
         //Assert any Expected Exceptions
         if ($expectedException) {
-            $this->expectException($expectedException, $expectedExceptionMessage);
+            $this->expectException($expectedException);
+            $this->expectExceptionMessage($expectedExceptionMessage);
         }
 
         //Create a temp file
