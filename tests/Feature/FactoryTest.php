@@ -6,7 +6,7 @@ use Codecassonne\Map\Coordinate;
 use Codecassonne\Map\Map;
 use Codecassonne\Tile\Tile;
 
-class FactoryTest extends \PHPUnit_Framework_TestCase
+class FactoryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Test Createing a feature with a tile that has no feature

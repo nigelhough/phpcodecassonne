@@ -5,7 +5,7 @@ namespace Codecassonne\Map;
 /**
  * Test for a Map Coordinate
  */
-class CoordinateTest extends \PHPUnit_Framework_TestCase
+class CoordinateTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Test Constructor Validation
@@ -52,7 +52,6 @@ class CoordinateTest extends \PHPUnit_Framework_TestCase
      * @param int    $xCoordinate              X Coordinate
      * @param int    $yCoordinate              Y Coordinate
      * @param string $expectedException        Exception Exception
-     * @param string $expectedExceptionMessage Expected Exception Message
      *
      * @dataProvider constructorProvider
      */
@@ -62,7 +61,7 @@ class CoordinateTest extends \PHPUnit_Framework_TestCase
         $expectedException
     ) {
         if ($expectedException) {
-            $this->setExpectedException($expectedException);
+            $this->expectException($expectedException);
         }
 
         new Coordinate($xCoordinate, $yCoordinate);

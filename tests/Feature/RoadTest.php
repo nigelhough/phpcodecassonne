@@ -7,7 +7,7 @@ use Codecassonne\Map\Coordinate;
 /**
  * Test for Road Feature
  */
-class RoadTest extends \PHPUnit_Framework_TestCase
+class RoadTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Test that a Road feature has the correct feature type and scoring value

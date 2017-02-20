@@ -5,7 +5,7 @@ namespace Codecassonne\Feature;
 /**
  * Test for a Feature Tile
  */
-class TileTest extends \PHPUnit_Framework_TestCase
+class TileTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Test Accessor functions return the same values as constructed with

@@ -7,7 +7,7 @@ use Codecassonne\Map\Coordinate;
 /**
  * Test the concrete methods in the abstract feature class
  */
-class FeatureTest extends \PHPUnit_Framework_TestCase
+class FeatureTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Test the isComplete and numberOfTiles methods in a feature

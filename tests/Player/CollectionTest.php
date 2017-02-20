@@ -6,7 +6,7 @@ namespace Codecassonne\Player;
 /**
  * Test a Collection of Players
  */
-class CollectionTest extends \PHPUnit_Framework_TestCase
+class CollectionTest extends \PHPUnit\Framework\TestCase
 {
     const PLAYER_INTERFACE = '\Codecassonne\Player\PlayerInterface';
 

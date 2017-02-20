@@ -6,7 +6,7 @@ use Codecassonne\Map\Map;
 use Codecassonne\Map\Coordinate;
 use Codecassonne\Tile\Tile;
 
-class ServiceTest extends \PHPUnit_Framework_TestCase
+class ServiceTest extends \PHPUnit\Framework\TestCase
 {
     use \Codecassonne\createTestMap;
 

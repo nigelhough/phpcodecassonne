@@ -12,7 +12,7 @@ use \Codecassonne\createTestMap;
  * Test for creating features
  * Extend and add data provider
  */
-abstract class FeatureCreation extends \PHPUnit_Framework_TestCase
+abstract class FeatureCreation extends \PHPUnit\Framework\TestCase
 {
     use createTestMap;
 

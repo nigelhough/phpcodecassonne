@@ -7,7 +7,7 @@ use Codecassonne\Map\Coordinate;
 /**
  * Test for City Feature
  */
-class CityTest extends \PHPUnit_Framework_TestCase
+class CityTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Test that a City feature has the correct feature type and scoring value

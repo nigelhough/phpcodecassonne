@@ -7,7 +7,7 @@ use Codecassonne\Map\Coordinate;
 /**
  * Test for Cloister Feature
  */
-class CloisterTest extends \PHPUnit_Framework_TestCase
+class CloisterTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Test that a Cloister feature has the correct feature type and scoring value
