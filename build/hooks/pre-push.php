@@ -3,32 +3,38 @@
 
 echo 'Checking Push ...' . PHP_EOL;
 
-echo 'Running Unit Tests...' . PHP_EOL;
-exec('vendor/bin/phpunit -c tests/phpunit.xml --coverage-html tests/coverage', $testResults, $unitTests);
-
-if ($unitTests !== 0) {
-
-    $testOutput .= array_pop($testResults);
-    $testOutput = array_pop($testResults) . PHP_EOL . $testOutput;
-
-    echo $testOutput . PHP_EOL;
-    echo "Did you break a Unit Test?" . PHP_EOL;
-    print "Aborting" . PHP_EOL;
-    exit(1);
+if (!executeCheck('Unit Tests', 'vendor/bin/phpunit -c tests/phpunit.xml --coverage-html tests/coverage')) {
+    exit;
+}
+if (!executeCheck('Code linting', 'php build/scripts/linter.php')) {
+    exit;
+}
+if (!executeCheck('PHP Stan', 'vendor/bin/phpstan analyse src tests --no-progress --level=4')) {
+    exit;
 }
 
-echo 'Running Code Linter...' . PHP_EOL;
-exec('php build/scripts/linter.php', $linterResults, $linter);
+/**
+ * Execute a command that runs a check on the codebase
+ *
+ * @param string $checkName    Name of the check on the codebase
+ * @param string $checkCommand Command to run the check
+ *
+ * @return bool Has passed check?
+ */
+function executeCheck($checkName, $checkCommand)
+{
+    echo "Running {$checkName}...\n";
+    exec($checkCommand, $checkOutput, $result);
 
-if ($linter !== 0) {
-
-    $linterOutput .= array_pop($linterResults);
-    $linterOutput = array_pop($linterResults) . PHP_EOL . $linterOutput;
-
-    echo $linterOutput . PHP_EOL;
-    echo "Did you break a file?" . PHP_EOL;
-    print "Aborting" . PHP_EOL;
-    exit(1);
+    if ($result !== 0) {
+        // Convert check out into readable summary format
+        $output = array_pop($checkOutput);
+        $output = array_pop($checkOutput) . "\n{$output}\n";
+        echo "{$output}Did you break something?\nAborting\n";
+        return false;
+    }
+    echo "{$checkName} Passed!\n";
+    return true;
 }
 
 exit(0);
