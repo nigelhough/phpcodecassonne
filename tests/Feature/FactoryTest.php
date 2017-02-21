@@ -1,15 +1,19 @@
 <?php
+declare(strict_types=1);
 
 namespace Codecassonne\Feature;
 
+use PHPUnit\Framework\TestCase;
 use Codecassonne\Map\Coordinate;
 use Codecassonne\Map\Map;
-use Codecassonne\Tile\Tile;
 
-class FactoryTest extends \PHPUnit\Framework\TestCase
+/**
+ * Test for feature tile factory
+ */
+class FactoryTest extends TestCase
 {
     /**
-     * Test Createing a feature with a tile that has no feature
+     * Test Creating a feature with a tile that has no feature
      *
      * @expectedException \Codecassonne\Feature\Exception\NoFeatureFaces
      */
@@ -19,9 +23,15 @@ class FactoryTest extends \PHPUnit\Framework\TestCase
 
         // Get North tile on a tile that has no North feature
         $factory->createFeature(
-            new Coordinate(0,0),
+            new Coordinate(0, 0),
             new Map(
-                Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CLOISTER)
+                \Codecassonne\Tile\Tile::createFromString(
+                    \Codecassonne\Tile\Tile::TILE_TYPE_GRASS . ":" .
+                    \Codecassonne\Tile\Tile::TILE_TYPE_GRASS . ":" .
+                    \Codecassonne\Tile\Tile::TILE_TYPE_GRASS . ":" .
+                    \Codecassonne\Tile\Tile::TILE_TYPE_GRASS . ":" .
+                    \Codecassonne\Tile\Tile::TILE_TYPE_CLOISTER
+                )
             ),
             'North'
         );
