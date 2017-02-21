@@ -178,6 +178,14 @@ class Tile
         return $this->center;
     }
 
+    /**
+     * Get a Tiles Face
+     *
+     * @param string $bearing   Bearing to get tile face for
+     *
+     * @return string
+     * @throws Exception\InvalidBearing
+     */
     public function getFace($bearing)
     {
         if ($bearing === 'North') {
@@ -196,8 +204,7 @@ class Tile
             return $this->center;
         }
 
-        throw new \Exception('Invalid Bearing');
-
+        throw new Exception\InvalidBearing('Can only get tile face for a valid bearing');
     }
 
     /**

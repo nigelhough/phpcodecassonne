@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Codecassonne\Tile;
 
@@ -13,100 +13,100 @@ class TileTest extends \PHPUnit\Framework\TestCase
      */
     public function rotateProvider()
     {
-        return array(
+        return [
             /** Matching Faces */
-            array(
-                array(
+            [
+                [
                     Tile::TILE_TYPE_ROAD,
                     Tile::TILE_TYPE_ROAD,
                     Tile::TILE_TYPE_ROAD,
                     Tile::TILE_TYPE_ROAD,
                     Tile::TILE_TYPE_GRASS,
-                ),
-                array(
+                ],
+                [
                     Tile::TILE_TYPE_ROAD,
                     Tile::TILE_TYPE_ROAD,
                     Tile::TILE_TYPE_ROAD,
                     Tile::TILE_TYPE_ROAD,
                     Tile::TILE_TYPE_GRASS,
-                ),
-            ),
+                ],
+            ],
             /** Matching Faces, Different Center */
-            array(
-                array(
+            [
+                [
                     Tile::TILE_TYPE_ROAD,
                     Tile::TILE_TYPE_ROAD,
                     Tile::TILE_TYPE_ROAD,
                     Tile::TILE_TYPE_ROAD,
                     Tile::TILE_TYPE_ROAD,
-                ),
-                array(
+                ],
+                [
                     Tile::TILE_TYPE_ROAD,
                     Tile::TILE_TYPE_ROAD,
                     Tile::TILE_TYPE_ROAD,
                     Tile::TILE_TYPE_ROAD,
                     Tile::TILE_TYPE_ROAD,
-                ),
-            ),
+                ],
+            ],
             /** Mirrored Faces */
-            array(
-                array(
+            [
+                [
                     Tile::TILE_TYPE_ROAD,
                     Tile::TILE_TYPE_CITY,
                     Tile::TILE_TYPE_ROAD,
                     Tile::TILE_TYPE_CITY,
                     Tile::TILE_TYPE_GRASS,
-                ),
-                array(
+                ],
+                [
                     Tile::TILE_TYPE_CITY,
                     Tile::TILE_TYPE_ROAD,
                     Tile::TILE_TYPE_CITY,
                     Tile::TILE_TYPE_ROAD,
                     Tile::TILE_TYPE_GRASS,
-                ),
-            ),
+                ],
+            ],
             /** A sequential sequence */
-            array(
-                array(
+            [
+                [
                     Tile::TILE_TYPE_GRASS,
                     Tile::TILE_TYPE_ROAD,
                     Tile::TILE_TYPE_CITY,
                     Tile::TILE_TYPE_GRASS,
                     Tile::TILE_TYPE_GRASS,
-                ),
-                array(
+                ],
+                [
                     Tile::TILE_TYPE_GRASS,
                     Tile::TILE_TYPE_GRASS,
                     Tile::TILE_TYPE_ROAD,
                     Tile::TILE_TYPE_CITY,
                     Tile::TILE_TYPE_GRASS,
-                ),
-            ),
+                ],
+            ],
             /** A sequential sequence continued */
-            array(
-                array(
+            [
+                [
                     Tile::TILE_TYPE_GRASS,
                     Tile::TILE_TYPE_GRASS,
                     Tile::TILE_TYPE_ROAD,
                     Tile::TILE_TYPE_CITY,
                     Tile::TILE_TYPE_GRASS,
-                ),
-                array(
+                ],
+                [
                     Tile::TILE_TYPE_CITY,
                     Tile::TILE_TYPE_GRASS,
                     Tile::TILE_TYPE_GRASS,
                     Tile::TILE_TYPE_ROAD,
                     Tile::TILE_TYPE_GRASS,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 
     /**
      * Test the Tile Rotate function
      *
-     * @param array $tileFaces     The Initial Tile Layout
-     * @param array $rotatedFaces  The Expected Rotated Layout
+     * @param array $tileFaces    The Initial Tile Layout
+     * @param array $rotatedFaces The Expected Rotated Layout
      *
      * @dataProvider rotateProvider
      */
@@ -149,7 +149,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
             [180, 180],
             [270, 270],
             [360, 0],
-            [450, 90]
+            [450, 90],
         ];
     }
 
@@ -175,7 +175,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
     {
         return [
             [1],
-            [-57]
+            [-57],
         ];
     }
 
@@ -193,42 +193,43 @@ class TileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * Data Provider for Create From Invalid String Test
+     *
      * @return array
      */
     public function invalidCreateFromStringProvider()
     {
-        return array(
+        return [
             /** Invalid String */
-            array(
+            [
                 'I Like Cheese',
-            ),
+            ],
             /** String with not enough attributes */
-            array(
-                Tile::TILE_TYPE_ROAD.":".Tile::TILE_TYPE_ROAD.":".Tile::TILE_TYPE_ROAD.":".Tile::TILE_TYPE_ROAD,
-            ),
+            [
+                Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD,
+            ],
             /** String with too many attributes*/
-            array(
-                Tile::TILE_TYPE_ROAD.":".Tile::TILE_TYPE_ROAD.":".Tile::TILE_TYPE_ROAD.":".Tile::TILE_TYPE_ROAD.":".Tile::TILE_TYPE_ROAD.":".Tile::TILE_TYPE_ROAD,
-            ),
+            [
+                Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD,
+            ],
             /** Invalid with invalid seperators */
-            array(
-                Tile::TILE_TYPE_ROAD.";".Tile::TILE_TYPE_ROAD.";".Tile::TILE_TYPE_ROAD.";".Tile::TILE_TYPE_ROAD.";".Tile::TILE_TYPE_GRASS,
-            ),
+            [
+                Tile::TILE_TYPE_ROAD . ";" . Tile::TILE_TYPE_ROAD . ";" . Tile::TILE_TYPE_ROAD . ";" . Tile::TILE_TYPE_ROAD . ";" . Tile::TILE_TYPE_GRASS,
+            ],
             /** String with Invalid characters appended to constants */
-            array(
-                Tile::TILE_TYPE_ROAD."A:".Tile::TILE_TYPE_ROAD."B:".Tile::TILE_TYPE_ROAD."C:".Tile::TILE_TYPE_ROAD."D:".Tile::TILE_TYPE_GRASS,
-            ),
+            [
+                Tile::TILE_TYPE_ROAD . "A:" . Tile::TILE_TYPE_ROAD . "B:" . Tile::TILE_TYPE_ROAD . "C:" . Tile::TILE_TYPE_ROAD . "D:" . Tile::TILE_TYPE_GRASS,
+            ],
             /** Invalid positioning for cloister */
-            array(
-                Tile::TILE_TYPE_CLOISTER.":".Tile::TILE_TYPE_GRASS.":".Tile::TILE_TYPE_GRASS.":".Tile::TILE_TYPE_GRASS.":".Tile::TILE_TYPE_GRASS,
-            )
-        );
+            [
+                Tile::TILE_TYPE_CLOISTER . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS,
+            ],
+        ];
     }
 
     /**
      * Test creating Tile from Invalid String
      *
-     * @param string $tileString    Tile as a String
+     * @param string $tileString Tile as a String
      *
      * @dataProvider invalidCreateFromStringProvider
      * @expectedException \InvalidArgumentException
@@ -243,59 +244,59 @@ class TileTest extends \PHPUnit\Framework\TestCase
      */
     public function tileStringProvider()
     {
-        return array(
+        return [
             /** Matching Faces */
-            array(
-                array(
+            [
+                [
                     Tile::TILE_TYPE_ROAD,
                     Tile::TILE_TYPE_ROAD,
                     Tile::TILE_TYPE_ROAD,
                     Tile::TILE_TYPE_ROAD,
                     Tile::TILE_TYPE_GRASS,
-                ),
-                Tile::TILE_TYPE_ROAD.":".Tile::TILE_TYPE_ROAD.":".Tile::TILE_TYPE_ROAD.":".Tile::TILE_TYPE_ROAD.":".Tile::TILE_TYPE_GRASS,
-            ),
+                ],
+                Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS,
+            ],
             /** Mirrored Faces */
-            array(
-                array(
+            [
+                [
                     Tile::TILE_TYPE_ROAD,
                     Tile::TILE_TYPE_CITY,
                     Tile::TILE_TYPE_ROAD,
                     Tile::TILE_TYPE_CITY,
                     Tile::TILE_TYPE_GRASS,
-                ),
-                Tile::TILE_TYPE_ROAD.":".Tile::TILE_TYPE_CITY.":".Tile::TILE_TYPE_ROAD.":".Tile::TILE_TYPE_CITY.":".Tile::TILE_TYPE_GRASS,
-            ),
+                ],
+                Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS,
+            ],
             /** Matching Faces */
-            array(
-                array(
+            [
+                [
                     Tile::TILE_TYPE_GRASS,
                     Tile::TILE_TYPE_ROAD,
                     Tile::TILE_TYPE_CITY,
                     Tile::TILE_TYPE_GRASS,
                     Tile::TILE_TYPE_ROAD,
-                ),
-                Tile::TILE_TYPE_GRASS.":".Tile::TILE_TYPE_ROAD.":".Tile::TILE_TYPE_CITY.":".Tile::TILE_TYPE_GRASS.":".Tile::TILE_TYPE_ROAD,
-            ),
+                ],
+                Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD,
+            ],
             /** Cloister */
-            array(
-                array(
+            [
+                [
                     Tile::TILE_TYPE_GRASS,
                     Tile::TILE_TYPE_GRASS,
                     Tile::TILE_TYPE_GRASS,
                     Tile::TILE_TYPE_GRASS,
                     Tile::TILE_TYPE_CLOISTER,
-                ),
-                Tile::TILE_TYPE_GRASS.":".Tile::TILE_TYPE_GRASS.":".Tile::TILE_TYPE_GRASS.":".Tile::TILE_TYPE_GRASS.":".Tile::TILE_TYPE_CLOISTER,
-            ),
-        );
+                ],
+                Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CLOISTER,
+            ],
+        ];
     }
 
     /**
      * Test the Tile toString function
      *
-     * @param array $tileFaces          The Tile Faces
-     * @param string $expectedString    The Expected Faces as a String
+     * @param array  $tileFaces      The Tile Faces
+     * @param string $expectedString The Expected Faces as a String
      *
      * @dataProvider tileStringProvider
      */
@@ -317,8 +318,8 @@ class TileTest extends \PHPUnit\Framework\TestCase
     /**
      * Test the Tile createFromString function
      *
-     * @param array $expectedFaces   The Expected Tile Faces
-     * @param string $facesString    Faces as a String
+     * @param array  $expectedFaces The Expected Tile Faces
+     * @param string $facesString   Faces as a String
      *
      * @dataProvider tileStringProvider
      */
@@ -345,28 +346,28 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
                 [
                     ['North'],
-                ]
+                ],
             ],
             /** City East of Tile */
             [
                 Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
                 [
                     ['East'],
-                ]
+                ],
             ],
             /** City South of Tile */
             [
                 Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS),
                 [
                     ['South'],
-                ]
+                ],
             ],
             /** City West of Tile */
             [
                 Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS),
                 [
                     ['West'],
-                ]
+                ],
             ],
             /** Cities North and East of Tile */
             [
@@ -374,7 +375,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['North'],
                     ['East'],
-                ]
+                ],
             ],
             /** Cities North and South of Tile */
             [
@@ -382,7 +383,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['North'],
                     ['South'],
-                ]
+                ],
             ],
             /** Cities North and West of Tile */
             [
@@ -390,7 +391,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['North'],
                     ['West'],
-                ]
+                ],
             ],
             /** Cities East and South of Tile */
             [
@@ -398,7 +399,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['East'],
                     ['South'],
-                ]
+                ],
             ],
             /** Cities East and West of Tile */
             [
@@ -406,7 +407,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['East'],
                     ['West'],
-                ]
+                ],
             ],
             /** Cities South and West of Tile */
             [
@@ -414,7 +415,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
             /** Cities North, East and South of Tile */
             [
@@ -423,7 +424,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['North'],
                     ['East'],
                     ['South'],
-                ]
+                ],
             ],
             /** Cities North, East and West of Tile */
             [
@@ -432,7 +433,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['North'],
                     ['East'],
                     ['West'],
-                ]
+                ],
             ],
             /** Cities North, South and West of Tile */
             [
@@ -441,7 +442,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['North'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
             /** Cities East, South and West of Tile */
             [
@@ -450,7 +451,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['East'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
             /** Cities North, East, South and West of Tile */
             [
@@ -460,7 +461,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['East'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
 
             /** INDIVIDUAL ROADS */
@@ -469,28 +470,28 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CLOISTER),
                 [
                     ['North'],
-                ]
+                ],
             ],
             /** Road East of Tile */
             [
                 Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CLOISTER),
                 [
                     ['East'],
-                ]
+                ],
             ],
             /** Road South of Tile */
             [
                 Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CLOISTER),
                 [
                     ['South'],
-                ]
+                ],
             ],
             /** Road West of Tile */
             [
                 Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_CLOISTER),
                 [
                     ['West'],
-                ]
+                ],
             ],
             /** Roads North and East of Tile */
             [
@@ -498,7 +499,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['North'],
                     ['East'],
-                ]
+                ],
             ],
             /** Roads North and South of Tile */
             [
@@ -506,7 +507,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['North'],
                     ['South'],
-                ]
+                ],
             ],
             /** Roads North and West of Tile */
             [
@@ -514,7 +515,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['North'],
                     ['West'],
-                ]
+                ],
             ],
             /** Roads East and South of Tile */
             [
@@ -522,7 +523,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['East'],
                     ['South'],
-                ]
+                ],
             ],
             /** Roads East and West of Tile */
             [
@@ -530,7 +531,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['East'],
                     ['West'],
-                ]
+                ],
             ],
             /** Roads South and West of Tile */
             [
@@ -538,7 +539,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
             /** Roads North, East and South of Tile */
             [
@@ -547,7 +548,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['North'],
                     ['East'],
                     ['South'],
-                ]
+                ],
             ],
             /** Roads North, East and West of Tile */
             [
@@ -556,7 +557,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['North'],
                     ['East'],
                     ['West'],
-                ]
+                ],
             ],
             /** Roads North, South and West of Tile */
             [
@@ -565,7 +566,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['North'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
             /** Roads East, South and West of Tile */
             [
@@ -574,7 +575,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['East'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
             /** Roads North, East, South and West of Tile */
             [
@@ -584,7 +585,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['East'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
 
             /** INDIVIDUAL ROADS AND CITIES */
@@ -594,7 +595,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['North'],
                     ['East'],
-                ]
+                ],
             ],
             /** City North of Tile, Road South */
             [
@@ -602,7 +603,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['North'],
                     ['South'],
-                ]
+                ],
             ],
             /** City North of Tile, Road West */
             [
@@ -610,7 +611,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['North'],
                     ['West'],
-                ]
+                ],
             ],
             /** City East of Tile, Road South */
             [
@@ -618,7 +619,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['East'],
                     ['South'],
-                ]
+                ],
             ],
             /** City East of Tile, Road West */
             [
@@ -626,7 +627,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['East'],
                     ['West'],
-                ]
+                ],
             ],
             /** City East of Tile, Road North */
             [
@@ -634,7 +635,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['North'],
                     ['East'],
-                ]
+                ],
             ],
             /** City South of Tile, Road West */
             [
@@ -642,7 +643,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
             /** City South of Tile, Road North */
             [
@@ -650,7 +651,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['North'],
                     ['South'],
-                ]
+                ],
             ],
             /** City South of Tile, Road East */
             [
@@ -658,7 +659,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['East'],
                     ['South'],
-                ]
+                ],
             ],
             /** City West of Tile, Road North */
             [
@@ -666,7 +667,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['North'],
                     ['West'],
-                ]
+                ],
             ],
             /** City West of Tile, Road East */
             [
@@ -674,7 +675,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['East'],
                     ['West'],
-                ]
+                ],
             ],
             /** City West of Tile, Road South */
             [
@@ -682,7 +683,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
             /** City North, East of Tile, Road South */
             [
@@ -691,7 +692,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['North'],
                     ['East'],
                     ['South'],
-                ]
+                ],
             ],
             /** City North, East of Tile, Road West */
             [
@@ -700,7 +701,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['North'],
                     ['East'],
                     ['West'],
-                ]
+                ],
             ],
             /** City East, South of Tile, Road West */
             [
@@ -709,7 +710,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['East'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
             /** City East, South of Tile, Road North */
             [
@@ -718,7 +719,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['North'],
                     ['East'],
                     ['South'],
-                ]
+                ],
             ],
             /** City South, West of Tile, Road North */
             [
@@ -727,7 +728,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['North'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
             /** City South, West of Tile, Road East */
             [
@@ -736,7 +737,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['East'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
             /** City West, North of Tile, Road East */
             [
@@ -745,7 +746,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['North'],
                     ['East'],
                     ['West'],
-                ]
+                ],
             ],
             /** City West, North of Tile, Road South */
             [
@@ -754,7 +755,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['North'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
             /** Road North, East of Tile, City South */
             [
@@ -763,7 +764,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['North'],
                     ['East'],
                     ['South'],
-                ]
+                ],
             ],
             /** Road North, East of Tile, City West */
             [
@@ -772,7 +773,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['North'],
                     ['East'],
                     ['West'],
-                ]
+                ],
             ],
             /** Road East, South of Tile, City West */
             [
@@ -781,7 +782,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['East'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
             /** Road East, South of Tile, City North */
             [
@@ -790,7 +791,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['North'],
                     ['East'],
                     ['South'],
-                ]
+                ],
             ],
             /** Road South, West of Tile, City North */
             [
@@ -799,7 +800,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['North'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
             /** Road South, West of Tile, City East */
             [
@@ -808,7 +809,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['East'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
             /** Road West, North of Tile, City East */
             [
@@ -817,7 +818,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['North'],
                     ['East'],
                     ['West'],
-                ]
+                ],
             ],
             /** Road West, North of Tile, City South */
             [
@@ -827,7 +828,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['South'],
                     ['West'],
 
-                ]
+                ],
             ],
 
             /** City North, East of Tile, Road South, West */
@@ -838,7 +839,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['East'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
             /** City East, South of Tile, Road North, West */
             [
@@ -848,7 +849,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['East'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
             /** City South, West of Tile, Road North, East */
             [
@@ -858,7 +859,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['East'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
             /** City North, West of Tile, Road East, South */
             [
@@ -868,7 +869,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['East'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
             /** City North, South of Tile, Road East West */
             [
@@ -878,7 +879,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['East'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
             /** Road North, South of Tile, City East West */
             [
@@ -888,7 +889,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['East'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
             /** City North, East, South of Tile, Road West */
             [
@@ -898,7 +899,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['East'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
             /** City North, East, West of Tile, South West */
             [
@@ -908,7 +909,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['East'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
             /** City North, South, West of Tile, Road South */
             [
@@ -918,7 +919,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['East'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
             /** City East, South, West of Tile, Road North */
             [
@@ -928,7 +929,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['East'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
             /** Road North, East, South of Tile, City West */
             [
@@ -938,7 +939,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['East'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
             /** Road North, East, West of Tile, South West */
             [
@@ -948,7 +949,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['East'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
             /** Road North, South, West of Tile, City South */
             [
@@ -958,7 +959,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['East'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
             /** Road East, South, West of Tile, City North */
             [
@@ -968,7 +969,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['East'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
 
             /** CONNECTED CITIES */
@@ -977,77 +978,77 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                 [
                     ['North', 'East'],
-                ]
+                ],
             ],
             /** City East, South Connected */
             [
                 Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                 [
                     ['East', 'South'],
-                ]
+                ],
             ],
             /** City South, West Connected */
             [
                 Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                 [
                     ['South', 'West'],
-                ]
+                ],
             ],
             /** City West, North Connected */
             [
                 Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                 [
                     ['North', 'West'],
-                ]
+                ],
             ],
             /** City North, South Connected */
             [
                 Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                 [
                     ['North', 'South'],
-                ]
+                ],
             ],
             /** City East, West Connected */
             [
                 Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                 [
                     ['East', 'West'],
-                ]
+                ],
             ],
             /** City North, East, South Connected */
             [
                 Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY),
                 [
                     ['North', 'East', 'South'],
-                ]
+                ],
             ],
             /** City East, South, West Connected */
             [
                 Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                 [
                     ['East', 'South', 'West'],
-                ]
+                ],
             ],
             /** City South, West, North Connected */
             [
                 Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                 [
                     ['North', 'South', 'West'],
-                ]
+                ],
             ],
             /** City West, North, East Connected */
             [
                 Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                 [
                     ['North', 'East', 'West'],
-                ]
+                ],
             ],
             /** City North, East, South, West Connected */
             [
                 Tile::createFromString(Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_CITY),
                 [
                     ['North', 'East', 'South', 'West'],
-                ]
+                ],
             ],
 
             /** CONNECTED ROADS */
@@ -1056,42 +1057,42 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
                 [
                     ['North', 'East'],
-                ]
+                ],
             ],
             /** Road East, South Connected */
             [
                 Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
                 [
                     ['East', 'South'],
-                ]
+                ],
             ],
             /** Road South, West Connected */
             [
                 Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
                 [
                     ['South', 'West'],
-                ]
+                ],
             ],
             /** Road West, North Connected */
             [
                 Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
                 [
                     ['North', 'West'],
-                ]
+                ],
             ],
             /** Road North, South Connected */
             [
                 Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD),
                 [
                     ['North', 'South'],
-                ]
+                ],
             ],
             /** Road East, West Connected */
             [
                 Tile::createFromString(Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD),
                 [
                     ['East', 'West'],
-                ]
+                ],
             ],
             /** Road North, East, South Connected */
             [
@@ -1100,7 +1101,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['North'],
                     ['East'],
                     ['South'],
-                ]
+                ],
             ],
             /** Road East, South, West Connected */
             [
@@ -1109,7 +1110,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['East'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
             /** Road South, West, North Connected */
             [
@@ -1118,7 +1119,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['North'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
             /** Road West, North, East Connected */
             [
@@ -1127,7 +1128,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['North'],
                     ['East'],
                     ['West'],
-                ]
+                ],
             ],
             /** Road North, East, South, West Connected */
             [
@@ -1137,7 +1138,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['East'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
 
             /** CONNECTED CITIES AND ROADS */
@@ -1147,7 +1148,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['South'],
                     ['North', 'East'],
-                ]
+                ],
             ],
             /** City North, East Connected; Road West */
             [
@@ -1155,7 +1156,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['West'],
                     ['North', 'East'],
-                ]
+                ],
             ],
             /** City East, South Connected; Road West */
             [
@@ -1163,7 +1164,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['West'],
                     ['East', 'South'],
-                ]
+                ],
             ],
             /** City East, South Connected; Road North */
             [
@@ -1171,7 +1172,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['North'],
                     ['East', 'South'],
-                ]
+                ],
             ],
             /** City South, West Connected; Road North */
             [
@@ -1179,7 +1180,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['North'],
                     ['South', 'West'],
-                ]
+                ],
             ],
             /** City South, West Connected; Road East */
             [
@@ -1187,7 +1188,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['East'],
                     ['South', 'West'],
-                ]
+                ],
             ],
             /** City West, North Connected; Road East */
             [
@@ -1195,7 +1196,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['East'],
                     ['North', 'West'],
-                ]
+                ],
             ],
             /** City West, North Connected; Road South */
             [
@@ -1203,7 +1204,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['South'],
                     ['North', 'West'],
-                ]
+                ],
             ],
             /** City North, South Connected; Road East */
             [
@@ -1211,7 +1212,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['East'],
                     ['North', 'South'],
-                ]
+                ],
             ],
             /** City North, South Connected; Road West */
             [
@@ -1219,7 +1220,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['West'],
                     ['North', 'South'],
-                ]
+                ],
             ],
             /** City East, West Connected; Road North */
             [
@@ -1227,7 +1228,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['North'],
                     ['East', 'West'],
-                ]
+                ],
             ],
             /** City East, West Connected; Road South */
             [
@@ -1235,7 +1236,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['South'],
                     ['East', 'West'],
-                ]
+                ],
             ],
             /** City North, East Connected; Road South and West */
             [
@@ -1244,7 +1245,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['South'],
                     ['West'],
                     ['North', 'East'],
-                ]
+                ],
             ],
             /** City East, South Connected; Road North and West */
             [
@@ -1253,7 +1254,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['North'],
                     ['West'],
                     ['East', 'South'],
-                ]
+                ],
             ],
             /** City South, West Connected; Road North and East */
             [
@@ -1262,7 +1263,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['North'],
                     ['East'],
                     ['South', 'West'],
-                ]
+                ],
             ],
             /** City West, North Connected; Road East and South */
             [
@@ -1271,7 +1272,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['East'],
                     ['South'],
                     ['North', 'West'],
-                ]
+                ],
             ],
             /** City North, South Connected; Road East and West */
             [
@@ -1280,7 +1281,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['East'],
                     ['West'],
                     ['North', 'South'],
-                ]
+                ],
             ],
             /** City East, West Connected; Road North and South */
             [
@@ -1289,7 +1290,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['North'],
                     ['South'],
                     ['East', 'West'],
-                ]
+                ],
             ],
             /** City North, East, South Connected; Road West */
             [
@@ -1297,7 +1298,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['West'],
                     ['North', 'East', 'South'],
-                ]
+                ],
             ],
             /** City East, South, West Connected; Road North */
             [
@@ -1305,7 +1306,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['North'],
                     ['East', 'South', 'West'],
-                ]
+                ],
             ],
             /** City South, West, North Connected; Road East */
             [
@@ -1313,7 +1314,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['East'],
                     ['North', 'South', 'West'],
-                ]
+                ],
             ],
             /** City West, North, East Connected; Road South */
             [
@@ -1321,7 +1322,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['South'],
                     ['North', 'East', 'West'],
-                ]
+                ],
             ],
             /** Road North, East Connected; City South */
             [
@@ -1329,7 +1330,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['South'],
                     ['North', 'East'],
-                ]
+                ],
             ],
             /** Road North, East Connected; City West */
             [
@@ -1337,7 +1338,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['West'],
                     ['North', 'East'],
-                ]
+                ],
             ],
             /** Road East, South Connected; City West */
             [
@@ -1345,7 +1346,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['West'],
                     ['East', 'South'],
-                ]
+                ],
             ],
             /** Road East, South Connected; City North */
             [
@@ -1353,7 +1354,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['North'],
                     ['East', 'South'],
-                ]
+                ],
             ],
             /** Road South, West Connected; City North */
             [
@@ -1361,7 +1362,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['North'],
                     ['South', 'West'],
-                ]
+                ],
             ],
             /** Road South, West Connected; City East */
             [
@@ -1369,7 +1370,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['East'],
                     ['South', 'West'],
-                ]
+                ],
             ],
             /** Road West, North Connected; City East */
             [
@@ -1377,7 +1378,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['East'],
                     ['North', 'West'],
-                ]
+                ],
             ],
             /** Road West, North Connected; City South */
             [
@@ -1385,7 +1386,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['South'],
                     ['North', 'West'],
-                ]
+                ],
             ],
             /** Road North, South Connected; City East */
             [
@@ -1393,7 +1394,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['East'],
                     ['North', 'South'],
-                ]
+                ],
             ],
             /** Road North, South Connected; City West */
             [
@@ -1401,7 +1402,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['West'],
                     ['North', 'South'],
-                ]
+                ],
             ],
             /** Road East, West Connected; City North */
             [
@@ -1409,7 +1410,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['North'],
                     ['East', 'West'],
-                ]
+                ],
             ],
             /** Road East, West Connected; City South */
             [
@@ -1417,7 +1418,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                 [
                     ['South'],
                     ['East', 'West'],
-                ]
+                ],
             ],
             /** Road North, East Connected; City South and West */
             [
@@ -1426,7 +1427,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['South'],
                     ['West'],
                     ['North', 'East'],
-                ]
+                ],
             ],
             /** Road East, South Connected; City North and West */
             [
@@ -1435,7 +1436,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['North'],
                     ['West'],
                     ['East', 'South'],
-                ]
+                ],
             ],
             /** Road South, West Connected; City North and East */
             [
@@ -1444,7 +1445,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['North'],
                     ['East'],
                     ['South', 'West'],
-                ]
+                ],
             ],
             /** Road West, North Connected; City East and South */
             [
@@ -1453,7 +1454,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['East'],
                     ['South'],
                     ['North', 'West'],
-                ]
+                ],
             ],
             /** Road North, South Connected; City East and West */
             [
@@ -1462,7 +1463,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['East'],
                     ['West'],
                     ['North', 'South'],
-                ]
+                ],
             ],
             /** Road East, West Connected; City North and South */
             [
@@ -1471,7 +1472,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['North'],
                     ['South'],
                     ['East', 'West'],
-                ]
+                ],
             ],
             /** Road North, East, South Connected; City West */
             [
@@ -1481,7 +1482,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['East'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
             /** Road East, South, West Connected; City North */
             [
@@ -1491,7 +1492,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['East'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
             /** Road South, West, North Connected; City East */
             [
@@ -1501,7 +1502,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['East'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
             /** Road West, North, East Connected; City South */
             [
@@ -1511,7 +1512,7 @@ class TileTest extends \PHPUnit\Framework\TestCase
                     ['East'],
                     ['South'],
                     ['West'],
-                ]
+                ],
             ],
         ];
     }
@@ -1519,10 +1520,10 @@ class TileTest extends \PHPUnit\Framework\TestCase
     /**
      * Test getting the features on a tile
      *
-     * @param Tile  $tile               Tile to get features on
-     * @param array $expectedFeatures   Expected Features to be returned
+     * @param Tile  $tile             Tile to get features on
+     * @param array $expectedFeatures Expected Features to be returned
      *
-     * @todo improve assertion to be independent of array order
+     * @todo         improve assertion to be independent of array order
      *
      * @dataProvider getFeaturesProvider
      */
@@ -1537,10 +1538,10 @@ class TileTest extends \PHPUnit\Framework\TestCase
     /**
      * Test getting a single features on a tile bearing
      *
-     * @param Tile  $tile               Tile to get features on
-     * @param array $expectedFeatures   Expected Features to be returned
+     * @param Tile  $tile             Tile to get features on
+     * @param array $expectedFeatures Expected Features to be returned
      *
-     * @todo improve assertion to be independent of array order
+     * @todo         improve assertion to be independent of array order
      *
      * @dataProvider getFeaturesProvider
      */
@@ -1639,12 +1640,12 @@ class TileTest extends \PHPUnit\Framework\TestCase
     /**
      * Test the accessor functions for tile faces
      *
-     * @param Tile      $tile       Tile to get faces for
-     * @param string    $northFace  Expected north tile face
-     * @param string    $eastFace   Expected east tile face
-     * @param string    $southFace  Expected south tile face
-     * @param string    $westFace   Expected west tile face
-     * @param string    $center     Expected center tile feature
+     * @param Tile   $tile      Tile to get faces for
+     * @param string $northFace Expected north tile face
+     * @param string $eastFace  Expected east tile face
+     * @param string $southFace Expected south tile face
+     * @param string $westFace  Expected west tile face
+     * @param string $center    Expected center tile feature
      *
      * @dataProvider tileFacesProvider
      */
@@ -1655,5 +1656,37 @@ class TileTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($southFace, $tile->getSouth());
         $this->assertSame($westFace, $tile->getWest());
         $this->assertSame($center, $tile->getCenter());
+    }
+
+    /**
+     * Test getting a tiles face on a bearing
+     *
+     * @param Tile   $tile   Tile to get faces on
+     * @param string $northFace Expected face on North Bearing
+     * @param string $eastFace  Expected face on East Bearing
+     * @param string $southFace Expected face on South Bearing
+     * @param string $westFace  Expected face on West Bearing
+     * @param string $center    Expected face on Center Bearing
+     *
+     * @dataProvider tileFacesProvider
+     */
+    public function testGetFace($tile, $northFace, $eastFace, $southFace, $westFace, $center)
+    {
+        $this->assertSame($northFace, $tile->getFace('North'));
+        $this->assertSame($eastFace, $tile->getFace('East'));
+        $this->assertSame($southFace, $tile->getFace('South'));
+        $this->assertSame($westFace, $tile->getFace('West'));
+        $this->assertSame($center, $tile->getFace('Center'));
+    }
+
+    /**
+     * Test getting a face on an invalid bearing
+     *
+     * @expectedException Codecassonne\Tile\Exception\InvalidBearing
+     */
+    public function testGetInvalidFace()
+    {
+        $tile = Tile::createFromString(Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_GRASS . ":" . Tile::TILE_TYPE_CITY . ":" . Tile::TILE_TYPE_ROAD . ":" . Tile::TILE_TYPE_ROAD);
+        $tile->getFace('invalid');
     }
 }
