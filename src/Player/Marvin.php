@@ -33,7 +33,7 @@ class Marvin implements PlayerInterface
         $playPositions = $map->getPlayablePositions();
         shuffle($playPositions);
 
-        if (!$playPositions) {
+        if (empty($playPositions)) {
             throw new \Exception('Unable to find any playable positions');
         }
 

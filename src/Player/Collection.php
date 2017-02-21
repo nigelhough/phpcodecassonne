@@ -19,7 +19,7 @@ class Collection
     /**
      * Collection constructor.
      *
-     * @param Player|Player[] ...$players
+     * @param Player[] ...$players
      */
     public function __construct(Player ...$players)
     {
