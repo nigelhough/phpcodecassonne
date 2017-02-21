@@ -48,6 +48,9 @@ class Factory
         } elseif ($featureType === \Codecassonne\Tile\Tile::TILE_TYPE_ROAD) {
             return new Road($isComplete, ...array_values($featureTiles));
         }
+
+        // @todo Custom Exception
+        throw new \Exception('Invalid Feature Type');
     }
 
     /**
@@ -154,10 +157,10 @@ class Factory
 
     /**
      * Create features for all starting at a coordinate
+     * Should invalid coordinates throw Exceptions?
      *
      * @param Coordinate $startingCoordinate Starting coordinate to look for a feature
      * @param Map        $map                Map the feature is on
-     *
      *
      * @return Feature[]
      */
