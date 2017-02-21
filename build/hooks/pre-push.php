@@ -1,12 +1,11 @@
-#!/usr/bin/env php
 <?php
 
 echo 'Checking Push ...' . PHP_EOL;
 
-if (!executeCheck('Unit Tests', 'vendor/bin/phpunit -c tests/phpunit.xml --coverage-html tests/coverage')) {
+if (!executeCheck('Code linting', 'vendor/bin/parallel-lint --exclude vendor .')) {
     exit;
 }
-if (!executeCheck('Code linting', 'php build/scripts/linter.php')) {
+if (!executeCheck('Unit Tests', 'vendor/bin/phpunit -c tests/phpunit.xml --coverage-html tests/coverage')) {
     exit;
 }
 if (!executeCheck('PHP Stan', 'vendor/bin/phpstan analyse src tests --no-progress --level=4')) {

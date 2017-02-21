@@ -6,7 +6,7 @@ before_script:
   - composer install
 
 script:
-  - php build/scripts/linter.php
+  - vendor/bin/parallel-lint --exclude vendor .
   - vendor/bin/phpunit --configuration tests/phpunit.xml --coverage-clover=coverage.xml
   - vendor/bin/phpstan analyse src --level=4
 

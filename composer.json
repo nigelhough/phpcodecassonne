@@ -13,7 +13,8 @@
     ],
     "require": {
         "phpunit/phpunit": "^6.0",
-        "phpstan/phpstan": "^0.6.3"
+        "phpstan/phpstan": "^0.6.3",
+        "jakub-onderka/php-parallel-lint": "^0.9.2"
     },
     "autoload": {
         "psr-4": {"Codecassonne\\": ["src/", "tests/"]}
