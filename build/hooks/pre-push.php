@@ -8,7 +8,7 @@ if (!executeCheck('Code linting', 'vendor/bin/parallel-lint --exclude vendor .')
 if (!executeCheck('Unit Tests', 'vendor/bin/phpunit -c tests/phpunit.xml --coverage-html tests/coverage')) {
     exit;
 }
-if (!executeCheck('PHP Stan', 'vendor/bin/phpstan analyse src tests --no-progress --level=4')) {
+if (!executeCheck('PHP Stan', 'vendor/bin/phpstan analyse src --no-progress --level=4')) {
     exit;
 }
 
