@@ -12,5 +12,9 @@ $players = new \Codecassonne\Player\Collection(
     new \Codecassonne\Player\Kryten()
 );
 
-$game = new Codecassonne\Game($mapper, $players);
+// Construct Scoring Service and Game Scoreboard
+$scoreboard = new Codecassonne\Scoreboard\Scoreboard($players);
+$scoringService = new Codecassonne\Scoring\Service;
+
+$game = new Codecassonne\Game($mapper, $players, $scoringService, $scoreboard);
 $game->run();
