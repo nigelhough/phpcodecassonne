@@ -20,6 +20,7 @@ class Factory
      *
      * @return Feature
      * @throws Exception\NoFeatureFaces
+     * @throws \Exception
      */
     public function createFeature(Coordinate $startingCoordinate, Map $map, string $bearing): Feature
     {
@@ -106,7 +107,8 @@ class Factory
         }
 
         // Create feature tile, add to tracked tiles
-        $featureTiles[$connectedCoordinate->toHash()] = new Tile($connectedTile, $connectedCoordinate, $connectedFeatures);
+        $featureTiles[$connectedCoordinate->toHash()] =
+            new Tile($connectedTile, $connectedCoordinate, $connectedFeatures);
 
         if (count($connectedFeatures) === 1) {
             // If only one face in the feature it is closed
@@ -127,14 +129,16 @@ class Factory
     }
 
     /**
-     * @param $bearing
+     * Flips a bearing
+     *
+     * @param string $bearing The bearing to flip
      *
      * @todo Move this into a more appropriate place, probably time for bearing objects
      *
      * @return string
      * @throws \Exception
      */
-    private function flipBearing($bearing)
+    private function flipBearing(string $bearing) : string
     {
         switch ($bearing) {
             case 'North':
@@ -171,12 +175,15 @@ class Factory
             return [];
         }
 
+        // Score Cloisters, on tile and surrounding
+        $cloisters = $this->createCloisters($map, $startingCoordinate);
+
         // Get Feature for Starting Tile
         $startingTile = $map->look($startingCoordinate);
         $startingFeatures = $startingTile->getFeatures();
         // If the starting coordinate doesn't have any features return early
         if (empty($startingFeatures)) {
-            return [];
+            return $cloisters;
         }
 
         /** @var Feature[] $features */
@@ -198,8 +205,71 @@ class Factory
             $features[] = $this->createFeature($startingCoordinate, $map, $bearing);
         }
 
-        // Handle Cloisters
+        return array_merge($features, $cloisters);
+    }
+
+    /**
+     * Create all Cloisters linked to a tile
+     *
+     * @param Map        $map        Map the cloisters are on is on
+     * @param Coordinate $coordinate Coordinate linked to cloisters
+     *
+     * @return Cloister[]
+     */
+    public function createCloisters(Map $map, Coordinate $coordinate): array
+    {
+        $features = [];
+
+        // Check coordinate and all surrounding for existence of Cloisters
+        $checkCoordinates = array_merge([$coordinate], $coordinate->getSurroundingCoordinates());
+        foreach ($checkCoordinates as $checkCoordinate) {
+            if ($this->isCloister($map, $checkCoordinate)) {
+                $features[] = $this->createCloister($map, $checkCoordinate);
+            }
+        }
 
         return $features;
+    }
+
+    /**
+     * Checks if a given coordinate is a Cloister
+     *
+     * @param Map        $map        Map to check coordinate on
+     * @param Coordinate $coordinate Coordinate to check
+     *
+     * @return bool
+     */
+    private function isCloister(Map $map, Coordinate $coordinate): bool
+    {
+        return $map->isOccupied($coordinate)
+            && $map->look($coordinate)->getCenter() === \Codecassonne\Tile\Tile::TILE_TYPE_CLOISTER;
+    }
+
+    /**
+     * Create a cloister centered on a specific coordinate
+     *
+     * @param Map        $map        Map the cloisters are on is on
+     * @param Coordinate $coordinate Coordinate linked to cloisters
+     *
+     * @return Cloister
+     *
+     * @throws \Codecassonne\Feature\Exception\NotCloister
+     */
+    private function createCloister(Map $map, Coordinate $coordinate): Cloister
+    {
+        if (!$this->isCloister($map, $coordinate)) {
+            throw new Exception\NotCloister('Cloister must have a cloister at the center of the tile');
+        }
+
+        // Construct a Cloister with all of the surrounding tiles
+        $featureCoordinates = [new Tile($map->look($coordinate), $coordinate, [])];
+        foreach ($coordinate->getSurroundingCoordinates() as $checkCoordinate) {
+            if ($map->isOccupied($checkCoordinate)) {
+                $featureCoordinates[] =
+                    new Tile($map->look($checkCoordinate), $checkCoordinate, []);
+            }
+        }
+
+        return new Cloister((count($featureCoordinates) === 9), ...$featureCoordinates);
     }
 }
