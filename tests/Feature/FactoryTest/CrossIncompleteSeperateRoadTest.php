@@ -180,31 +180,82 @@ class CrossIncompleteSeperateRoadCreation extends FeatureCreation
             [
                 $this->crossIncompleteRoadMap(),
                 new Coordinate(0, 1),
+                2,
+            ],
+            /** Test West tile */
+            [
+                $this->crossIncompleteRoadMap(),
+                new Coordinate(-1, 0),
+                2,
+            ],
+            /** Test Center tile */
+            [
+                $this->crossIncompleteRoadMap(),
+                new Coordinate(0, 0),
+                5,
+            ],
+            /** Test East tile */
+            [
+                $this->crossIncompleteRoadMap(),
+                new Coordinate(1, 0),
+                2,
+            ],
+            /** Test South tile */
+            [
+                $this->crossIncompleteRoadMap(),
+                new Coordinate(0, -1),
+                2,
+            ],
+        ];
+    }
+
+    /**
+     * Data Provider for cloister creation test
+     *
+     * @return array
+     */
+    public function featuresCloisterProvider()
+    {
+        return [
+            /** Test North tile */
+            [
+                $this->crossIncompleteRoadMap(),
+                new Coordinate(0, 1),
                 1,
+                0,
+                5,
             ],
             /** Test West tile */
             [
                 $this->crossIncompleteRoadMap(),
                 new Coordinate(-1, 0),
                 1,
+                0,
+                5,
             ],
             /** Test Center tile */
             [
                 $this->crossIncompleteRoadMap(),
                 new Coordinate(0, 0),
-                4,
+                1,
+                0,
+                5,
             ],
             /** Test East tile */
             [
                 $this->crossIncompleteRoadMap(),
                 new Coordinate(1, 0),
                 1,
+                0,
+                5,
             ],
             /** Test South tile */
             [
                 $this->crossIncompleteRoadMap(),
                 new Coordinate(0, -1),
                 1,
+                0,
+                5,
             ],
         ];
     }

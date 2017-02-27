@@ -74,4 +74,36 @@ abstract class FeatureCreation extends \PHPUnit\Framework\TestCase
 
         $this->assertCount($expectedNoFeatures, $features);
     }
+
+    /**
+     * @param Map        $map
+     * @param Coordinate $coordinate
+     * @param int        $expectedNoCloisters
+     * @param int        $expectedComplete
+     * @param int        $expectedTotalTiles
+     *
+     * @dataProvider featuresCloisterProvider
+     */
+    public function testCloisterCreation(Map $map,
+        Coordinate $coordinate,
+        int $expectedNoCloisters,
+        int $expectedComplete,
+        int $expectedTotalTiles
+    ) {
+        $featureFactory = new Factory();
+
+        $features = $featureFactory->createCloisters($map, $coordinate);
+
+        $this->assertCount($expectedNoCloisters, $features);
+
+        $completed = 0;
+        $tiles = 0;
+        foreach ($features as $feature) {
+            $completed += $feature->isComplete() ? 1 : 0;
+            $tiles += $feature->numberOfTiles();
+        }
+
+        $this->assertEquals($expectedComplete, $completed);
+        $this->assertEquals($expectedTotalTiles, $tiles);
+    }
 }

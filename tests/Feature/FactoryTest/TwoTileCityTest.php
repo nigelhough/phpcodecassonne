@@ -131,4 +131,31 @@ class TwoTileCityCreation extends FeatureCreation
             ],
         ];
     }
+
+    /**
+     * Data Provider for cloister creation test
+     *
+     * @return array
+     */
+    public function featuresCloisterProvider()
+    {
+        return [
+            /** Test North tile */
+            [
+                $this->twoTileCityMap(),
+                new Coordinate(0, 1),
+                0,
+                0,
+                0,
+            ],
+            /** Test South tile */
+            [
+                $this->twoTileCityMap(),
+                new Coordinate(0, 0),
+                0,
+                0,
+                0,
+            ],
+        ];
+    }
 }

@@ -451,4 +451,31 @@ class CircleCompleteCityCreation extends FeatureCreation
             ],
         ];
     }
+
+    /**
+     * Data Provider for cloister creation test
+     *
+     * @return array
+     */
+    public function featuresCloisterProvider()
+    {
+        return [
+            /** Test North tile */
+            [
+                $this->circleCompleteCityMap(),
+                new Coordinate(0, 1),
+                0,
+                0,
+                0,
+            ],
+            /** Test South tile */
+            [
+                $this->circleCompleteCityMap(),
+                new Coordinate(0, 0),
+                0,
+                0,
+                0,
+            ],
+        ];
+    }
 }

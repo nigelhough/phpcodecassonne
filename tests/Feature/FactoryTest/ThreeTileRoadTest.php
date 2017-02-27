@@ -141,19 +141,54 @@ class ThreeTileRoadCreation extends FeatureCreation
             [
                 $this->threeTileRoadMap(),
                 new Coordinate(0, 2),
-                1,
+                2,
             ],
             /** Test Center tile */
             [
                 $this->threeTileRoadMap(),
                 new Coordinate(0, 1),
+                3,
+            ],
+            /** Test South tile */
+            [
+                $this->threeTileRoadMap(),
+                new Coordinate(0, 0),
+                2,
+            ],
+        ];
+    }
+
+    /**
+     * Data Provider for cloister creation test
+     *
+     * @return array
+     */
+    public function featuresCloisterProvider()
+    {
+        return [
+            /** Test North tile */
+            [
+                $this->threeTileRoadMap(),
+                new Coordinate(0, 2),
                 1,
+                0,
+                2,
+            ],
+            /** Test Center tile */
+            [
+                $this->threeTileRoadMap(),
+                new Coordinate(0, 1),
+                2,
+                0,
+                4,
             ],
             /** Test South tile */
             [
                 $this->threeTileRoadMap(),
                 new Coordinate(0, 0),
                 1,
+                0,
+                2,
             ],
         ];
     }

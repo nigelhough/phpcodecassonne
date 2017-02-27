@@ -181,31 +181,82 @@ class CrossCompleteSeperateRoadCreation extends FeatureCreation
             [
                 $this->crossCompleteRoadMap(),
                 new Coordinate(0, 1),
-                1,
+                5,
             ],
             /** Test West tile */
             [
                 $this->crossCompleteRoadMap(),
                 new Coordinate(-1, 0),
-                1,
+                5,
             ],
             /** Test Center tile */
             [
                 $this->crossCompleteRoadMap(),
                 new Coordinate(0, 0),
-                4,
+                9,
             ],
             /** Test East tile */
             [
                 $this->crossCompleteRoadMap(),
                 new Coordinate(1, 0),
-                1,
+                5,
             ],
             /** Test South tile */
             [
                 $this->crossCompleteRoadMap(),
                 new Coordinate(0, -1),
-                1,
+                5,
+            ],
+        ];
+    }
+
+    /**
+     * Data Provider for cloister creation test
+     *
+     * @return array
+     */
+    public function featuresCloisterProvider()
+    {
+        return [
+            /** Test North tile */
+            [
+                $this->crossCompleteRoadMap(),
+                new Coordinate(0, 1),
+                4,
+                0,
+                17,
+            ],
+            /** Test West tile */
+            [
+                $this->crossCompleteRoadMap(),
+                new Coordinate(-1, 0),
+                4,
+                0,
+                17,
+            ],
+            /** Test Center tile */
+            [
+                $this->crossCompleteRoadMap(),
+                new Coordinate(0, 0),
+                5,
+                0,
+                21,
+            ],
+            /** Test East tile */
+            [
+                $this->crossCompleteRoadMap(),
+                new Coordinate(1, 0),
+                4,
+                0,
+                17,
+            ],
+            /** Test South tile */
+            [
+                $this->crossCompleteRoadMap(),
+                new Coordinate(0, -1),
+                4,
+                0,
+                17,
             ],
         ];
     }

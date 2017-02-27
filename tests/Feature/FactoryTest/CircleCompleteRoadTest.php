@@ -451,4 +451,79 @@ class CircleCompleteRoadCreation extends FeatureCreation
             ],
         ];
     }
+
+    /**
+     * Data Provider for cloister creation test
+     *
+     * @return array
+     */
+    public function featuresCloisterProvider()
+    {
+        return [
+            /** Test North West tile */
+            [
+                $this->circleCompleteRoadMap(),
+                new Coordinate(-1, 1),
+                0,
+                0,
+                0,
+            ],
+            /** Test North tile */
+            [
+                $this->circleCompleteRoadMap(),
+                new Coordinate(0, 1),
+                0,
+                0,
+                0,
+            ],
+            /** Test North East tile */
+            [
+                $this->circleCompleteRoadMap(),
+                new Coordinate(1, 1),
+                0,
+                0,
+                0,
+            ],
+            /** Test West tile */
+            [
+                $this->circleCompleteRoadMap(),
+                new Coordinate(-1, 0),
+                0,
+                0,
+                0,
+            ],
+            /** Test East tile */
+            [
+                $this->circleCompleteRoadMap(),
+                new Coordinate(1, 0),
+                0,
+                0,
+                0,
+            ],
+            /** Test South West tile */
+            [
+                $this->circleCompleteRoadMap(),
+                new Coordinate(-1, -1),
+                0,
+                0,
+                0,
+            ],
+            /** Test South West tile */
+            [
+                $this->circleCompleteRoadMap(),
+                new Coordinate(0, -1),
+                0,
+                0,
+                0,
+            ],
+            /** Test South East tile */
+            [
+                $this->circleCompleteRoadMap(),
+                new Coordinate(1, -1),
+                0,
+                0,
+                0,
+            ],
+        ];
+    }
 }

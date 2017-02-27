@@ -208,4 +208,55 @@ class CrossIncompleteConnectedRoadCreation extends FeatureCreation
             ],
         ];
     }
+
+    /**
+     * Data Provider for cloister creation test
+     *
+     * @return array
+     */
+    public function featuresCloisterProvider()
+    {
+        return [
+            /** Test North tile */
+            [
+                $this->crossCompleteRoadMap(),
+                new Coordinate(0, 1),
+                0,
+                0,
+                0,
+            ],
+            /** Test West tile */
+            [
+                $this->crossCompleteRoadMap(),
+                new Coordinate(-1, 0),
+                0,
+                0,
+                0,
+            ],
+            /** Test Center tile */
+            [
+                $this->crossCompleteRoadMap(),
+                new Coordinate(0, 0),
+                0,
+                0,
+                0,
+            ],
+            /** Test East tile */
+            [
+                $this->crossCompleteRoadMap(),
+                new Coordinate(1, 0),
+                0,
+                0,
+                0,
+            ],
+            /** Test South tile */
+            [
+                $this->crossCompleteRoadMap(),
+                new Coordinate(0, -1),
+                0,
+                0,
+                0,
+            ],
+        ];
+    }
 }

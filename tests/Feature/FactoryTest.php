@@ -54,7 +54,7 @@ class FactoryTest extends TestCase
                     \Codecassonne\Tile\Tile::TILE_TYPE_GRASS . ":" .
                     \Codecassonne\Tile\Tile::TILE_TYPE_GRASS . ":" .
                     \Codecassonne\Tile\Tile::TILE_TYPE_GRASS . ":" .
-                    \Codecassonne\Tile\Tile::TILE_TYPE_CLOISTER
+                    \Codecassonne\Tile\Tile::TILE_TYPE_GRASS
                 )
             )
         );
@@ -88,4 +88,6 @@ class FactoryTest extends TestCase
         // No features should be returned for an unoccupied coordinate
         $this->assertCount(0, $features);
     }
+
+
 }

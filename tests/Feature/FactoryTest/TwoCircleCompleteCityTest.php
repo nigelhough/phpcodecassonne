@@ -302,4 +302,71 @@ class TwoCircleCompleteCityCreation extends FeatureCreation
             ],
         ];
     }
+
+    /**
+     * Data Provider for cloister creation test
+     *
+     * @return array
+     */
+    public function featuresCloisterProvider()
+    {
+        return [
+            /** Test North West tile */
+            [
+                $this->twoCircleCompleteCityMap(),
+                new Coordinate(-1, 1),
+                0,
+                0,
+                0,
+            ],
+            /** Test North tile */
+            [
+                $this->twoCircleCompleteCityMap(),
+                new Coordinate(0, 1),
+                0,
+                0,
+                0,
+            ],
+            /** Test West tile */
+            [
+                $this->twoCircleCompleteCityMap(),
+                new Coordinate(-1, 0),
+                0,
+                0,
+                0,
+            ],
+            /** Test Center tile */
+            [
+                $this->twoCircleCompleteCityMap(),
+                new Coordinate(0, 0),
+                0,
+                0,
+                0,
+            ],
+            /** Test East tile */
+            [
+                $this->twoCircleCompleteCityMap(),
+                new Coordinate(1, 0),
+                0,
+                0,
+                0,
+            ],
+            /** Test South West tile */
+            [
+                $this->twoCircleCompleteCityMap(),
+                new Coordinate(0, -1),
+                0,
+                0,
+                0,
+            ],
+            /** Test South East tile */
+            [
+                $this->twoCircleCompleteCityMap(),
+                new Coordinate(1, -1),
+                0,
+                0,
+                0,
+            ],
+        ];
+    }
 }

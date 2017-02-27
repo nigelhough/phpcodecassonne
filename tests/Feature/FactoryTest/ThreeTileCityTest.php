@@ -157,4 +157,39 @@ class ThreeTileCityCreation extends FeatureCreation
             ],
         ];
     }
+
+    /**
+     * Data Provider for cloister creation test
+     *
+     * @return array
+     */
+    public function featuresCloisterProvider()
+    {
+        return [
+            /** Test North tile */
+            [
+                $this->threeTileCityMap(),
+                new Coordinate(0, 2),
+                0,
+                0,
+                0,
+            ],
+            /** Test Center tile */
+            [
+                $this->threeTileCityMap(),
+                new Coordinate(0, 1),
+                0,
+                0,
+                0,
+            ],
+            /** Test South tile */
+            [
+                $this->threeTileCityMap(),
+                new Coordinate(0, 0),
+                0,
+                0,
+                0,
+            ],
+        ];
+    }
 }

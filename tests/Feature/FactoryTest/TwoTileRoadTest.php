@@ -121,13 +121,40 @@ class TwoTileRoadCreation extends FeatureCreation
             [
                 $this->twoTileRoadMap(),
                 new Coordinate(0, 1),
-                1,
+                3,
             ],
             /** Test South tile */
             [
                 $this->twoTileRoadMap(),
                 new Coordinate(0, 0),
-                1,
+                3,
+            ],
+        ];
+    }
+
+    /**
+     * Data Provider for cloister creation test
+     *
+     * @return array
+     */
+    public function featuresCloisterProvider()
+    {
+        return [
+            /** Test North tile */
+            [
+                $this->twoTileRoadMap(),
+                new Coordinate(0, 1),
+                2,
+                0,
+                4,
+            ],
+            /** Test South tile */
+            [
+                $this->twoTileRoadMap(),
+                new Coordinate(0, 0),
+                2,
+                0,
+                4,
             ],
         ];
     }

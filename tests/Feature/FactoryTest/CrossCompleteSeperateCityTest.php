@@ -209,4 +209,55 @@ class CrossCompleteSeperateCityCreation extends FeatureCreation
             ],
         ];
     }
+
+    /**
+     * Data Provider for cloister creation test
+     *
+     * @return array
+     */
+    public function featuresCloisterProvider()
+    {
+        return [
+            /** Test North tile */
+            [
+                $this->crossCompleteCityMap(),
+                new Coordinate(0, 1),
+                0,
+                0,
+                0,
+            ],
+            /** Test West tile */
+            [
+                $this->crossCompleteCityMap(),
+                new Coordinate(-1, 0),
+                0,
+                0,
+                0,
+            ],
+            /** Test Center tile */
+            [
+                $this->crossCompleteCityMap(),
+                new Coordinate(0, 0),
+                0,
+                0,
+                0,
+            ],
+            /** Test East tile */
+            [
+                $this->crossCompleteCityMap(),
+                new Coordinate(1, 0),
+                0,
+                0,
+                0,
+            ],
+            /** Test South tile */
+            [
+                $this->crossCompleteCityMap(),
+                new Coordinate(0, -1),
+                0,
+                0,
+                0,
+            ],
+        ];
+    }
 }
