@@ -19,16 +19,16 @@ class Marvin implements PlayerInterface
 
     /**
      * @inheritdoc
-     * @throws \Exception
+     * @throws Exception\NoValidMove
      */
     public function playTurn(Map $map, Tile $tile)
     {
         $playPositions = $map->getPlayablePositions();
-        shuffle($playPositions);
 
         if (empty($playPositions)) {
-            throw new \Exception('Unable to find any playable positions');
+            throw new Exception\NoValidMove('No Playable Positions on Map');
         }
+        shuffle($playPositions);
 
         $actionPosition = null;
 
