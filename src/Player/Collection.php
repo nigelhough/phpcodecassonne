@@ -22,7 +22,7 @@ class Collection implements \Countable
     /**
      * Collection constructor.
      *
-     * @param Player... $players    Players in the collection
+     * @param Player ...$players    Players in the collection
      */
     public function __construct(Player ...$players)
     {

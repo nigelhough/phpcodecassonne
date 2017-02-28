@@ -25,7 +25,7 @@ abstract class Feature
      * Construct a Feature Object
      *
      * @param bool $isComplete Is the feature complete
-     * @param Tile... $tiles   The tiles that are part of the feature
+     * @param Tile ...$tiles   The tiles that are part of the feature
      *
      * @throws Exception\DuplicateTiles
      */
