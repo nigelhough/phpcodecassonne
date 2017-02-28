@@ -1,18 +1,20 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Codecassonne\Map;
 
 use Codecassonne\Tile\Tile;
 
+/**
+ * Class that represents a game map
+ */
 class Map
 {
-
     /** @var Tile[] Tiles to represent positioning on the map */
-    private $tiles = array();
+    private $tiles = [];
 
     /** @var Coordinate[] Playable positions on the map */
-    private $playablePositions = array();
+    private $playablePositions = [];
 
     /** @var Coordinate Bottom left coordinate of maps Minimum Bounding Rectangle */
     private $bottomLeft;
@@ -27,7 +29,7 @@ class Map
      */
     public function __construct(Tile $startingTile)
     {
-        $this->tiles = array();
+        $this->tiles = [];
 
         //Set the Map starting coordinate
         $startingCoordinate = new Coordinate(0, 0);
@@ -101,6 +103,7 @@ class Map
 
     /**
      * Get a the Playable Position
+     *
      * @todo Restrict this so players have to workout there own playable positions
      *
      * @return Coordinate[]
@@ -119,14 +122,14 @@ class Map
     {
         //Update the Bottom Left Coordinate of the map
         $this->bottomLeft = new Coordinate(
-            min(array($coordinate->getX(), $this->bottomLeft->getX())),
-            min(array($coordinate->getY(), $this->bottomLeft->getY()))
+            min([$coordinate->getX(), $this->bottomLeft->getX()]),
+            min([$coordinate->getY(), $this->bottomLeft->getY()])
         );
 
         //Update the Top Right Coordinate of the map
         $this->topRight = new Coordinate(
-            max(array($coordinate->getX(), $this->topRight->getX())),
-            max(array($coordinate->getY(), $this->topRight->getY()))
+            max([$coordinate->getX(), $this->topRight->getX()]),
+            max([$coordinate->getY(), $this->topRight->getY()])
         );
     }
 
@@ -144,9 +147,8 @@ class Map
 
         /** @var Coordinate $touchingCoordinate */
         foreach ($coordinate->getTouchingCoordinates() as $touchingCoordinate) {
-            if (
-                !isset($this->playablePositions[$touchingCoordinate->toHash()]) &&
-                !$this->isOccupied($touchingCoordinate)
+            if (!isset($this->playablePositions[$touchingCoordinate->toHash()])
+                && !$this->isOccupied($touchingCoordinate)
             ) {
                 $this->playablePositions[$touchingCoordinate->toHash()] = $touchingCoordinate;
             }
@@ -200,10 +202,10 @@ class Map
         return true;
     }
 
-    /*
+    /**
      * Check if a coordinate is in the playable positions array
      *
-     * @param Coordinate $coordinate    Position to check is occupied
+     * @param Coordinate $coordinate Position to check is occupied
      *
      * @returns bool
      */
@@ -214,14 +216,18 @@ class Map
 
     /**
      * Draw current state of the map
+     *
+     * @param bool $finalRender Is this the final render
+     * @param int  $delay       How long a delay should be given between rendering each move
      */
     public function render($finalRender = false, $delay = 0)
     {
         if (php_sapi_name() == "cli") {
-            return $this->renderCli($finalRender, $delay);
+            $this->renderCli($finalRender, $delay);
+            return;
         }
 
-        return $this->renderWeb($finalRender);
+        $this->renderWeb($finalRender);
     }
 
     /**
@@ -262,7 +268,8 @@ class Map
     /**
      * Render progressively to CLI
      *
-     * @param bool $finalRender Is this the last render required for the game?
+     * @param bool $finalRender Is this the final render
+     * @param int  $delay       How long a delay should be given between rendering each move
      */
     public function renderCli($finalRender, $delay = 0)
     {
@@ -292,7 +299,7 @@ class Map
                         continue;
                     }
 
-                    if (in_array($renderTemp, array(1, 7))) {
+                    if (in_array($renderTemp, [1, 7])) {
                         echo " ----------- ";
                         continue;
                     }

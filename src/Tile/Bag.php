@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Codecassonne\Tile;
 
@@ -9,7 +9,7 @@ namespace Codecassonne\Tile;
 class Bag
 {
     /** @var array An array of Tiles */
-    private $tiles = array();
+    private $tiles = [];
 
     /**
      * Put a Tile in the bag
