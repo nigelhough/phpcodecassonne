@@ -181,7 +181,7 @@ class Tile
     /**
      * Get a Tiles Face
      *
-     * @param string $bearing   Bearing to get tile face for
+     * @param string $bearing Bearing to get tile face for
      *
      * @return string
      * @throws Exception\InvalidBearing
@@ -293,7 +293,7 @@ class Tile
     /**
      * Count the number instances of a feature on the outward faces of a tile
      *
-     * @param $feature   A feature type to count occurences on outward faces
+     * @param string $feature A feature type to count occurrences on outward faces
      *
      * @return int
      */
@@ -309,7 +309,7 @@ class Tile
      * Determines if a feature type is a combined feature
      * If a feature type is the center it must be combined, so any outward face of this type will be combined
      *
-     * @param $feature  A feature type to determine if is part of a combined feature
+     * @param string $feature A feature type to determine if is part of a combined feature
      *
      * @return bool
      */
@@ -319,8 +319,7 @@ class Tile
         $roads = $this->countFeatures(static::TILE_TYPE_ROAD);
 
         // If the feature is center and the tile isn't a crossroads
-        if (
-            $feature === $this->center
+        if ($feature === $this->center
             && !($this->center === static::TILE_TYPE_ROAD && $roads > 2)
         ) {
             return true;
