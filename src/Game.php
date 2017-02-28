@@ -4,6 +4,7 @@ namespace Codecassonne;
 
 use Codecassonne\Map\Map;
 use Codecassonne\Player\Collection as Players;
+use Codecassonne\Player\Exception\NoValidMove;
 use Codecassonne\Tile\Bag;
 use Codecassonne\Tile\Mapper\MapperInterface as Mapper;
 use Codecassonne\Turn\Action;
@@ -80,8 +81,8 @@ class Game
                     // Add score to scoreboard
                     $this->scoreboard->addPlayerScore($playerScore);
                 }
-            } catch (\Exception $e) {
-                echo 'Invalid Move' . PHP_EOL;
+            } catch (NoValidMove $e) {
+                // @todo Verify No Valid moves for player
             }
 
             $this->map->render(false, 400000);

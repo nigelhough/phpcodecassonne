@@ -48,6 +48,10 @@ class Marvin implements PlayerInterface
             }
         }
 
+        if (is_null($actionPosition)) {
+            throw new Exception\NoValidMove('No Valid Moves for player to make');
+        }
+
         return new Action($actionPosition, $tile->getRotation());
     }
 }

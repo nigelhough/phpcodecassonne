@@ -66,6 +66,10 @@ class Kryten extends Marvin
             }
         }
 
+        if (is_null($highestPosition)) {
+            throw new Exception\NoValidMove('No Valid Moves for player to make');
+        }
+
         return new Action($highestPosition, $highestRotation);
     }
 }
