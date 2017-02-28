@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace Codecassonne\Player;
 
@@ -29,7 +30,7 @@ class Kryten extends Marvin
     {
         $playPositions = $map->getPlayablePositions();
 
-        if (!$playPositions) {
+        if (empty($playPositions)) {
             throw new \Exception('Unable to find any playable positions');
         }
 
@@ -52,13 +53,14 @@ class Kryten extends Marvin
                     $score = $scoringService->calculateScore($placingMap, $position);
 
                     // If this is better than the highest score, make this the highest score
-                    if (is_null($highestScore) || $score > $highestScore)
-                    {
+                    if (is_null($highestScore) || $score > $highestScore) {
                         $highestScore = $score;
                         $highestPosition = $position;
                         $highestRotation = $tile->getRotation();
                     }
-                } catch (InvalidTilePlacement $e) {}
+                } catch (InvalidTilePlacement $e) {
+                    // Move is invalid try again
+                }
 
                 $tile->rotate();
             }
