@@ -26,36 +26,172 @@ class Factory
     {
         // Get Feature for Starting Tile
         $startingTile = $map->look($startingCoordinate);
-        $featureFaces = $startingTile->getFeature($bearing);
-        if (empty($featureFaces)) {
+        $feature = $startingTile->getFeature($bearing);
+        if (empty($feature)) {
             throw new Exception\NoFeatureFaces('Can\'t create a feature with no feature faces');
         }
 
         // Recursively find features connected to starting tile
-        $isComplete = true;
         $featureTiles = [];
-        $featureTiles[$startingCoordinate->toHash()] = new Tile($startingTile, $startingCoordinate, $featureFaces);
-        foreach ($featureFaces as $featureBearing) {
-            $partComplete = $this->findFeatureTiles($map, $startingCoordinate, $featureBearing, $featureTiles);
+        $featureTiles[$startingCoordinate->toHash()] = new Tile($startingTile, $startingCoordinate, $featureTiles);
+        $isComplete = $this->findConnectedfeatures($map, $startingCoordinate, $feature, $featureTiles);
 
-            // Feature complete if all parts are complete
-            $isComplete = ($isComplete && $partComplete);
-        }
-
-        // Construct Feature Object
-        $featureType = $startingTile->getFace($bearing);
-        if ($featureType === \Codecassonne\Tile\Tile::TILE_TYPE_CITY) {
-            return new City($isComplete, ...array_values($featureTiles));
-        } elseif ($featureType === \Codecassonne\Tile\Tile::TILE_TYPE_ROAD) {
-            return new Road($isComplete, ...array_values($featureTiles));
-        }
-
-        // @todo Custom Exception
-        throw new \Exception('Invalid Feature Type');
+        return $this->constructFeature($startingTile->getFace($bearing), $isComplete, $featureTiles);
     }
 
     /**
-     * Recursively find features connected to a tile bearing
+     * Create features for all starting at a coordinate
+     * Should invalid coordinates throw Exceptions?
+     *
+     * @param Coordinate $startingCoordinate Starting coordinate to look for a feature
+     * @param Map        $map                Map the feature is on
+     *
+     * @return Feature[]
+     */
+    public function createFeatures(Coordinate $startingCoordinate, Map $map): array
+    {
+        // If the starting coordinate doesn't have a tile there are no features
+        if (!$map->isOccupied($startingCoordinate)) {
+            return [];
+        }
+
+        // Score Cloisters, on tile and surrounding
+        $cloisters = $this->createCloisters($map, $startingCoordinate);
+
+        // Get Feature for Starting Tile
+        $startingTile = $map->look($startingCoordinate);
+        $startingFeatures = $startingTile->getFeatures();
+        // If the starting coordinate doesn't have any features return early
+        if (empty($startingFeatures)) {
+            return $cloisters;
+        }
+
+        /** @var Feature[] $features */
+        $features = [];
+
+        foreach ($startingFeatures as $startingFeature) {
+            // Get a bearing from the starting feature
+            $bearing = $startingFeature[0];
+
+            if ($this->isCoordinateBearingPartOfFeatures($startingCoordinate, $bearing, $features)) {
+                // Connected to an existing feature (loop back), Skip as already counted
+                continue(1);
+            }
+
+            // Get feature for bearing
+            $features[] = $this->createFeature($startingCoordinate, $map, $bearing);
+        }
+
+        return array_merge($features, $cloisters);
+    }
+
+    /**
+     * Checks if a Coordinate and bearing is part of a collection of features
+     *
+     * @param Coordinate $coordinate Coordinate to check is part of the feature
+     * @param string     $bearing    Bearing on the coordinate to check
+     * @param Feature[]  $features   Collection of features to check
+     *
+     * @return bool
+     */
+    private function isCoordinateBearingPartOfFeatures(Coordinate $coordinate, string $bearing, array $features): bool
+    {
+        // Check if bearing is already part of another feature
+        foreach ($features as $feature) {
+            if ($feature->coordinateBearingPartOf($coordinate, $bearing)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Create all Cloisters linked to a tile
+     *
+     * @param Map        $map        Map the cloisters are on is on
+     * @param Coordinate $coordinate Coordinate linked to cloisters
+     *
+     * @return Cloister[]
+     */
+    public function createCloisters(Map $map, Coordinate $coordinate): array
+    {
+        $features = [];
+
+        // Check coordinate and all surrounding for existence of Cloisters
+        $checkCoordinates = array_merge([$coordinate], $coordinate->getSurroundingCoordinates());
+        foreach ($checkCoordinates as $checkCoordinate) {
+            if ($this->isCloister($map, $checkCoordinate)) {
+                $features[] = $this->createCloister($map, $checkCoordinate);
+            }
+        }
+
+        return $features;
+    }
+
+    /**
+     * Construct a Feature to construct
+     *
+     * @param string $featureType  Type of feature to construct
+     * @param bool   $isComplete   If the feature is complete
+     * @param Tile[] $featureTiles The tiles that make-up the feature
+     *
+     * @return Feature
+     * @throws \Exception
+     */
+    private function constructFeature(string $featureType, bool $isComplete, array $featureTiles): Feature
+    {
+        $validFeatureTypes = [\Codecassonne\Tile\Tile::TILE_TYPE_CITY, \Codecassonne\Tile\Tile::TILE_TYPE_ROAD];
+        if (!in_array($featureType, $validFeatureTypes)) {
+            // @todo Custom Exception
+            throw new \Exception('Invalid Feature Type');
+        }
+
+        if ($featureType === \Codecassonne\Tile\Tile::TILE_TYPE_CITY) {
+            return new City($isComplete, ...array_values($featureTiles));
+        }
+
+        return new Road($isComplete, ...array_values($featureTiles));
+    }
+
+    /**
+     * Recursively find feature tiles connected to a feature
+     *
+     * @param Map        $map           Map to find features on
+     * @param Coordinate $coordinate    Coordinate feature is on
+     * @param string[]   $feature       Bearings of tile that feature occupies
+     * @param Tile[]     $featureTiles  Tiles making up the overall feature
+     * @param string     $ignoreBearing Bearing on the feature to ignore
+     *
+     * @return bool
+     */
+    private function findConnectedfeatures(
+        Map $map,
+        Coordinate $coordinate,
+        array $feature,
+        array &$featureTiles,
+        string $ignoreBearing = null
+    ): bool {
+        // If only one face in the feature it is closed
+        if (count($feature) === 0) {
+            return true;
+        }
+
+        // More than one face
+        // Recursively search Linked Tile Features
+        $isComplete = true;
+        foreach ($feature as $featureBearing) {
+            if (!is_null($ignoreBearing) && $featureBearing === $ignoreBearing) {
+                continue;
+            }
+            $partComplete = $this->findFeatureTiles($map, $coordinate, $featureBearing, $featureTiles);
+            $isComplete = ($isComplete && $partComplete);
+        }
+        return $isComplete;
+    }
+
+    /**
+     * Recursively find features tiles connected to a tile bearing
      *
      * @param Map        $map          Map to find features on
      * @param Coordinate $coordinate   Coordinate to find from
@@ -110,22 +246,14 @@ class Factory
         $featureTiles[$connectedCoordinate->toHash()] =
             new Tile($connectedTile, $connectedCoordinate, $connectedFeatures);
 
-        if (count($connectedFeatures) === 1) {
-            // If only one face in the feature it is closed
-            return true;
-        }
-
-        // More than one face
-        // Recursively search Linked Tile Features
-        $isComplete = true;
-        foreach ($connectedFeatures as $connectedFeature) {
-            if ($connectedFeature === $connectedBearing) {
-                continue;
-            }
-            $partComplete = $this->findFeatureTiles($map, $connectedCoordinate, $connectedFeature, $featureTiles);
-            $isComplete = ($isComplete && $partComplete);
-        }
-        return $isComplete;
+        // Recursively search Linked Tile Features, ignoring the tile just connected via
+        return $this->findConnectedfeatures(
+            $map,
+            $connectedCoordinate,
+            $connectedFeatures,
+            $featureTiles,
+            $connectedBearing
+        );
     }
 
     /**
@@ -138,7 +266,7 @@ class Factory
      * @return string
      * @throws \Exception
      */
-    private function flipBearing(string $bearing) : string
+    private function flipBearing(string $bearing): string
     {
         switch ($bearing) {
             case 'North':
@@ -155,77 +283,6 @@ class Factory
         throw new \Exception('Invalid Bearing');
     }
 
-    /**
-     * Create features for all starting at a coordinate
-     * Should invalid coordinates throw Exceptions?
-     *
-     * @param Coordinate $startingCoordinate Starting coordinate to look for a feature
-     * @param Map        $map                Map the feature is on
-     *
-     * @return Feature[]
-     */
-    public function createFeatures(Coordinate $startingCoordinate, Map $map): array
-    {
-        // If the starting coordinate doesn't have a tile there are no features
-        if (!$map->isOccupied($startingCoordinate)) {
-            return [];
-        }
-
-        // Score Cloisters, on tile and surrounding
-        $cloisters = $this->createCloisters($map, $startingCoordinate);
-
-        // Get Feature for Starting Tile
-        $startingTile = $map->look($startingCoordinate);
-        $startingFeatures = $startingTile->getFeatures();
-        // If the starting coordinate doesn't have any features return early
-        if (empty($startingFeatures)) {
-            return $cloisters;
-        }
-
-        /** @var Feature[] $features */
-        $features = [];
-
-        foreach ($startingFeatures as $startingFeature) {
-            // Get a bearing from the starting feature
-            $bearing = $startingFeature[0];
-
-            // Check if bearing is already part of another feature
-            foreach ($features as $feature) {
-                if ($feature->coordinateBearingPartOf($startingCoordinate, $bearing)) {
-                    // Skip as already counted by a connected feature on tile
-                    continue(2);
-                }
-            }
-
-            // Get feature for bearing
-            $features[] = $this->createFeature($startingCoordinate, $map, $bearing);
-        }
-
-        return array_merge($features, $cloisters);
-    }
-
-    /**
-     * Create all Cloisters linked to a tile
-     *
-     * @param Map        $map        Map the cloisters are on is on
-     * @param Coordinate $coordinate Coordinate linked to cloisters
-     *
-     * @return Cloister[]
-     */
-    public function createCloisters(Map $map, Coordinate $coordinate): array
-    {
-        $features = [];
-
-        // Check coordinate and all surrounding for existence of Cloisters
-        $checkCoordinates = array_merge([$coordinate], $coordinate->getSurroundingCoordinates());
-        foreach ($checkCoordinates as $checkCoordinate) {
-            if ($this->isCloister($map, $checkCoordinate)) {
-                $features[] = $this->createCloister($map, $checkCoordinate);
-            }
-        }
-
-        return $features;
-    }
 
     /**
      * Checks if a given coordinate is a Cloister
