@@ -10,9 +10,7 @@ use Codecassonne\Map\Exception\InvalidTilePlacement;
 class Marvin implements PlayerInterface
 {
     /**
-     * Get the name of a player
-     *
-     * @return string
+     * @inheritdoc
      */
     public function getName()
     {
@@ -20,22 +18,17 @@ class Marvin implements PlayerInterface
     }
 
     /**
-     * Play a turn
-     *
-     * @param Map  $map
-     * @param Tile $tile
-     *
-     * @return Action
-     * @throws \Exception
+     * @inheritdoc
+     * @throws Exception\NoValidMove
      */
     public function playTurn(Map $map, Tile $tile)
     {
         $playPositions = $map->getPlayablePositions();
-        shuffle($playPositions);
 
         if (empty($playPositions)) {
-            throw new \Exception('Unable to find any playable positions');
+            throw new Exception\NoValidMove('No Playable Positions on Map');
         }
+        shuffle($playPositions);
 
         $actionPosition = null;
 
@@ -53,6 +46,10 @@ class Marvin implements PlayerInterface
                     $tile->rotate();
                 }
             }
+        }
+
+        if (is_null($actionPosition)) {
+            throw new Exception\NoValidMove('No Valid Moves for player to make');
         }
 
         return new Action($actionPosition, $tile->getRotation());

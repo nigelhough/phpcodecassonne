@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Codecassonne\Tile\Mapper;
 
@@ -42,8 +42,7 @@ class File implements MapperInterface
         $tileDetails = parse_ini_file($this->tileConfigPath);
 
         // Check the file is valid
-        if (
-            !isset($tileDetails['tiles']) ||
+        if (!isset($tileDetails['tiles']) ||
             !is_array($tileDetails['tiles']) ||
             empty($tileDetails['tiles'])
         ) {
@@ -51,7 +50,7 @@ class File implements MapperInterface
         }
 
         //Initialise Tiles Array
-        $tiles = array();
+        $tiles = [];
 
         //Iterate over Tiles in config file
         foreach ($tileDetails['tiles'] as $tileString) {
@@ -60,6 +59,5 @@ class File implements MapperInterface
         }
 
         return $tiles;
-
     }
 }

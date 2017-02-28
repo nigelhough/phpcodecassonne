@@ -52,7 +52,8 @@ class FileTest extends \PHPUnit\Framework\TestCase
             $this->expectException($expectedException);
             $this->expectExceptionMessage($expectedExceptionMessage);
         }
-        new File($testFile);
+        $file = new File($testFile);
+        $this->assertInstanceOf(File::class, $file);
     }
 
     /**
