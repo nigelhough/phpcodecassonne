@@ -24,8 +24,10 @@ abstract class Feature
     /**
      * Construct a Feature Object
      *
-     * @param bool   $isComplete Is the feature complete
-     * @param Tile[] $tiles      The tiles that are part of the feature
+     * @param bool $isComplete Is the feature complete
+     * @param Tile... $tiles   The tiles that are part of the feature
+     *
+     * @throws Exception\DuplicateTiles
      */
     public function __construct($isComplete, Tile ...$tiles)
     {
@@ -87,7 +89,7 @@ abstract class Feature
      *
      * @return bool
      */
-    public function coordinatePartOf(Coordinate $coordinate) : bool
+    public function coordinatePartOf(Coordinate $coordinate): bool
     {
         return array_key_exists($coordinate->toHash(), $this->tiles);
     }
