@@ -188,20 +188,17 @@ class Tile
      */
     public function getFace($bearing)
     {
-        if ($bearing === 'North') {
-            return $this->north;
-        }
-        if ($bearing === 'East') {
-            return $this->east;
-        }
-        if ($bearing === 'South') {
-            return $this->south;
-        }
-        if ($bearing === 'West') {
-            return $this->west;
-        }
-        if ($bearing === 'Center') {
-            return $this->center;
+        switch ($bearing) {
+            case 'North':
+                return $this->north;
+            case 'East':
+                return $this->east;
+            case 'South':
+                return $this->south;
+            case 'West':
+                return $this->west;
+            case 'Center':
+                return $this->center;
         }
 
         throw new Exception\InvalidBearing('Can only get tile face for a valid bearing');

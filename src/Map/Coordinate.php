@@ -125,28 +125,20 @@ class Coordinate
         switch ($bearing) {
             case 'North West':
                 return new self($this->xCoordinate - 1, $this->yCoordinate + 1);
-                break;
             case 'North':
                 return new self($this->xCoordinate, $this->yCoordinate + 1);
-                break;
             case 'North East':
                 return new self($this->xCoordinate + 1, $this->yCoordinate + 1);
-                break;
             case 'West':
                 return new self($this->xCoordinate - 1, $this->yCoordinate);
-                break;
             case 'East':
                 return new self($this->xCoordinate + 1, $this->yCoordinate);
-                break;
             case 'South West':
                 return new self($this->xCoordinate - 1, $this->yCoordinate - 1);
-                break;
             case 'South':
                 return new self($this->xCoordinate, $this->yCoordinate - 1);
-                break;
             case 'South East':
                 return new self($this->xCoordinate + 1, $this->yCoordinate - 1);
-                break;
         }
 
         throw new Exception\InvalidBearing('Invalid Bearing');

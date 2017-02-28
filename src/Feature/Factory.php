@@ -143,16 +143,12 @@ class Factory
         switch ($bearing) {
             case 'North':
                 return 'South';
-                break;
             case 'East':
                 return 'West';
-                break;
             case 'South':
                 return 'North';
-                break;
             case 'West':
                 return 'East';
-                break;
         }
 
         // @todo Custom Exception
