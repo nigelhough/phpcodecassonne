@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace Codecassonne\Player;
 
@@ -8,12 +9,13 @@ use Codecassonne\Turn\Action;
 use Codecassonne\Map\Exception\InvalidTilePlacement;
 use Codecassonne\Map\Coordinate;
 
+/**
+ * Marvin, the Paranoid Android Player
+ */
 class Marvin implements PlayerInterface
 {
     /**
-     * Get the name of a player
-     *
-     * @return string
+     * @inheritdoc
      */
     public function getName()
     {
@@ -23,9 +25,10 @@ class Marvin implements PlayerInterface
     /**
      * Get playable positions
      *
-     * @param Map $map  Map to get playable positions on
+     * @param Map $map Map to get playable positions on
      *
      * @return Coordinate[]
+     * @throws Exception\NoValidMove
      */
     private function getPlayablePositions(Map $map)
     {
@@ -33,8 +36,8 @@ class Marvin implements PlayerInterface
         $playPositions = $map->getPlayablePositions();
 
         // If no playable positions return early
-        if (!$playPositions) {
-            return array();
+        if (empty($playPositions)) {
+            throw new Exception\NoValidMove('No Playable Positions on Map');
         }
 
         // Shuffle and return playable positions
@@ -45,11 +48,11 @@ class Marvin implements PlayerInterface
     /**
      * Gets potential positions in each orientation
      *
-     * @param Map $map      Map to get playable positions on
+     * @param Map $map Map to get playable positions on
      *
      * @return \Generator
      */
-    public function getPotentialPosition(Map $map)
+    private function getPotentialPosition(Map $map)
     {
         // Loop over playable positions
         foreach ($this->getPlayablePositions($map) as $position) {
@@ -61,19 +64,13 @@ class Marvin implements PlayerInterface
     }
 
     /**
-     * Play a turn
-     *
-     * @param Map  $map     Map to play turn on
-     * @param Tile $tile    Tile to use in turn
-     *
-     * @return Action
-     *
-     * @throws Exception\NoPlayablePositions
+     * @inheritdoc
+     * @throws Exception\NoValidMove
      */
     public function playTurn(Map $map, Tile $tile)
     {
         //Loop Over potential positions in each orientation
-        foreach($this->getPotentialPosition($map) AS $position) {
+        foreach ($this->getPotentialPosition($map) as $position) {
             try {
                 $map->place($tile, $position);
                 // If successfully placed, return action
@@ -85,6 +82,6 @@ class Marvin implements PlayerInterface
         }
 
         // If the player hasn't found a valid action
-        throw new Exception\NoPlayablePositions('Unable to find any playable positions');
+        throw new Exception\NoValidMove('No Valid Moves for player to make');
     }
 }

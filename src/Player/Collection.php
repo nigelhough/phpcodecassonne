@@ -4,7 +4,10 @@ namespace Codecassonne\Player;
 
 use Codecassonne\Player\PlayerInterface as Player;
 
-class Collection
+/**
+ * A Collection of Players
+ */
+class Collection implements \Countable
 {
     /**
      * @var Player[]
@@ -19,7 +22,7 @@ class Collection
     /**
      * Collection constructor.
      *
-     * @param Player|Player[] ...$players
+     * @param Player ...$players    Players in the collection
      */
     public function __construct(Player ...$players)
     {
@@ -48,5 +51,15 @@ class Collection
         $this->current = ($this->current + 1) % count($this->players);
 
         return $this->players[$this->current];
+    }
+
+    /**
+     * The number of players in the collection
+     *
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->players);
     }
 }

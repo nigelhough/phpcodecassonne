@@ -4,7 +4,7 @@ namespace Codecassonne\Tile\Mapper;
 
 use \Codecassonne\Tile\Tile;
 
-class FileTest extends \PHPUnit_Framework_TestCase
+class FileTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Constructor Test Provider
@@ -49,9 +49,11 @@ class FileTest extends \PHPUnit_Framework_TestCase
     )
     {
         if ($expectedException) {
-            $this->setExpectedException($expectedException, $expectedExceptionMessage);
+            $this->expectException($expectedException);
+            $this->expectExceptionMessage($expectedExceptionMessage);
         }
-        new File($testFile);
+        $file = new File($testFile);
+        $this->assertInstanceOf(File::class, $file);
     }
 
     /**
@@ -118,7 +120,8 @@ class FileTest extends \PHPUnit_Framework_TestCase
     {
         //Assert any Expected Exceptions
         if ($expectedException) {
-            $this->setExpectedException($expectedException, $expectedExceptionMessage);
+            $this->expectException($expectedException);
+            $this->expectExceptionMessage($expectedExceptionMessage);
         }
 
         //Create a temp file

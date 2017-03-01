@@ -4,7 +4,7 @@ namespace Codecassonne\Map;
 
 use Codecassonne\Tile\Tile;
 
-class MapTest extends \PHPUnit_Framework_TestCase
+class MapTest extends \PHPUnit\Framework\TestCase
 {
     /**
      *
@@ -58,7 +58,7 @@ class MapTest extends \PHPUnit_Framework_TestCase
     public function testPlaceTile(Coordinate $placeCoordinate1, Coordinate $placeCoordinate2, $expectedException)
     {
         if ($expectedException) {
-            $this->setExpectedException('Exception');
+            $this->expectException('Exception');
         }
 
         //Dummy Tile
@@ -67,7 +67,11 @@ class MapTest extends \PHPUnit_Framework_TestCase
         $map = new Map($tile);
 
         $map->place($tile, $placeCoordinate1);
+        $this->assertTrue($map->isOccupied($placeCoordinate1));
+        $this->assertSame($tile->toString(), $map->look($placeCoordinate1)->toString());
         $map->place($tile, $placeCoordinate2);
+        $this->assertTrue($map->isOccupied($placeCoordinate2));
+        $this->assertSame($tile->toString(), $map->look($placeCoordinate2)->toString());
     }
 
     public function renderTestProvider()
@@ -257,7 +261,7 @@ class MapTest extends \PHPUnit_Framework_TestCase
      *
      * @param string    $face1          First Face to match
      * @param string    $face2          Second Face to match
-     * @param string    $isMatching     Do the Faces match
+     * @param bool    $isMatching     Do the Faces match
      *
      * @dataProvider twoTilesProvider
      */
@@ -779,12 +783,135 @@ class MapTest extends \PHPUnit_Framework_TestCase
         $playablePositionsReflection = $mapReflection->getProperty('playablePositions');
         $playablePositionsReflection->setAccessible(true);
 
+        $coordinates = [
+            new Coordinate(0, 1),
+            new Coordinate(1, 0),
+            new Coordinate(0, -1),
+            new Coordinate(-1, 0)
+        ];
         //Set the Bag Tiles
-        $playablePositionsReflection->setValue($map, array(1, 2, 3));
+        $playablePositionsReflection->setValue($map, $coordinates);
 
         $this->assertSame(
-            array(1, 2, 3),
+            $coordinates,
             $map->getPlayablePositions()
         );
+    }
+
+    /**
+     * Data provider for the map look function
+     *
+     * @return array
+     */
+    public function lookProvider()
+    {
+        return [
+            /** Test Placing a Tile North of Starting Tile */
+            [
+                Tile::createFromString(Tile::TILE_TYPE_CITY . ':' . Tile::TILE_TYPE_GRASS . ':' . Tile::TILE_TYPE_GRASS . ':' . Tile::TILE_TYPE_GRASS . ':' . Tile::TILE_TYPE_GRASS),
+                new Coordinate(0, 1),
+            ],
+            /** Test Placing a Tile East of Starting Tile */
+            [
+                Tile::createFromString(Tile::TILE_TYPE_GRASS . ':' . Tile::TILE_TYPE_ROAD . ':' . Tile::TILE_TYPE_GRASS . ':' . Tile::TILE_TYPE_ROAD . ':' . Tile::TILE_TYPE_ROAD),
+                new Coordinate(1, 0),
+            ],
+            /** Test Placing a Tile South of Starting Tile */
+            [
+                Tile::createFromString(Tile::TILE_TYPE_CITY . ':' . Tile::TILE_TYPE_GRASS . ':' . Tile::TILE_TYPE_GRASS . ':' . Tile::TILE_TYPE_GRASS . ':' . Tile::TILE_TYPE_GRASS),
+                new Coordinate(0, -1),
+            ],
+            /** Test Placing a Tile West of Starting Tile */
+            [
+                Tile::createFromString(Tile::TILE_TYPE_GRASS . ':' . Tile::TILE_TYPE_ROAD . ':' . Tile::TILE_TYPE_GRASS . ':' . Tile::TILE_TYPE_ROAD . ':' . Tile::TILE_TYPE_ROAD),
+                new Coordinate(-1, 0),
+            ],
+        ];
+    }
+
+    /**
+     * Test placing and looking at a coordinate on a map
+     *
+     * @param Tile       $tile       Tile to place and look for
+     * @param Coordinate $coordinate Coordinate to place in and look at
+     *
+     * @dataProvider lookProvider
+     */
+    public function testLook(Tile $tile, Coordinate $coordinate)
+    {
+        // Create a Map with the standrad starting tile
+        $startingTile = Tile::createFromString(
+            Tile::TILE_TYPE_GRASS . ':' .
+            Tile::TILE_TYPE_ROAD . ':' .
+            Tile::TILE_TYPE_CITY . ':' .
+            Tile::TILE_TYPE_ROAD . ':' .
+            Tile::TILE_TYPE_ROAD
+        );
+        $map = new Map($startingTile);
+
+        // Place tile
+        $map->place($tile, $coordinate);
+
+        // Look at tile and confirm it is the placed tile
+        $this->assertSame(
+            $tile->toString(),
+            $map->look($coordinate)->toString()
+        );
+    }
+
+    /**
+     * Data Provider for looking at invalid coordinates on a map
+     *
+     * @return array
+     */
+    public function invalidLookProvider()
+    {
+        return [
+            /** Test Looking North */
+            [
+                new Coordinate(0, 1),
+            ],
+            /** Test Looking in a North Eastly Direction */
+            [
+                new Coordinate(10, 5),
+            ],
+            /** Test Looking in a South Eastly Direction */
+            [
+                new Coordinate(10, -500),
+            ],
+            /** Test Looking in a North Westernly Direction */
+            [
+                new Coordinate(-10, 500),
+            ],
+            /** Test Looking in a South Westernly Direction */
+            [
+                new Coordinate(-1000, -500000),
+            ],
+        ];
+    }
+
+    /**
+     * Test looking at invalid coordinates on a map
+     *
+     * @param Tile       $tile
+     * @param Coordinate $coordinate
+     *
+     * @dataProvider invalidLookProvider
+     * @expectedException \Codecassonne\Map\Exception\UnoccupiedCoordinate
+     */
+    public function testLookAtInvalidLocation(Coordinate $coordinate)
+    {
+        // Create a Map with the standrad starting tile
+        $startingTile = Tile::createFromString(
+            Tile::TILE_TYPE_GRASS . ':' .
+            Tile::TILE_TYPE_ROAD . ':' .
+            Tile::TILE_TYPE_CITY . ':' .
+            Tile::TILE_TYPE_ROAD . ':' .
+            Tile::TILE_TYPE_ROAD
+        );
+        $map = new Map($startingTile);
+
+        // Look at invalid tile, should throw exception
+        $map->look($coordinate);
     }
 }

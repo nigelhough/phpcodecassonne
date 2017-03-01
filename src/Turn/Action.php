@@ -1,12 +1,16 @@
 <?php
+declare(strict_types = 1);
 
 namespace Codecassonne\Turn;
-
 
 use Codecassonne\Map\Coordinate;
 use Codecassonne\Map\Map;
 use Codecassonne\Tile\Tile;
+use Codecassonne\Scoring;
 
+/**
+ * The action to be taken for laying a tile on a map
+ */
 final class Action
 {
     /**
@@ -46,6 +50,18 @@ final class Action
         $map->place($tile, $this->coordinate);
     }
 
+    /**
+     * Calculate score for an Action
+     *
+     * @param Map             $map     Map to score action on
+     * @param Scoring\Service $scoring Service for scoring a game
+     *
+     * @return int
+     */
+    public function score(Map $map, Scoring\Service $scoring)
+    {
+        return $scoring->calculateScore($map, $this->coordinate);
+    }
 
     /**
      * @return Coordinate

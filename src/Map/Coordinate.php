@@ -1,10 +1,10 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Codecassonne\Map;
 
 /**
- * Class Coordinate
+ * A two dimensional Coordinate on a map
  */
 class Coordinate
 {
@@ -51,7 +51,7 @@ class Coordinate
      *
      * @return bool
      */
-    public function isEqual(self $coordinate)
+    public function isEqual(Coordinate $coordinate)
     {
         return ($this->toHash() === $coordinate->toHash());
     }
@@ -84,11 +84,63 @@ class Coordinate
     public function getTouchingCoordinates()
     {
         //Return offset coordinates
-        return array(
+        return [
             'North' => new self($this->xCoordinate, $this->yCoordinate + 1),
-            'East' => new self($this->xCoordinate + 1, $this->yCoordinate),
+            'East'  => new self($this->xCoordinate + 1, $this->yCoordinate),
             'South' => new self($this->xCoordinate, $this->yCoordinate - 1),
-            'West' => new self($this->xCoordinate - 1, $this->yCoordinate),
-        );
+            'West'  => new self($this->xCoordinate - 1, $this->yCoordinate),
+        ];
+    }
+
+    /**
+     * Get coordinates that surround this coordinate
+     *
+     * return self[]
+     */
+    public function getSurroundingCoordinates()
+    {
+        //Return offset coordinates
+        return [
+            'North West' => new self($this->xCoordinate - 1, $this->yCoordinate + 1),
+            'North'      => new self($this->xCoordinate, $this->yCoordinate + 1),
+            'North East' => new self($this->xCoordinate + 1, $this->yCoordinate + 1),
+            'West'       => new self($this->xCoordinate - 1, $this->yCoordinate),
+            'East'       => new self($this->xCoordinate + 1, $this->yCoordinate),
+            'South West' => new self($this->xCoordinate - 1, $this->yCoordinate - 1),
+            'South'      => new self($this->xCoordinate, $this->yCoordinate - 1),
+            'South East' => new self($this->xCoordinate + 1, $this->yCoordinate - 1),
+        ];
+    }
+
+    /**
+     * Get a Coordinate at a bearing relative to this coordinate
+     *
+     * @param string $bearing Bearing relative to this coordinate
+     *
+     * @return Coordinate
+     * @throws \Exception   Invalid bearing passed
+     */
+    public function getBearing(string $bearing)
+    {
+        switch ($bearing) {
+            case 'North West':
+                return new self($this->xCoordinate - 1, $this->yCoordinate + 1);
+            case 'North':
+                return new self($this->xCoordinate, $this->yCoordinate + 1);
+            case 'North East':
+                return new self($this->xCoordinate + 1, $this->yCoordinate + 1);
+            case 'West':
+                return new self($this->xCoordinate - 1, $this->yCoordinate);
+            case 'East':
+                return new self($this->xCoordinate + 1, $this->yCoordinate);
+            case 'South West':
+                return new self($this->xCoordinate - 1, $this->yCoordinate - 1);
+            case 'South':
+                return new self($this->xCoordinate, $this->yCoordinate - 1);
+            case 'South East':
+                return new self($this->xCoordinate + 1, $this->yCoordinate - 1);
+        }
+
+        throw new Exception\InvalidBearing('Invalid Bearing');
     }
 }

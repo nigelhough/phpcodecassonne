@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Codecassonne\Tile;
 
@@ -8,24 +8,24 @@ namespace Codecassonne\Tile;
  */
 class Tile
 {
-    const TILE_TYPE_GRASS     = 'G';
-    const TILE_TYPE_ROAD      = 'R';
-    const TILE_TYPE_CITY      = 'C';
-    const TILE_TYPE_CLOISTER  = 'M';
+    const TILE_TYPE_GRASS = 'G';
+    const TILE_TYPE_ROAD = 'R';
+    const TILE_TYPE_CITY = 'C';
+    const TILE_TYPE_CLOISTER = 'M';
 
-    /** @var  int   Type on Northern face of Tile*/
+    /** @var  string   Type on Northern face of Tile */
     private $north;
 
-    /** @var  int   Type on Southern face of Tile*/
+    /** @var  string   Type on Southern face of Tile */
     private $south;
 
-    /** @var  int   Type on Eastern face of Tile*/
+    /** @var  string   Type on Eastern face of Tile */
     private $east;
 
-    /** @var  int   Type on Western face of Tile*/
+    /** @var  string   Type on Western face of Tile */
     private $west;
 
-    /** @var  int   Type in center of Tile*/
+    /** @var  string   Type in center of Tile */
     private $center;
 
     /** @var int    Current tile rotation */
@@ -37,11 +37,11 @@ class Tile
     /**
      * Construct a new Tile
      *
-     * @param string $north    Type on Northern face of Tile
-     * @param string $east     Type on Eastern face of Tile
-     * @param string $south    Type on Southern face of Tile
-     * @param string $west     Type on Western face of Tile
-     * @param string $center   Type in center of Tile
+     * @param string $north  Type on Northern face of Tile
+     * @param string $east   Type on Eastern face of Tile
+     * @param string $south  Type on Southern face of Tile
+     * @param string $west   Type on Western face of Tile
+     * @param string $center Type in center of Tile
      */
     public function __construct(string $north, string $east, string $south, string $west, string $center)
     {
@@ -52,13 +52,13 @@ class Tile
         $this->west = $west;
         $this->center = $center;
 
-        $this->tileImage = $north.$east.$south.$west.$center;
+        $this->tileImage = $north . $east . $south . $west . $center;
     }
 
     /**
      * Create a Tile from a string
      *
-     * @param string $tileString   Tile as a String
+     * @param string $tileString Tile as a String
      *
      * @returns self
      */
@@ -71,7 +71,13 @@ class Tile
 
         //Validate the Faces of the Tile String are Valid
         foreach ($faces as $edge => $face) {
-            if (!in_array($face, array(static::TILE_TYPE_GRASS, static::TILE_TYPE_CITY, static::TILE_TYPE_ROAD, static::TILE_TYPE_CLOISTER))) {
+            $validTileFaces = [
+                static::TILE_TYPE_GRASS,
+                static::TILE_TYPE_CITY,
+                static::TILE_TYPE_ROAD,
+                static::TILE_TYPE_CLOISTER,
+            ];
+            if (!in_array($face, $validTileFaces)) {
                 throw new \InvalidArgumentException("Invalid format for Tile Face ({$face}).");
             }
 
@@ -179,6 +185,32 @@ class Tile
     }
 
     /**
+     * Get a Tiles Face
+     *
+     * @param string $bearing Bearing to get tile face for
+     *
+     * @return string
+     * @throws Exception\InvalidBearing
+     */
+    public function getFace($bearing)
+    {
+        switch ($bearing) {
+            case 'North':
+                return $this->north;
+            case 'East':
+                return $this->east;
+            case 'South':
+                return $this->south;
+            case 'West':
+                return $this->west;
+            case 'Center':
+                return $this->center;
+        }
+
+        throw new Exception\InvalidBearing('Can only get tile face for a valid bearing');
+    }
+
+    /**
      * Tile image name
      *
      * @return string
@@ -196,5 +228,109 @@ class Tile
     public function getRotation()
     {
         return $this->rotation;
+    }
+
+    /**
+     * Get collection of features on a tile
+     *
+     * @return array    An array of features containing an array of connected bearings
+     */
+    public function getFeatures()
+    {
+        $features = [];
+        $combinedFeature = [];
+        $faces = [
+            'North' => $this->north,
+            'East'  => $this->east,
+            'South' => $this->south,
+            'West'  => $this->west,
+        ];
+
+        foreach ($faces as $bearing => $featureType) {
+            // We only want scoring features
+            if (!$this->isScoringFeature($featureType)) {
+                continue;
+            }
+
+            if ($this->isCombinedFeature($featureType)) {
+                $combinedFeature[] = $bearing;
+                continue;
+            }
+
+            $features[] = [$bearing];
+        }
+
+        // Add combined feature to features list
+        if (!empty($combinedFeature)) {
+            $features[] = $combinedFeature;
+        }
+
+        return $features;
+    }
+
+    /**
+     * @param $bearing
+     *
+     * @return array|mixed
+     */
+    public function getFeature($bearing)
+    {
+        foreach ($this->getFeatures() as $feature) {
+            if (in_array($bearing, $feature)) {
+                return $feature;
+            }
+        }
+
+        return [];
+    }
+
+    /**
+     * Is this feature a scoring
+     *
+     * @param string $feature A feature type to determine if is scoring
+     *
+     * @return bool
+     */
+    private function isScoringFeature($feature)
+    {
+        return in_array($feature, [static::TILE_TYPE_CITY, static::TILE_TYPE_ROAD]);
+    }
+
+    /**
+     * Count the number instances of a feature on the outward faces of a tile
+     *
+     * @param string $feature A feature type to count occurrences on outward faces
+     *
+     * @return int
+     */
+    private function countFeatures($feature)
+    {
+        return (int) ($this->north === $feature) +
+            (int) ($this->east === $feature) +
+            (int) ($this->south === $feature) +
+            (int) ($this->west === $feature);
+    }
+
+    /**
+     * Determines if a feature type is a combined feature
+     * If a feature type is the center it must be combined, so any outward face of this type will be combined
+     *
+     * @param string $feature A feature type to determine if is part of a combined feature
+     *
+     * @return bool
+     */
+    private function isCombinedFeature($feature)
+    {
+        // If there are more than two roads, must be a crossroads
+        $roads = $this->countFeatures(static::TILE_TYPE_ROAD);
+
+        // If the feature is center and the tile isn't a crossroads
+        if ($feature === $this->center
+            && !($this->center === static::TILE_TYPE_ROAD && $roads > 2)
+        ) {
+            return true;
+        }
+
+        return false;
     }
 }
