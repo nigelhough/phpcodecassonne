@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 echo 'Checking Push ...' . PHP_EOL;
 
@@ -9,6 +10,9 @@ if (!executeCheck('Unit Tests', 'vendor/bin/phpunit -c tests/phpunit.xml --cover
     exit;
 }
 if (!executeCheck('PHP Stan', 'vendor/bin/phpstan analyse src --no-progress --level=4')) {
+    exit;
+}
+if (!executeCheck('PHP Code Sniffer', 'vendor/bin/phpcs src')) {
     exit;
 }
 
