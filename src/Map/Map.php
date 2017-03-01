@@ -307,13 +307,18 @@ class Map
                     $currentTile = $this->tiles[$currentCoordinate->toHash()];
                     switch ($renderTemp) {
                         case 6:
-                            echo " |    {$currentTile->getNorth()}    | ";
+                            $north = $currentTile->getNorth();
+                            echo " |    {$north}    | ";
                             break;
                         case 4:
-                            echo " |{$currentTile->getWest()}   {$currentTile->getCenter()}   {$currentTile->getEast()}| ";
+                            $west = $currentTile->getWest();
+                            $center = $currentTile->getCenter();
+                            $east = $currentTile->getEast();
+                            echo " |{$west}   {$center}   {$east}| ";
                             break;
                         case 2:
-                            echo " |    {$currentTile->getSouth()}    | ";
+                            $south = $currentTile->getSouth();
+                            echo " |    {$south}    | ";
                             break;
                         default:
                             echo " |         | ";

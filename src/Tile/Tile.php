@@ -71,7 +71,13 @@ class Tile
 
         //Validate the Faces of the Tile String are Valid
         foreach ($faces as $edge => $face) {
-            if (!in_array($face, [static::TILE_TYPE_GRASS, static::TILE_TYPE_CITY, static::TILE_TYPE_ROAD, static::TILE_TYPE_CLOISTER])) {
+            $validTileFaces = [
+                static::TILE_TYPE_GRASS,
+                static::TILE_TYPE_CITY,
+                static::TILE_TYPE_ROAD,
+                static::TILE_TYPE_CLOISTER,
+            ];
+            if (!in_array($face, $validTileFaces)) {
                 throw new \InvalidArgumentException("Invalid format for Tile Face ({$face}).");
             }
 
