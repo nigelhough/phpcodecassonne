@@ -32,16 +32,6 @@ class Collection implements \Countable
     }
 
     /**
-     * Get amount of players
-     *
-     * @return int
-     */
-    public function getPlayerCount()
-    {
-        return count($this->players);
-    }
-
-    /**
      * Returns the next player
      *
      * @return Player
