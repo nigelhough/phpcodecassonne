@@ -17,7 +17,7 @@ The project is a framework to allow developers to design and build their own AIs
 The aim is to have competitive game play that is fun and helps people learn PHP.
 
 ## How to play
-To start create a player that implements `Codecassonne\Player\PlayerInterface`.
+To start create a player that extends the abstract `Codecassonne\Player\Player` or implements `Codecassonne\Player\PlayerInterface`.
 
 Add your player to the `$players` array in `public/index.php`.
 
