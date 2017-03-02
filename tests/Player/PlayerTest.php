@@ -26,6 +26,10 @@ class PlayerTest extends TestCase
                 'player' => new Marvin(),
                 'name'   => 'Marvin, the Paranoid Android',
             ],
+            [
+                'player' => new Kryten(),
+                'name'   => 'Kryten, Series 4000 Sanitation Droid',
+            ],
         ];
     }
 
