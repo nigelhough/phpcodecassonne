@@ -12,7 +12,7 @@ use Codecassonne\Map\Exception\InvalidTilePlacement;
 /**
  * A Player that plays the highest scoring move possible
  */
-class Kryten extends Marvin
+class Kryten extends Player
 {
     /**
      * @inheritdoc
@@ -28,48 +28,34 @@ class Kryten extends Marvin
      */
     public function playTurn(Map $map, Tile $tile)
     {
-        $playPositions = $map->getPlayablePositions();
-
-        if (empty($playPositions)) {
-            throw new Exception\NoValidMove('No Playable Positions on Map');
-        }
-
         $highestScore = null;
-        $highestPosition = null;
-        $highestRotation = null;
+        $highestScoringAction = null;
+        $scoringService = new Service();
 
-        // Loop over playable positions
-        foreach ($playPositions as $position) {
-            //Loop over orientations
-            for ($i = 0; $i < 4; $i++) {
-                // Rotate tile
-                try {
-                    // Attempt tile placement
-                    $placingMap = clone $map;
-                    $placingMap->place($tile, $position);
-
-                    // Score tile placement
-                    $scoringService = new Service();
-                    $score = $scoringService->calculateScore($placingMap, $position);
-
-                    // If this is better than the highest score, make this the highest score
-                    if (is_null($highestScore) || $score > $highestScore) {
-                        $highestScore = $score;
-                        $highestPosition = $position;
-                        $highestRotation = $tile->getRotation();
-                    }
-                } catch (InvalidTilePlacement $e) {
-                    // Move is invalid try again
+        /** @var Action $action Potential Actions to play*/
+        foreach ($this->getPotentialActions($map) as $action) {
+            try {
+                // Test on a clean map that hasn't run any other potential actions
+                $scoringMap = clone $map;
+                // Run action
+                $action->run($scoringMap, $tile);
+                // Score Action
+                $score = $action->score($scoringMap, $scoringService);
+                // If this is better than the highest score, make this the highest score
+                if (is_null($highestScore) || $score > $highestScore) {
+                    $highestScore = $score;
+                    $highestScoringAction = $action;
                 }
-
-                $tile->rotate();
+            } catch (InvalidTilePlacement $e) {
+                // Invalid move, try next rotation or tile
+                // @todo Add is ValidAction function that doesn't require placement
             }
         }
 
-        if (is_null($highestPosition)) {
+        if (is_null($highestScoringAction)) {
             throw new Exception\NoValidMove('No Valid Moves for player to make');
         }
 
-        return new Action($highestPosition, $highestRotation);
+        return $highestScoringAction;
     }
 }

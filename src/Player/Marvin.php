@@ -7,12 +7,11 @@ use Codecassonne\Map\Map;
 use Codecassonne\Tile\Tile;
 use Codecassonne\Turn\Action;
 use Codecassonne\Map\Exception\InvalidTilePlacement;
-use Codecassonne\Map\Coordinate;
 
 /**
  * Marvin, the Paranoid Android Player
  */
-class Marvin implements PlayerInterface
+class Marvin extends Player
 {
     /**
      * @inheritdoc
@@ -23,61 +22,21 @@ class Marvin implements PlayerInterface
     }
 
     /**
-     * Get playable positions
-     *
-     * @param Map $map Map to get playable positions on
-     *
-     * @return Coordinate[]
-     * @throws Exception\NoValidMove
-     */
-    private function getPlayablePositions(Map $map)
-    {
-        // Get playable positions from the map
-        $playPositions = $map->getPlayablePositions();
-
-        // If no playable positions return early
-        if (empty($playPositions)) {
-            throw new Exception\NoValidMove('No Playable Positions on Map');
-        }
-
-        // Shuffle and return playable positions
-        shuffle($playPositions);
-        return $playPositions;
-    }
-
-    /**
-     * Gets potential positions in each orientation
-     *
-     * @param Map $map Map to get playable positions on
-     *
-     * @return \Generator
-     */
-    private function getPotentialPosition(Map $map)
-    {
-        // Loop over playable positions
-        foreach ($this->getPlayablePositions($map) as $position) {
-            // Loop over orientations
-            for ($i = 0; $i < 4; $i++) {
-                yield $position;
-            }
-        }
-    }
-
-    /**
      * @inheritdoc
      * @throws Exception\NoValidMove
      */
     public function playTurn(Map $map, Tile $tile)
     {
-        //Loop Over potential positions in each orientation
-        foreach ($this->getPotentialPosition($map) as $position) {
+        /** @var Action $action Potential Actions to play*/
+        foreach ($this->getPotentialActions($map) as $action) {
             try {
-                $map->place($tile, $position);
+                // Run action, this is a clone of the game map, so can be placed without affecting it
+                $action->run($map, $tile);
                 // If successfully placed, return action
-                return new Action($position, $tile->getRotation());
+                return $action;
             } catch (InvalidTilePlacement $e) {
-                // Rotate tile
-                $tile->rotate();
+                // Invalid move, try next rotation or tile
+                // @todo Add is ValidAction function that doesn't require placement
             }
         }
 
