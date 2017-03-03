@@ -29,6 +29,7 @@ class Kryten extends Player
     public function playTurn(Map $map, Tile $tile)
     {
         $highestScore = null;
+        /** @var Action $highestScoringAction Highest scoring action */
         $highestScoringAction = null;
         $scoringService = new Service();
 
