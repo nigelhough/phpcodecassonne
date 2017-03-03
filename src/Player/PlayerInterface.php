@@ -6,6 +6,9 @@ use Codecassonne\Map\Map;
 use Codecassonne\Tile\Tile;
 use Codecassonne\Turn\Action;
 
+/**
+ * Details the interfaces a player must expose
+ */
 interface PlayerInterface
 {
     /**

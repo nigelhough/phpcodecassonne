@@ -18,7 +18,7 @@ class CollectionTest extends \PHPUnit\Framework\TestCase
         $players = new Collection(
             $this->getMockBuilder(static::PLAYER_INTERFACE)->getMock()
         );
-        $this->assertSame(1, $players->getPlayerCount());
+        $this->assertSame(1, $players->count());
 
         $players = new Collection(
             $this->getMockBuilder(static::PLAYER_INTERFACE)->getMock(),
@@ -27,7 +27,7 @@ class CollectionTest extends \PHPUnit\Framework\TestCase
             $this->getMockBuilder(static::PLAYER_INTERFACE)->getMock(),
             $this->getMockBuilder(static::PLAYER_INTERFACE)->getMock()
         );
-        $this->assertSame(5, $players->getPlayerCount());
+        $this->assertSame(5, $players->count());
     }
 
     /**

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace Codecassonne\Player;
 
@@ -7,7 +8,10 @@ use Codecassonne\Tile\Tile;
 use Codecassonne\Turn\Action;
 use Codecassonne\Map\Exception\InvalidTilePlacement;
 
-class Marvin implements PlayerInterface
+/**
+ * Marvin, the Paranoid Android Player
+ */
+class Marvin extends Player
 {
     /**
      * @inheritdoc
@@ -23,35 +27,20 @@ class Marvin implements PlayerInterface
      */
     public function playTurn(Map $map, Tile $tile)
     {
-        $playPositions = $map->getPlayablePositions();
-
-        if (empty($playPositions)) {
-            throw new Exception\NoValidMove('No Playable Positions on Map');
-        }
-        shuffle($playPositions);
-
-        $actionPosition = null;
-
-        // Loop over playable positions
-        foreach ($playPositions as $position) {
-            //Loop over orientations
-            for ($i = 0; $i < 4; $i++) {
-                // Rotate tile
-                try {
-                    $map->place($tile, $position);
-                    //If successfully placed, break out of rotation loop and positions loop
-                    $actionPosition = $position;
-                    break 2;
-                } catch (InvalidTilePlacement $e) {
-                    $tile->rotate();
-                }
+        /** @var Action $action Potential Actions to play*/
+        foreach ($this->getPotentialActions($map) as $action) {
+            try {
+                // Run action, this is a clone of the game map, so can be placed without affecting it
+                $action->run($map, $tile);
+                // If successfully placed, return action
+                return $action;
+            } catch (InvalidTilePlacement $e) {
+                // Invalid move, try next rotation or tile
+                // @todo Add is ValidAction function that doesn't require placement
             }
         }
 
-        if (is_null($actionPosition)) {
-            throw new Exception\NoValidMove('No Valid Moves for player to make');
-        }
-
-        return new Action($actionPosition, $tile->getRotation());
+        // If the player hasn't found a valid action
+        throw new Exception\NoValidMove('No Valid Moves for player to make');
     }
 }

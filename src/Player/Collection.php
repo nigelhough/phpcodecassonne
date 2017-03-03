@@ -2,15 +2,13 @@
 
 namespace Codecassonne\Player;
 
-use Codecassonne\Player\PlayerInterface as Player;
-
 /**
  * A Collection of Players
  */
 class Collection implements \Countable
 {
     /**
-     * @var Player[]
+     * @var PlayerInterface[]
      */
     private $players;
 
@@ -22,9 +20,9 @@ class Collection implements \Countable
     /**
      * Collection constructor.
      *
-     * @param Player ...$players    Players in the collection
+     * @param PlayerInterface ...$players    Players in the collection
      */
-    public function __construct(Player ...$players)
+    public function __construct(PlayerInterface ...$players)
     {
         $this->players = $players;
 
@@ -32,19 +30,9 @@ class Collection implements \Countable
     }
 
     /**
-     * Get amount of players
-     *
-     * @return int
-     */
-    public function getPlayerCount()
-    {
-        return count($this->players);
-    }
-
-    /**
      * Returns the next player
      *
-     * @return Player
+     * @return PlayerInterface
      */
     public function next()
     {

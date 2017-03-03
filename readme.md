@@ -17,9 +17,10 @@ The project is a framework to allow developers to design and build their own AIs
 The aim is to have competitive game play that is fun and helps people learn PHP.
 
 ## How to play
-To start create a player that implements `Codecassonne\Player\PlayerInterface`.
+To start create a player that extends the abstract `Codecassonne\Player\Player` or implements `Codecassonne\Player\PlayerInterface`.
 
-Add your player to the `$players` array in `public/index.php`.
+To test your player add them to the list in `\Codecassonne\Player\PlayerTest` `getPlayers()`.
+To play a game with your player add them to the `$players` array in `public/index.php`.
 
 Start the PHP Web Server `php -S localhost:8000 -t public/`.
 
@@ -33,7 +34,9 @@ The goal is to create a player AI that can play moves to build a complete map.
 By completing features your player will score points.
 
 Try seeing if you can build an AI that can score more points than Marvin and if you can do that try taking on Kryten.
- 
+
+Any created Players should pass all Player Unit tests in `\Codecassonne\Player\PlayerTest`.
+
 ## Development
 The project is being built MVP (Minimum Viable Product).
 
