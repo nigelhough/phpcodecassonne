@@ -47,7 +47,7 @@ abstract class Player implements PlayerInterface
         // Loop over playable positions
         foreach ($this->getPlayablePositions($map) as $position) {
             // Loop over orientations
-            for ($rotation = 0; $rotation <= 360; $rotation+=90) {
+            for ($rotation = 0; $rotation <= 360; $rotation += 90) {
                 yield new Action($position, $rotation);
             }
         }
