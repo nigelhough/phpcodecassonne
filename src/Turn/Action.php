@@ -62,20 +62,4 @@ final class Action
     {
         return $scoring->calculateScore($map, $this->coordinate);
     }
-
-    /**
-     * @return Coordinate
-     */
-    public function getCoordinate()
-    {
-        return $this->coordinate;
-    }
-
-    /**
-     * @return int
-     */
-    public function getRotation()
-    {
-        return $this->rotation;
-    }
 }

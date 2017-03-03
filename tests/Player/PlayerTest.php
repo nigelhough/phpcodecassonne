@@ -8,6 +8,7 @@ use Codecassonne\Map\Coordinate;
 use Codecassonne\Tile\Tile;
 use Codecassonne\Map\Map;
 use Codecassonne\Map\Exception\UnoccupiedCoordinate;
+use Codecassonne\Turn\Action;
 
 /**
  * Test All Players
@@ -307,9 +308,14 @@ class PlayerTest extends TestCase
     ) {
         $action = $player->playTurn($map, $tile);
 
-        // Change to use reflection
-        $this->assertTrue($expectedCoordinate->isEqual($action->getCoordinate()));
-        $this->assertEquals($expectedOrientation, $action->getRotation());
+        $actionClass = new \ReflectionClass(Action::class);
+        $coordinateProperty = $actionClass->getProperty('coordinate');
+        $coordinateProperty->setAccessible(true);
+        $rotationProperty = $actionClass->getProperty('rotation');
+        $rotationProperty->setAccessible(true);
+
+        $this->assertTrue($expectedCoordinate->isEqual($coordinateProperty->getValue($action)));
+        $this->assertEquals($expectedOrientation, $rotationProperty->getValue($action));
     }
 
     /**
