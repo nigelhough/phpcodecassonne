@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 require_once 'Command.php';
 
-$lint = new Command(
+$lint = new Command\Command(
     'Code linting',
     'vendor/bin/parallel-lint',
     [
@@ -17,7 +17,7 @@ if (!$lint->execute()) {
     exit(1);
 }
 
-$unit = new Command(
+$unit = new Command\Command(
     'Unit Tests',
     'vendor/bin/phpunit',
     [
@@ -28,7 +28,7 @@ if (!$unit->execute()) {
     exit(1);
 }
 
-$stan = new Command(
+$stan = new Command\Command(
     'PHP Stan',
     'vendor/bin/phpstan',
     [
@@ -44,7 +44,7 @@ if (!$stan->execute()) {
     exit(1);
 }
 
-$sniffer = new Command(
+$sniffer = new Command\Command(
     'PHP Code Sniffer',
     'vendor/bin/phpcs',
     [],
