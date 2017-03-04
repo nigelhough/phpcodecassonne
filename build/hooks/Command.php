@@ -1,20 +1,23 @@
 <?php
+declare(strict_types=1);
+
+namespace Command;
 
 /**
  * A CLI Command
  */
 class Command
 {
-    /** @var */
+    /** @var Command name */
     private $name;
 
-    /** @var */
+    /** @var Command to execute */
     private $command;
 
-    /** @var */
+    /** @var Command Options */
     private $options;
 
-    /** @var */
+    /** @var Command Arguments */
     private $arguments;
 
     /**
