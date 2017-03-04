@@ -40,7 +40,7 @@ abstract class Player implements PlayerInterface
      *
      * @param Map $map Map to get playable positions on
      *
-     * @return \Generator
+     * @return Action[]
      */
     protected function getPotentialActions(Map $map)
     {
