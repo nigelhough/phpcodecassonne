@@ -8,16 +8,16 @@ namespace Command;
  */
 class Command
 {
-    /** @var Command name */
+    /** @var string Command name */
     private $name;
 
-    /** @var Command to execute */
+    /** @var string Command to execute */
     private $command;
 
-    /** @var Command Options */
+    /** @var array Command Options */
     private $options;
 
-    /** @var Command Arguments */
+    /** @var array Arguments */
     private $arguments;
 
     /**
