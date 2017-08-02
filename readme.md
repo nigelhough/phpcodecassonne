@@ -22,9 +22,9 @@ To start create a player that extends the abstract `Codecassonne\Player\Player` 
 To test your player add them to the list in `\Codecassonne\Player\PlayerTest` `getPlayers()`.
 To play a game with your player add them to the `$players` array in `public/index.php`.
 
-Start the PHP Web Server `php -S localhost:8000 -t public/`.
+Start the PHP Web Server `php bin/serve.php`.
 
-Open your browser to `http://localhost:8000/` and see your AI play a game.
+Open your browser to `http://localhost:8888/` and see your AI play a game.
 
 You can also play on the command line `php public/index.php`.
  
